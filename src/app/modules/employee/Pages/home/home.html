@@ -116,7 +116,10 @@
 
                     <td>{{list.checkOut? (list.checkOut | date: 'hh:mm a'): '--'}}</td>
 
-                    <td>duration</td>
+                    <td>
+                      {{ (list.workingDuration * 60 * 1000) | date:'H':'UTC' }}h 
+                      {{ (list.workingDuration * 60 * 1000) | date:'mm':'UTC' }}min
+                    </td>
 
                     <td class="text-center">
                       @if (list.status == 'PRESENT') {

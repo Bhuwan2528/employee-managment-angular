@@ -12,4 +12,5 @@ export interface AttendanceServerResponse {
     createdBy:  null;
     updatedBy:  null;
     employee:   EmployeeServerResponse;
+    workingDuration: number
 }

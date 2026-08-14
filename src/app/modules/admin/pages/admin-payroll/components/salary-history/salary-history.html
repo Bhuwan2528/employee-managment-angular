@@ -1,0 +1,70 @@
+<div class="bg-white">
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center px-4 py-3 border-bottom">
+    <div>
+      <h5 class="mb-1 fw-semibold">Salary Details</h5>
+      <small class="text-secondary">Employee salary history</small>
+    </div>
+
+    <button class="btn-close" (click)="closeDialog()"></button>
+  </div>
+
+  <!-- Employee -->
+   @if (EmployeeDetails; as details) {
+    <div class="px-4 py-3 border-bottom">
+        <div class="d-flex justify-content-between">
+        <div>
+            <div class="fw-semibold">{{details.firstName}} {{details.lastName}} </div>
+            <small class="text-secondary"> Employee ID: {{details.employeeCode}} </small>
+        </div>
+
+        <div class="text-end">
+            <small class="text-secondary">Total Records</small>
+            <div class="fw-semibold"> {{(salaryDetails|async)?.length}} </div>
+        </div>
+        </div>
+    </div>
+  }
+
+  <!-- Salary Table -->
+  <div class="p-4">
+    <div class="table-responsive border rounded">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>Month</th>
+            <th>Basic</th>
+            <th>Allowances</th>
+            <th>Deductions</th>
+            <th>Net Pay</th>
+            <th>Paid On</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+            @for (details of salaryDetails | async; track $index) {
+            <tr>
+                <td>{{details.month}}</td>
+
+                <td>{{details.basic}}</td>
+
+                <td>₹{{details.allowances}}</td>
+
+                <td>₹{{details.deductions}}</td>
+
+                <td class="fw-semibold">₹{{details.netPay}}</td>
+
+                <td>{{details.paidOn}}</td>
+            </tr>
+            }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="d-flex justify-content-end gap-2 px-4 py-3 border-top">
+    <button class="btn btn-primary border" (click)="closeDialog()">Close</button>
+  </div>
+</div>

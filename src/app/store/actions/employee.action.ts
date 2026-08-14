@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { EmployeeRequest, EmployeeServerResponse, EmployeeUpdateRequest } from "../../core/models/emloyee.model";
+import { EmployeeRequest, employeeRoleRequest, EmployeeServerResponse, EmployeeUpdateRequest } from "../../core/models/emloyee.model";
 
 export const loadEmployees = createAction(
     '[Employees] employees loaded'
@@ -65,5 +65,25 @@ export const deleteEmployeeSuccesful = createAction(
 
 export const deleteEmployeeFaliure = createAction(
     '[employee] employee deleted sucessfully',
+    props<{error: string}>()
+)
+
+
+
+// =========================role employee =======================
+
+
+export const updateRoleEmployee = createAction(
+    '[employees] employee role update',
+    props<{request: employeeRoleRequest}>()
+)
+
+export const updateRoleEmployeeSuccesfully = createAction(
+    '[employee] employee role updated succesfully',
+    props<{employee: EmployeeServerResponse}>()
+)
+
+export const updateRoleEmployeeFaliure = createAction(
+    '[employee] employee role update faliure',
     props<{error: string}>()
 )

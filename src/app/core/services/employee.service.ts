@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { environment } from "../../../Enviorment/enviorment";
 import { ApiConstants } from "../API_Constants";
-import { EmployeeRequest, EmployeeServerResponse, EmployeeUpdateRequest } from "../models/emloyee.model";
+import { EmployeeRequest, employeeRoleRequest, EmployeeServerResponse, EmployeeUpdateRequest, User } from "../models/emloyee.model";
 import { Observable } from "rxjs";
 
 @Injectable({
@@ -29,5 +29,9 @@ export class EmployeeServices{
 
     deleteEmployee(id:string){
         return this.http.delete<void>(`${this.apiURL}/${id}`)
+    }
+
+    empoyeeRole(request: employeeRoleRequest){
+        return this.http.patch<EmployeeServerResponse>(`${this.baseUrl}${ApiConstants.ASSIGN_ROLES}`, request,)
     }
 }

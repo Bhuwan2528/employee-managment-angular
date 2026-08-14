@@ -35,7 +35,7 @@
                 <td>{{ employee.designation?.title | titlecase}}</td>
                 <td> {{employee.user?.role?.name | titlecase}} </td>
                 <td class="text-center"><button class="btn btn-sm btn-primary" (click)="openPaySalaryDialog(employee)"><i class="fa-solid fa-indian-rupee-sign me-2"></i>Pay Salary</button></td>
-                <td class="text-center"><button class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-clock-rotate-left me-2"></i>Salary Records</button></td>
+                <td class="text-center"><button class="btn btn-sm btn-outline-primary" (click)="openSalaryHistoryDialog(employee.id, employee)"><i class="fa-solid fa-clock-rotate-left me-2"></i>Salary Records</button></td>
               </tr>
             }
           </tbody>

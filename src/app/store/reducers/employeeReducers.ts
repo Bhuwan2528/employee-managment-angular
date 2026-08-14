@@ -94,6 +94,28 @@ export const EmployeeReducer = createReducer(
         ...state,
         loading: false,
         error
-    }))
+    })),
+
+
+    // ============================upadterole=================================
+
+
+    on(EmployeeActions.updateRoleEmployee, (state)=>({
+        ...state,
+        loading: true
+    })),
+
+    on(EmployeeActions.updateRoleEmployeeSuccesfully, (state, {employee})=>({
+        ...state,
+        loading: false,
+        error: null,
+        employee : state.employees.map((emp)=> emp.id == employee.id ? employee : emp )
+    })),
+
+    on(EmployeeActions.updateRoleEmployeeFaliure, (state, {error})=>({
+        ...state,
+        loading: false,
+        error
+    })),
 
 )

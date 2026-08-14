@@ -10,52 +10,38 @@
       <div class="col-lg-5">
         <div class="card shadow-sm border-0 rounded-4 h-100">
           <div class="card-header bg-white py-3">
-            <h5 class="fw-semibold mb-0">Invite New Admin</h5>
+            <h5 class="fw-semibold mb-0">Create New Admin</h5>
           </div>
 
           <div class="card-body">
-            <!-- Email -->
 
-            <div class="form-floating mb-3 mt-3">
-                <input type="text" class="form-control" id="email" placeholder="Enter email" name="email">
-                <label for="email" class="fw-semibold text-muted">Email</label>
-            </div>
+            <form [formGroup]="roleForm" (ngSubmit)="addRole()">
+              <!-- Email -->
 
-            <!-- Role -->
+              <div class="form-floating mb-3 mt-3">
+                  <input type="text" class="form-control" id="email" placeholder="Enter email" name="email" formControlName="email">
+                  <label for="email" class="fw-semibold text-muted">Email</label>
+              </div>
 
-            <mat-form-field appearance="outline" class="w-100 compact-select mb-3">
-              <mat-label> Role </mat-label>
+              <!-- Role -->
 
-              <mat-select>
-                <mat-option value="admin"> Admin </mat-option>
+              <mat-form-field appearance="outline" class="w-100 compact-select mb-3">
+                <mat-label> Role </mat-label>
 
-                <mat-option value="hr"> HR </mat-option>
+                <mat-select formControlName="rolename">
+                  <mat-option value="ADMIN"> Admin </mat-option>
 
-                <mat-option value="manager"> Manager </mat-option>
-              </mat-select>
-            </mat-form-field>
+                  <mat-option value="HR"> HR </mat-option>
+                </mat-select>
+              </mat-form-field>
 
-            <!-- Employee -->
+              <button class="btn btn-primary w-100 py-2">
+                <i class="fa-solid fa-paper-plane me-2"></i>
 
-            <mat-form-field appearance="outline" class="w-100 compact-select mb-4">
-              <mat-label> Link Employee </mat-label>
+                Send Invite
+              </button>
 
-              <mat-select>
-                <mat-option> None </mat-option>
-
-                <mat-option> Bhuwan Suneja </mat-option>
-
-                <mat-option> Rahul Sharma </mat-option>
-
-                <mat-option> Priya Sharma </mat-option>
-              </mat-select>
-            </mat-form-field>
-
-            <button class="btn btn-primary w-100 py-2">
-              <i class="fa-solid fa-paper-plane me-2"></i>
-
-              Send Invite
-            </button>
+            </form>
           </div>
         </div>
       </div>

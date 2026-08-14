@@ -80,5 +80,31 @@ deleteEmployee$ = createEffect(()=>
     )
 )
 
+updateRoleEmployee$ = createEffect(()=>
+    this.action$.pipe(
+        ofType(EmployeeActions.updateRoleEmployee),
+        mergeMap(({request })=>
+            this.employeeService.empoyeeRole(request).pipe(
+                map((employee)=>
+                    EmployeeActions.updateRoleEmployeeSuccesfully({employee})
+                ),
+                catchError((error)=>
+                    of(EmployeeActions.updateRoleEmployeeFaliure({error: error.error.message || 'something went wrong'}))
+                )
+            )
+        )
+    )
+)
+
+
+toastSuccessRole$ = createEffect(()=>
+    this.action$.pipe(
+        ofType(EmployeeActions.updateRoleEmployeeSuccesfully),
+        tap(()=>
+            this.toast.success('Emplyee Role Updated')
+        )
+    )
+)
+
 }
 

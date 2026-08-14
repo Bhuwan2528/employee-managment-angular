@@ -9,6 +9,7 @@ LEAVES: 'leave',
 CREATE_LEAVE: 'leave/user',
 USER_LEAVE: 'leave/user',
 DASHBOARD: 'dashboard',
+ASSIGN_ROLES: 'users/assignrole',
 
 Attendance: {
 CHECK_IN: 'attendance/user/checkin',

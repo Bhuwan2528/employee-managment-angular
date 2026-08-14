@@ -76,7 +76,10 @@
                                     <td> {{attendance.date | date:'EEE, dd MMM'}} </td>
                                     <td> {{attendance.checkIn| date:'hh:mm a'}} </td>
                                     <td> {{attendance.checkOut| date:'hh:mm a'}} </td>
-                                    <td> duration </td>
+                                    <td> 
+                                        {{ (attendance.workingDuration * 60 * 1000) | date:'H':'UTC' }}h 
+                                        {{ (attendance.workingDuration * 60 * 1000) | date:'mm':'UTC' }}min
+                                    </td>
                                     <td>
                                         @if (attendance.status == 'PRESENT') {
                                         <span class="badge rounded-pill status-present bg-success-subtle text-success-emphasis px-3 py-2">

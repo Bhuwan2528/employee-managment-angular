@@ -23,3 +23,9 @@ export interface SalaryRequest {
     month:      number;
     year:       number;
 }
+
+
+export interface DATA{
+    id: string;
+    employee: EmployeeServerResponse
+}

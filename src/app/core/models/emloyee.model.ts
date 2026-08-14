@@ -83,3 +83,9 @@ export interface EmployeeUpdateRequest {
   status: string;
   basic:         number;
 }
+
+
+export interface employeeRoleRequest{
+    email: string;
+    rolename: string;
+}

@@ -6,6 +6,7 @@ import { loadEmployees } from '../../../../store/actions/employee.action';
 import { MatDialog } from '@angular/material/dialog';
 import { PaySalaryDialog } from './components/pay-salary-dialog/pay-salary-dialog';
 import { EmployeeServerResponse } from '../../../../core/models/emloyee.model';
+import { SalaryHistory } from './components/salary-history/salary-history';
 
 @Component({
   selector: 'app-admin-payroll',
@@ -28,5 +29,17 @@ export class AdminPayroll {
       data: employee
     })
   }
+
+  openSalaryHistoryDialog(id: string, employee: EmployeeServerResponse){
+    this.dialog.open(SalaryHistory, {
+      data: {
+        id,
+        employee
+      }
+    })
+  }
+
+
+
 }
 

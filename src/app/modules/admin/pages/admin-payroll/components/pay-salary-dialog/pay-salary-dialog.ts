@@ -53,7 +53,7 @@ export class PaySalaryDialog {
       request,
       id: this.employee.id
     }))
-    this.toast.success('Salary Paid')
+    this.closeDialog()
   }
 
   resError = this.store.select(selectSalaryError).subscribe(error=> this.printError.toastError(error))

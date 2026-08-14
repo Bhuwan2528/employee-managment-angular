@@ -1,13 +1,18 @@
 <div class="dialog">
     <div class="conatiner p-4">
 
-    <div class="d-flex justify-content-start align-items-center gap-3 mb-4">
-        <div class="avatar">{{ employee.firstName[0] }}{{ employee.lastName[0] }}</div>
-        <div>
-        <h6 class="mb-1 text-dark">{{ employee.firstName }} {{ employee.lastName }}</h6>
-        <small>{{ employee.employeeCode }}</small>
+    <div class="dialog-header d-flex justify-content-between align-items-start">
+        <div class="d-flex justify-content-start align-items-center gap-3 mb-4">
+            <div class="avatar">{{ employee.firstName[0] }}{{ employee.lastName[0] }}</div>
+            <div>
+            <h6 class="mb-1 text-dark">{{ employee.firstName }} {{ employee.lastName }}</h6>
+            <small>{{ employee.employeeCode }}</small>
+            </div>
         </div>
+
+        <button class="btn-close" (click)="closeDialog()"></button>
     </div>
+
 
     <form class="mt-2 mb-5" [formGroup]="payForm" (ngSubmit)="onSubmit()">
         <div class="row">
