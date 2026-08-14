@@ -1,4 +1,4 @@
-<div class="bg-white">
+<div class="dialog bg-white">
   <!-- Header -->
   <div class="d-flex justify-content-between align-items-center px-4 py-3 border-bottom">
     <div>
@@ -27,7 +27,7 @@
   }
 
   <!-- Salary Table -->
-  <div class="p-4">
+  <div class="p-3">
     <div class="table-responsive border rounded">
       <table class="table table-hover align-middle mb-0">
         <thead class="table-light">
@@ -45,7 +45,7 @@
 
             @for (details of salaryDetails | async; track $index) {
             <tr>
-                <td>{{details.month}}</td>
+                <td>{{getMonthName(details.month)}}</td>
 
                 <td>{{details.basic}}</td>
 
@@ -55,7 +55,7 @@
 
                 <td class="fw-semibold">₹{{details.netPay}}</td>
 
-                <td>{{details.paidOn}}</td>
+                <td>{{details.paidOn | date: 'dd MMM'}}</td>
             </tr>
             }
         </tbody>

@@ -35,5 +35,13 @@ export class SalaryHistory {
   }
   EmployeeDetails = this.data.employee
   salaryDetails = this.store.select(selectParticularEmployeeSalary)
+
+  
+
+  getMonthName(month: number): string {
+    return new Date(2000, month - 1).toLocaleString('en-US', {
+      month: 'long'
+    });
+  }
   
 }

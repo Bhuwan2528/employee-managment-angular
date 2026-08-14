@@ -122,14 +122,14 @@
                     </td>
 
                     <td class="text-center">
-                      @if (list.status == 'PRESENT') {
+                      @if (list.workingDuration > 0) {
                         <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill">
                           Present
                         </span>
                       }
                       @else {
-                        <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill">
-                          Present
+                        <span class="badge bg-danger-subtle text-danger px-3 py-2 rounded-pill">
+                          Absent
                         </span>
                       }
                     </td>

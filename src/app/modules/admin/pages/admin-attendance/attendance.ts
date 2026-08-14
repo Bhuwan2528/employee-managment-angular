@@ -7,17 +7,26 @@ import { loadEmployees } from '../../../../store/actions/employee.action';
 import { selectEmployees } from '../../../../store/selectors/employeeSelector';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { selectedSelectedUserList } from '../../../../store/selectors/attendance.selector';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-attendance',
-  imports: [MatSelect, MatOption, MatFormField, MatIconModule, MatPrefix, MatLabel, AsyncPipe, DatePipe],
+  imports: [
+    MatSelect,
+    MatOption,
+    MatFormField,
+    MatIconModule,
+    MatPrefix,
+    MatLabel,
+    AsyncPipe,
+    DatePipe,
+  ],
   templateUrl: './attendance.html',
   styleUrl: './attendance.scss',
 })
 export class AdminAttendance {
-
-  store = inject(Store)
-  selectedEmployee : string | null = null
+  store = inject(Store);
+  selectedEmployee: string | null = null;
 
   months = [
     'August 2026',
@@ -27,17 +36,43 @@ export class AdminAttendance {
     'April 2026',
     'March 2026',
     'February 2026',
-    'January 2026'
-  ]
-  ngOnInit(){
-    this.store.dispatch(loadEmployees())
+    'January 2026',
+  ];
+  
+  ngOnInit() {
+    this.store.dispatch(loadEmployees());
   }
 
-  employees = this.store.select(selectEmployees)
+  employees = this.store.select(selectEmployees);
 
-  onEmployeeChange(id: string){
-    this.store.dispatch(selectedUserAttendance({id}))
+  onEmployeeChange(id: string) {
+    this.store.dispatch(selectedUserAttendance({ id }));
   }
 
-  employeeAttendance = this.store.select(selectedSelectedUserList)
+  employeeAttendance = this.store.select(selectedSelectedUserList);
+
+  downloadExcel() {
+    this.employeeAttendance.subscribe((attendance) => {
+      const data = attendance.map((item) => ({
+        Name: item.employee.firstName + item.employee.lastName,
+        Designation: item.employee.designation?.title,
+        Date: item.date,
+        CheckIn: item.checkIn,
+        CheckOut: item.checkOut,
+        WorkingDuration: item.workingDuration,
+        Status: item.status,
+      }));
+
+      const worksheet = XLSX.utils.json_to_sheet(data);
+
+      const workbook = XLSX.utils.book_new();
+
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'Attendance');
+
+      XLSX.writeFile(
+        workbook,
+        `${attendance[0].employee.firstName} ${attendance[0].employee.lastName} Attendance Report.xlsx`,
+      );
+    });
+  }
 }

@@ -13,6 +13,8 @@ import { AdminDepartment } from './modules/admin/pages/admin-department/admin-de
 import { AdminLeaves } from './modules/admin/pages/admin-leaves/admin-leaves';
 import { AdminRoles } from './modules/admin/pages/admin-roles/admin-roles';
 import { AdminPayroll } from './modules/admin/pages/admin-payroll/admin-payroll';
+import { authGuard } from './core/gaurds/auth-gaurd/auth-guard';
+import { roleGuard } from './core/gaurds/role-gaurd/role-gaurd';
 
 export const routes: Routes = [
   {
@@ -28,6 +30,7 @@ export const routes: Routes = [
   {
     path: 'employee',
     component: Dashboard,
+    canActivate: [authGuard],
 
     children: [
       {
@@ -61,6 +64,8 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminDashboard,
+    canActivate: [authGuard, roleGuard],
+    
 
     children: [
       {

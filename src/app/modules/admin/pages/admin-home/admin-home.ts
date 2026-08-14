@@ -10,10 +10,11 @@ import { loadLeaves } from '../../../../store/actions/leave.actions';
 import { map } from 'rxjs';
 import { loadDashboard } from '../../../../store/actions/dashboard.actions';
 import { selectDashboard } from '../../../../store/selectors/dashboard.selector';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-admin-home',
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, RouterLink],
   templateUrl: './admin-home.html',
   styleUrl: './admin-home.scss',
 })

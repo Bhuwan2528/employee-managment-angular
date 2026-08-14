@@ -6,28 +6,28 @@
         <div class="row g-4 mt-2 mb-5">
 
             <div class="col-lg-3">
-                <div class="card p-3 shadow">
+                <div class="card p-3 shadow" routerLink="/admin/employee">
                     <h5 class="text-primary-emphasis">Total Employees</h5>
                     <h4 class="text-secondary-emphasis">{{(employees|async)?.length}}</h4>
                 </div>
             </div>
 
             <div class="col-lg-3">
-                <div class="card p-3 shadow">
+                <div class="card p-3 shadow" routerLink="/admin/department">
                     <h5 class="text-primary-emphasis">Total Departments</h5>
                     <h4 class="text-secondary-emphasis"> {{(departments|async)?.length}} </h4>
                 </div>
             </div>
 
             <div class="col-lg-3">
-                <div class="card p-3 shadow">
+                <div class="card p-3 shadow" routerLink="/admin/leaves">
                     <h5 class="text-primary-emphasis">Pending Leaves</h5>
                     <h4 class="text-secondary-emphasis"> {{(leaves|async)?.length}} </h4>
                 </div>
             </div>
 
             <div class="col-lg-3">
-                <div class="card p-3 shadow">
+                <div class="card p-3 shadow" routerLink="/admin/leaves">
                     <h5 class="text-primary-emphasis">On Leave Today</h5>
                     <h4 class="text-secondary-emphasis">{{(dashboard|async)?.presentToday}}</h4>
                 </div>

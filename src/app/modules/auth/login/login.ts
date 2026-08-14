@@ -18,6 +18,9 @@ export class Login {
   fb = inject(NonNullableFormBuilder)
   store = inject(Store)
   toast = inject(ToastService)
+  localUser = localStorage.getItem('user')
+  user = JSON.parse(JSON.stringify(this.localUser))
+  router = inject(Router)
 
   loginForm = this.fb.group({
     email: ['', [Validators.email ,Validators.required]],
@@ -27,6 +30,14 @@ export class Login {
   login(){
     console.log('btn clicked')
     this.store.dispatch(AuthActions.loginLoaded({request: this.loginForm.getRawValue()}))
+
+    if(this.user.role.name === 'EMPLOYEE'){
+      this.router.navigate(['/employee'])
+    }
+    else if(this.user.role.name !== 'EMPLOYEE'){
+      this.router.navigate(['/admin'])
+    }
+
   }
 
   resError = this.store.select(selectAuthError).subscribe(error =>{

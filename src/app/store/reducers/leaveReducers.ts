@@ -28,12 +28,12 @@ export const leaveReducer = createReducer(
 
     on(LeaveActions.approveLeaveSuccessfully, (state, {leave})=>({
         ...state,
-        leaves: state.leaves.map((item)=> item.id === leave.id ? leave : item)
+        leaves: state.leaves.filter((item)=> item.id !== leave.id)
     })),
 
     on(LeaveActions.rejectLeaveSuccessfully, (state, {leave})=>({
         ...state,
-        leaves: state.leaves.map((item)=> item.id === leave.id ? leave : item)
+        leaves: state.leaves.filter((item)=> item.id !== leave.id)
     })),
 
 
