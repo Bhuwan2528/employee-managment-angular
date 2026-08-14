@@ -1,0 +1,28 @@
+.profile-image {
+  width: 140px;
+  height: 140px;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 5px solid #f8f9fa;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.btn-outline-primary{
+    color: #052c65;
+
+    &:hover{
+        background: #052c65;
+        color: white !important;
+    }
+}
+
+.btn-primary{
+  background: linear-gradient(135deg, rgb(38, 78, 189), rgb(3, 27, 93));
+    color: #f8f9fa !important;
+}

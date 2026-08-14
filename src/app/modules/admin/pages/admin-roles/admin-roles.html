@@ -1,0 +1,140 @@
+<div class="admin-roles-page">
+  <div class="container py-4">
+    <!-- Heading -->
+
+    <h3 class="fw-semibold text-primary-emphasis mb-4">Manage Roles & Admins</h3>
+
+    <div class="row g-4">
+      <!-- Left Card -->
+
+      <div class="col-lg-5">
+        <div class="card shadow-sm border-0 rounded-4 h-100">
+          <div class="card-header bg-white py-3">
+            <h5 class="fw-semibold mb-0">Invite New Admin</h5>
+          </div>
+
+          <div class="card-body">
+            <!-- Email -->
+
+            <div class="form-floating mb-3 mt-3">
+                <input type="text" class="form-control" id="email" placeholder="Enter email" name="email">
+                <label for="email" class="fw-semibold text-muted">Email</label>
+            </div>
+
+            <!-- Role -->
+
+            <mat-form-field appearance="outline" class="w-100 compact-select mb-3">
+              <mat-label> Role </mat-label>
+
+              <mat-select>
+                <mat-option value="admin"> Admin </mat-option>
+
+                <mat-option value="hr"> HR </mat-option>
+
+                <mat-option value="manager"> Manager </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <!-- Employee -->
+
+            <mat-form-field appearance="outline" class="w-100 compact-select mb-4">
+              <mat-label> Link Employee </mat-label>
+
+              <mat-select>
+                <mat-option> None </mat-option>
+
+                <mat-option> Bhuwan Suneja </mat-option>
+
+                <mat-option> Rahul Sharma </mat-option>
+
+                <mat-option> Priya Sharma </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <button class="btn btn-primary w-100 py-2">
+              <i class="fa-solid fa-paper-plane me-2"></i>
+
+              Send Invite
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Card -->
+
+      <div class="col-lg-7">
+        <div class="card shadow-sm border-0 rounded-4">
+          <div class="card-header bg-white py-3">
+            <h5 class="fw-semibold mb-0">Current Admins</h5>
+          </div>
+
+          <div class="list-group list-group-flush">
+            <!-- Admin -->
+
+            <div class="list-group-item py-3">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                  <div class="avatar rounded-circle bg-primary-subtle text-primary fw-bold">BS</div>
+
+                  <div class="ms-3">
+                    <h6 class="mb-1 fw-semibold">Bhuwan Suneja</h6>
+
+                    <small class="text-secondary d-block"> Frontend Developer </small>
+
+                    <small class="text-muted"> bhuwan@gmail.com </small>
+                  </div>
+                </div>
+
+                <span class="badge rounded-pill px-3 py-2 fw-medium bg-primary-subtle text-primary px-3 py-2">
+                  Admin
+                </span>
+              </div>
+            </div>
+
+            <!-- Admin -->
+
+            <div class="list-group-item py-3">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                  <div class="avatar rounded-circle bg-info-subtle text-info fw-bold">RS</div>
+
+                  <div class="ms-3">
+                    <h6 class="mb-1 fw-semibold">Rahul Sharma</h6>
+
+                    <small class="text-secondary d-block"> HR Executive </small>
+
+                    <small class="text-muted"> rahul@gmail.com </small>
+                  </div>
+                </div>
+
+                <span class="badge rounded-pill px-3 py-2 fw-medium bg-info-subtle text-info px-3 py-2"> HR </span>
+              </div>
+            </div>
+
+            <!-- Admin -->
+
+            <div class="list-group-item py-3">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                  <div class="avatar rounded-circle bg-success-subtle text-success fw-bold">PS</div>
+
+                  <div class="ms-3">
+                    <h6 class="mb-1 fw-semibold">Priya Sharma</h6>
+
+                    <small class="text-secondary d-block"> Project Manager </small>
+
+                    <small class="text-muted"> priya@gmail.com </small>
+                  </div>
+                </div>
+
+                <span class="badge rounded-pill px-3 py-2 fw-medium bg-success-subtle text-success px-3 py-2">
+                  Manager
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

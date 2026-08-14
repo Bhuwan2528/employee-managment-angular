@@ -1,0 +1,74 @@
+.card{
+    span{
+        height: 50px;
+        width: 50px;
+        background: linear-gradient(135deg, rgb(48, 117, 222), rgb(9, 45, 91));
+    }
+    .employee-selector{
+        :host ::ng-deep{
+            .mat-mdc-text-field-wrapper{
+                width: 300px;
+            }
+        }
+    }
+}
+
+
+    th{
+        padding-left: 12px;
+        color: #111;
+        font-weight: 500;
+        font-size: 15px;
+    }
+    td{
+        padding-left: 12px;
+    }
+
+.table-container, .card-body{
+    height: 55vh;
+    background: white;
+    overflow-y: auto;
+}
+
+
+
+:host ::ng-deep {
+    div.mat-mdc-select-panel {
+        max-height: fit-content !important;
+        background-color: white ;
+    }
+    .mat-mdc-form-field-icon-prefix > .mat-icon{
+        padding-bottom: 2px;
+    }
+    .mat-mdc-form-field-flex {
+        height: 50px;
+    }
+    .employee-selector .mat-mdc-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-mdc-text-field-wrapper{
+        width: 300px;
+    }
+
+  .mat-mdc-select-panel {
+    overflow-y: auto;
+
+    /* Scrollbar width */
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    /* Thumb */
+    &::-webkit-scrollbar-thumb {
+      background: #9aa2ac;
+      border-radius: 5px;
+    }
+
+    /* Thumb hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: #9da3ab;
+    }
+  }
+}

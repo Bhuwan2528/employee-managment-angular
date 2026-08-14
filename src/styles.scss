@@ -1,1 +1,109 @@
+@use '@angular/material' as mat;
+
+html {
+  height: 100%;
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
+  );
+}
+
+body {
+  // Default the application to a light color theme. This can be changed to
+  // `dark` to enable the dark color theme, or to `light dark` to defer to the
+  // user's system settings.
+  color-scheme: light;
+
+  // Set a default background, font and text colors for the application using
+  // Angular Material's system-level CSS variables. Learn more about these
+  // variables at https://material.angular.dev/guide/system-variables
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+
+    font-family: 'Inter', sans-serif;
+
+
+  // Reset the user agent margin.
+  margin: 0;
+  height: 100%;
+}
 /* You can add global styles to this file, and also import other style files */
+
+
+.btn-outline-primary{
+  border: 1.5px solid #052c65;
+  color: #052c65;
+
+  &:hover{
+    background: #052c65;
+    border: #033c7a;
+    outline: #052c65 !important;
+    color: whitesmoke !important;
+  }
+  &:active{
+    scale: 0.97;
+    background: #0c3c84 !important;
+  }
+}
+
+.btn-primary{
+  background: #033c7a !important;
+  color: whitesmoke;
+  transition: 0.3s ease;
+
+  &:hover{
+    background: #052c65;
+    outline: none !important;
+    color: whitesmoke !important;
+    scale: 1.02;
+  }
+  &:active{
+    scale: 0.97;
+  }
+}
+
+:host ::ng-deep {
+
+  // Option select Dropdown
+
+    .mat-mdc-form-field-subscript-wrapper{
+        display: none;
+    }
+    .mat-mdc-form-field{
+        margin: 0 !important;
+    }
+
+    div.mat-mdc-select-panel {
+        background: white !important;
+    }
+
+    .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper,  .mat-mdc-select-panel{
+      background-color: white !important;
+      border-bottom: 0 !important;
+      border: 1px solid #dcdcdc;
+      border-radius: 10px !important;
+    }
+
+    .mat-mdc-text-field-wrapper {
+      border-radius: 12px !important;
+      background: white;
+    }
+
+}
+
+.h-fit{
+  height: fit-content;
+}
+
+.form-control:focus {
+    border-color: 2px solid #d0d0d0 !important;
+    box-shadow: none !important;
+    outline: none !important;
+}

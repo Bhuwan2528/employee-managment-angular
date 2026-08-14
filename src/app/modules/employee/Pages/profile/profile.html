@@ -1,0 +1,70 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-7 col-md-9">
+      <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body p-4">
+          <h3 class="fw-bold text-center mb-4">My Profile</h3>
+
+          <!-- Profile Image -->
+
+          <div class="text-center mb-4">
+            <div class="profile-image mx-auto">
+              <img [src]="imagePreview" class="img-fluid rounded-circle" alt="Profile" />
+            </div>
+
+            <input
+              #fileInput
+              type="file"
+              class="d-none"
+              accept="image/*"
+              (change)="onImageSelected($event)"
+            />
+
+            <button
+              type="button"
+              class="btn btn-outline-primary btn-sm mt-3 text-primary-emphasis"
+              (click)="fileInput.click()"
+            >
+              Change Photo
+            </button>
+          </div>
+
+          <form>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label fw-semibold"> First Name </label>
+
+                <input type="text" class="form-control" placeholder="First Name" />
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label fw-semibold"> Last Name </label>
+
+                <input type="text" class="form-control" placeholder="Last Name" />
+              </div>
+
+              <div class="col-12">
+                <label class="form-label fw-semibold"> Email </label>
+                <input type="email" class="form-control" placeholder="example@gmail.com" />
+              </div>
+
+              <div class="col-12">
+                <label class="form-label fw-semibold"> Mobile Number </label>
+                <input type="text" class="form-control" placeholder="+91 9876543210" />
+              </div>
+
+              <div class="col-12">
+                <label class="form-label fw-semibold"> Address </label>
+                <textarea rows="4" class="form-control" placeholder="Enter Address"> </textarea>
+              </div>
+            </div>
+
+            <div class="d-grid mt-4">
+              <button class="btn btn-primary btn-lg">Save Changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+.admin-department-page {
+  min-height: 100vh;
+
+
+
+  .card-header {
+    background: white;
+  }
+
+  .input-group {
+    .form-control {
+      border-right: 0;
+    }
+  }
+
+  .list-group-item {
+    padding: 10px 20px;
+    transition: 0.25s;
+
+  }
+
+  .btn-light {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #e9ecef;
+
+    &:hover {
+      background: #eef5ff;
+    }
+  }
+}

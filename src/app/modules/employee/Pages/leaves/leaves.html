@@ -1,0 +1,138 @@
+<div class="leave-page container-fluid p-4 px-3">
+  <!-- ================= Heading ================= -->
+
+  <div class="mb-5">
+    <h2 class="fw-bold text-primary-emphasis mb-2">Leave Management</h2>
+    <p class="text-body-secondary mb-0">
+      Submit a leave request and track the status of your previous leave applications.
+    </p>
+  </div>
+
+  <!-- ================= Content ================= -->
+
+  <div class="row g-4">
+    
+    <div class="col-lg-5">
+      <div class="card shadow-sm rounded-4 border-0">
+        <div class="card-body p-4">
+          <h4 class="fw-semibold mb-4">Request Leave</h4>
+
+          <form [formGroup]="addLeaveForm" (ngSubmit)="addLeave()">
+            <!-- Leave Type -->
+
+            <mat-form-field appearance="outline" class="w-100 mb-3">
+              <mat-label>Leave Type</mat-label>
+
+              <mat-select formControlName="type">
+                <mat-option value="CASUAL"> Casual Leave </mat-option>
+
+                <mat-option value="SICK"> Sick Leave </mat-option>
+
+                <mat-option value="PAID"> Paid Leave </mat-option>
+
+                <mat-option value="UNPAID"> Unpaid Leave </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <!-- Date Range -->
+
+            <div class="row">
+
+                <div class="col-lg-6">
+                    <mat-form-field>
+                        <mat-label>Start Date</mat-label>
+                        <input matInput [matDatepicker]="startpicker" formControlName="startDate">
+                        <mat-datepicker-toggle matIconSuffix [for]="startpicker"></mat-datepicker-toggle>
+                        <mat-datepicker #startpicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+                
+                <div class="col-lg-6">
+                    <mat-form-field>
+                        <mat-label>End Date</mat-label>
+                        <input matInput [matDatepicker]="endpicker" formControlName="endDate">
+                        <mat-datepicker-toggle matIconSuffix [for]="endpicker"></mat-datepicker-toggle>
+                        <mat-datepicker #endpicker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+            <!-- Reason -->
+
+            <div class="mb-4">
+              <label class="form-label fw-medium"> Reason </label>
+
+              <textarea
+                rows="3"
+                class="form-control"
+                placeholder="Briefly describe the reason for your leave..."
+                formControlName="reason"
+              >
+              </textarea>
+            </div>
+
+            <!-- Button -->
+
+            <button type="submit" class="btn btn-primary w-100 rounded-3 py-2 fw-semibold">
+              Submit Request
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-lg-7">
+      <div class="card shadow-sm rounded-4 border-0 h-100 pb-0">
+        <!-- Header -->
+
+        <div class="card-header bg-white border-bottom p-4">
+            <div>
+              <h4 class="fw-semibold mb-1">Leave Request History</h4>
+              <p class="text-body-secondary mb-0">View all your previous leave requests.</p>
+            </div>
+        </div>
+
+        <!-- Requests -->
+
+        <div class="leave-history card-body p-0">
+        <div class="lh-container">
+
+          @for(ul of userLeaves(); track ul.id){
+            <div class="request-row d-flex justify-content-between align-items-center px-4 py-3 border-bottom">
+
+              <div>
+                <h6 class="fw-semibold mb-1">{{ul.type}} Leave</h6>
+
+                <small class="text-body-secondary"> {{ul.startDate | date:'dd MMMM yy'}} - {{ul.endDate | date:'dd MMMM yy'}} </small>
+              </div>
+
+              @if(ul.status == 'APPROVED'){
+                <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill">
+                  Approved
+                </span>
+              }
+
+              @if(ul.status == 'PENDING'){
+                <span class="badge bg-warning-subtle text-warning px-3 py-2 rounded-pill">
+                  Pending
+                </span>
+              }
+
+              @if(ul.status == 'REJECTED'){
+                <span class="badge bg-danger-subtle text-danger px-3 py-2 rounded-pill">
+                  Rejected
+                </span>
+              }
+            </div>
+          }
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

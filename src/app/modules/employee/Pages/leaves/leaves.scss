@@ -1,0 +1,69 @@
+.leave-page {
+  height: 100vh;
+  .card {
+    border: none;
+    transition: 0.25s ease;
+  }
+
+  .card-header {
+    background: #fff;
+  }
+
+  .form-control {
+    border-radius: 0.75rem;
+    padding: 0.85rem 1rem;
+
+    &:focus {
+      border-color: #052c65;
+      box-shadow: 0 0 0 0.15rem rgba(13, 51, 132, 0.15);
+    }
+  }
+
+  button {
+    height: 46px;
+    font-weight: 600;
+  }
+
+  .request-row {
+    cursor: pointer;
+    transition: 0.2s ease;
+
+    &:hover {
+      background: #f8fbff;
+    }
+
+    h6 {
+      color: #212529;
+    }
+
+    small {
+      font-size: 0.82rem;
+    }
+  }
+}
+
+.leave-history{
+  max-height: 55vh;
+  overflow-y: scroll;
+}
+
+/* ================= Angular Material ================= */
+
+:host ::ng-deep {
+  .mat-mdc-form-field {
+    width: 100%;
+  }
+
+  .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper,  .mat-mdc-select-panel{
+    background-color: white;
+    border-bottom: 0 !important;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px !important;
+  }
+
+  .mat-mdc-text-field-wrapper {
+    border-radius: 12px !important;
+    background: white;
+  }
+ 
+}

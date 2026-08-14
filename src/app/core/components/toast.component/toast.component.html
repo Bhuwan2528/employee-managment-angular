@@ -1,0 +1,38 @@
+@if (toastService.toast(); as toast) {
+
+<div class="toast-card shadow" [class]="toast.type">
+
+    <div class="d-flex align-items-center p-2 px-3">
+
+        <div class="toast-icon me-2">
+
+           <span class="toast-icon success-icon" [class]="getbg(toast.type)">
+                <i [class]="getIcon(toast.type)"></i>
+            </span>
+
+        </div>
+
+        <div class="flex-grow-1">
+
+            <!-- <h6 class="mb-1">
+                {{ toast.title }}
+            </h6> -->
+
+            <h6 class="mb-0 ms-1 fw-medium ">
+                {{ toast.message }}
+            </h6>
+
+        </div>
+
+        <!-- <button
+            class="btn-close"
+            (click)="toastService.hide()">
+        </button> -->
+
+    </div>
+
+    <div class="toast-progress"></div>
+
+</div>
+
+}

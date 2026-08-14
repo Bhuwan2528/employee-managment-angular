@@ -1,0 +1,143 @@
+<div class="home-page px-3 py-4 px-3">
+  <div class="container">
+    <div class="home-hero-bg col-12 p-5 rounded-5">
+      <h3 class="display- fw-bold text-primary-emphasis mb-2">Welcome Back, Bhuwan</h3>
+      <h6 class="text-body-secondary mb-0">
+        Access your attendance, leave requests and salary information from your dashboard.
+      </h6>
+    </div>
+
+    <div class="conatiner-fluid mt-4">
+      <div class="row g-5">
+        <div class="col-lg-4">
+          <div class="card p-4 px-4 text-center rounded-3 border">
+            <h5>Today</h5>
+            <h3 class="fw-bold mb-4">{{currentTime| date: 'hh:mm a' }}</h3>
+
+            <div class="d-flex flex-column align-items-center gap-2">
+              <button class="btn btn1 w-100 rounded-3 d-flex align-items-center justify-content-center gap-3"
+              (click)="checkin()" >
+                <i class="bi bi-box-arrow-in-right fs-5"></i> Check In
+              </button>
+              <button class="btn btn2 w-100 rounded-3 d-flex align-items-center justify-content-center gap-3" 
+              (click)="checkout()">
+                <i class="bi bi-box-arrow-left fs-5"></i> Check Out 
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-8">
+          <div class="card h-100 rounded-3 p-4">
+            <div class="row g-4 h-100">
+              <!-- Check In -->
+
+              <div class="col-md-4">
+                <div class="border rounded-3 h-100 p-4 text-center">
+                  <i class="bi bi-box-arrow-in-right text-success fs-3"></i>
+                  <h6 class="text-body-secondary mb-2 mt-4">Check In Time</h6>
+                  <h4 class="fw-semibold mb-1  text-nowrap"> {{ checkinTime() ? (checkinTime() | date:'hh:mm a') : '-- : --' }} </h4>
+                  <small class="text-success"> On Time </small>
+                </div>
+              </div>
+
+              <!-- Duration -->
+
+              <div class="col-md-4">
+                <div class="border rounded-3 h-100 p-4 text-center">
+                  <i class="bi bi-clock-history text-primary fs-3"></i>
+                  <h6 class="text-body-secondary mb-2 mt-4">Working Duration</h6>
+
+                  <h4 class="fw-semibold mb-1  text-nowrap"> 00:00:00 </h4>
+
+                  <small class="text-primary"> Still Working </small>
+                </div>
+              </div>
+
+              <!-- Check Out -->
+
+              <div class="col-md-4">
+                <div class="border rounded-3 h-100 p-4 text-center">
+                  <i class="bi bi-box-arrow-left text-danger fs-3"></i>
+
+                  <h6 class="text-body-secondary mb-2 mt-4">Check Out Time</h6>
+
+                  <h4 class="fw-semibold text-nowrap mb-1">{{ checkoutTime() ? (checkoutTime() | date:'hh:mm a') : '-- : --' }}</h4>
+
+                  <small class="text-danger"> {{checkoutTime() ? 'Ended' : 'Pending'}} </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= Attendance This Week ================= -->
+
+    <div class="container-fluid p-0 mt-4 shadow-sm rounded-4">
+      <div class="card border-1 rounded-4">
+        <!-- Header -->
+
+        <div class="card-header rounded-4 border-bottom-0 bg-white p-4">
+          <h5 class="fw-bold fs-5 text-primary-emphasis mb-1">Attendance This Week</h5>
+
+          <p class="text-body-secondary mb-0">
+            Here's a quick overview of your attendance records for this week.
+          </p>
+        </div>
+
+        <!-- Table -->
+
+        <div class="card-body p-0 border">
+          <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle mb-0">
+              <thead class="table-light">
+                <tr>
+                  <th class="">Date</th>
+
+                  <th>Check In</th>
+
+                  <th>Check Out</th>
+
+                  <th>Duration</th>
+
+                  <th class="text-center">Status</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                @for (list of userList | async; track $index) {
+                  <tr>
+                    <td class="fw-medium">{{list.date | date: 'EEE, dd MMM'}}</td>
+
+                    <td>{{list.checkIn ? (list.checkIn | date: 'hh:mm a') : '--'}}</td>
+
+                    <td>{{list.checkOut? (list.checkOut | date: 'hh:mm a'): '--'}}</td>
+
+                    <td>duration</td>
+
+                    <td class="text-center">
+                      @if (list.status == 'PRESENT') {
+                        <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill">
+                          Present
+                        </span>
+                      }
+                      @else {
+                        <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill">
+                          Present
+                        </span>
+                      }
+                    </td>
+                  </tr>
+                }
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

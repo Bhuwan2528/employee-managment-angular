@@ -1,0 +1,63 @@
+<div class="admin-home-page">
+    <div class="container py-4 px-3">
+
+        <h2 class="text-primary-emphasis fw-semibold mb-4">Overview</h2>
+
+        <div class="row g-4 mt-2 mb-5">
+
+            <div class="col-lg-3">
+                <div class="card p-3 shadow">
+                    <h5 class="text-primary-emphasis">Total Employees</h5>
+                    <h4 class="text-secondary-emphasis">{{(employees|async)?.length}}</h4>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="card p-3 shadow">
+                    <h5 class="text-primary-emphasis">Total Departments</h5>
+                    <h4 class="text-secondary-emphasis"> {{(departments|async)?.length}} </h4>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="card p-3 shadow">
+                    <h5 class="text-primary-emphasis">Pending Leaves</h5>
+                    <h4 class="text-secondary-emphasis"> {{(leaves|async)?.length}} </h4>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="card p-3 shadow">
+                    <h5 class="text-primary-emphasis">On Leave Today</h5>
+                    <h4 class="text-secondary-emphasis">{{(dashboard|async)?.presentToday}}</h4>
+                </div>
+            </div>
+
+        </div>
+
+        <h5>Recent Activity</h5>
+        <div class="card mt-4">
+            <div class="list-group list-group-flush">
+
+                @for(re of (dashboard|async)?.recentEmployees; track re.id){
+
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0 text-dark"> {{re.name}} joined as a {{re.designation}} in {{re.department}} Department </h6>
+                        <h6 class="mb-0 text-muted">2h ago</h6>
+                    </div>
+                }
+
+                @for(rl of (dashboard|async)?.recentLeave; track rl.id){
+
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <h6 class="mb-0 text-dark"> {{rl.employeeName}} leaves of {{rl.reason}} reason is {{rl.status}}</h6>
+                        <h6 class="mb-0 text-muted">2h ago</h6>
+                    </div>
+                }
+
+            </div>
+        </div>
+
+        
+    </div>
+</div>

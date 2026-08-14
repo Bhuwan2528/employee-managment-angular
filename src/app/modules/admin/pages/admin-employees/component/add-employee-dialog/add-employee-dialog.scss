@@ -1,0 +1,77 @@
+.form-container{
+    width: 500px;
+}
+input{
+    font-size: 15px !important;
+}
+
+:host ::ng-deep {
+
+    .mat-mdc-form-field-subscript-wrapper{
+        display: none;
+    }
+    .mat-mdc-form-field{
+        margin: 0 !important;
+    }
+
+    div.mat-mdc-select-panel {
+        background: white !important;
+    }
+
+    .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper,  .mat-mdc-select-panel{
+      background-color: white !important;
+      border-bottom: 0 !important;
+      border: 1px solid #dcdcdc;
+      border-radius: 10px !important;
+    }
+
+    .mat-mdc-text-field-wrapper {
+      border-radius: 12px !important;
+      background: white;
+    }
+
+    // ---- Compact sizing fixes ----
+
+    // Reduce the internal top/bottom padding that creates the tall box
+    .mat-mdc-form-field-infix {
+        padding-top: 8px !important;
+        padding-bottom: 8px !important;
+        min-height: unset !important;
+    }
+
+    // Outline notch height follows the wrapper, so shrink the wrapper flex
+    .mdc-text-field--outlined .mat-mdc-form-field-infix {
+        display: flex;
+        align-items: center;
+    }
+
+    // Reduce font size slightly for a compact look
+    .mat-mdc-select-value,
+    .mat-mdc-form-field input,
+    .mat-mdc-select-arrow-wrapper {
+        font-size: 14px;
+    }
+
+    // Shrink the floating label position/size to match
+    .mdc-floating-label {
+        font-size: 14px;
+        top: 20px; // re-center label vertically for the shorter field
+    }
+
+    // Reduce the outline gap/notch sizing (Material draws the border via 3 divs)
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+        border-color: #dcdcdc !important;
+    }
+
+    // Shrink the dropdown arrow icon a bit
+    .mat-mdc-select-arrow svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after {
+        color: rgb(5, 47, 105);
+    }
+}

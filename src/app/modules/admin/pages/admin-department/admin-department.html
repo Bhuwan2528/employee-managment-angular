@@ -1,0 +1,104 @@
+<div class="admin-department-page">
+  <div class="container py-4 px-3">
+    <!-- Heading -->
+
+    <h3 class="fw-semibold text-primary-emphasis mb-4">Manage Departments & Designations</h3>
+
+    <div class="row g-4">
+      <!-- ================= Departments ================= -->
+
+      <div class="col-lg-6 h-fit">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+            
+          <div class="card-header border-bottom py-3">
+            <h5 class="fw-semibold mb-0">
+              <i class="fa-solid fa-building me-2 text-primary-emphasis"></i>
+              Departments
+            </h5>
+          </div>
+
+          <div class="card-body border-bottom">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Department Name"
+                [(ngModel)]="departmentName"
+               />
+
+              <button class="btn btn-primary px-4" (click)="addEditDepartment()">
+                <i class="fa-solid fa-plus me-2"></i>
+
+                Add
+              </button>
+            </div>
+          </div>
+
+          <div class="list-group list-group-flush">
+
+            @for (department of departments$ | async; track department.id) {
+              <div class="list-group-item d-flex justify-content-between align-items-center">
+                <span class="fw-medium"> {{department.name}} </span>
+
+                <div class="d-flex gap-2">
+                  <button class="btn btn-light btn-sm" (click)="editDepartment(department)">
+                    <i class="fa-solid fa-pen text-warning"></i>
+                  </button>
+
+                  <button class="btn btn-light btn-sm" (click)="deleteDepartment(department.id)">
+                    <i class="fa-solid fa-trash text-danger"></i>
+                  </button>
+                </div>
+              </div>
+            }
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= Designation ================= -->
+
+      <div class="col-lg-6 h-fit">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+          <div class="card-header bg-white border-bottom py-3">
+            <h5 class="fw-semibold mb-0">
+              <i class="fa-solid fa-briefcase me-2 text-primary-emphasis"></i>
+
+              Designations
+            </h5>
+          </div>
+
+          <div class="card-body border-bottom">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Designation Name"
+              [(ngModel)] = "designationName" />
+
+              <button class="btn btn-primary px-4" (click)="addEditDesignation()">
+                <i class="fa-solid fa-plus me-2"></i>
+
+                Add
+              </button>
+            </div>
+          </div>
+
+          <div class="list-group list-group-flush">
+
+            @for (designation of designation$ |async; track designation.id) {
+              <div class="list-group-item d-flex justify-content-between align-items-center">
+                <span class="fw-medium"> {{designation.title}} </span>
+
+                <div class="d-flex gap-2">
+                  <button class="btn btn-light btn-sm" (click)="editDesignation(designation)">
+                    <i class="fa-solid fa-pen text-warning"></i>
+                  </button>
+
+                  <button class="btn btn-light btn-sm" (click)="deleteDesignation(designation.id)">
+                    <i class="fa-solid fa-trash text-danger"></i>
+                  </button>
+                </div>
+              </div>
+            }
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

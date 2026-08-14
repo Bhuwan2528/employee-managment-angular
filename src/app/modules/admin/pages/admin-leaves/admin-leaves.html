@@ -1,0 +1,93 @@
+<div class="admin-leaves">
+  <div class="container py-4">
+    <!-- Heading -->
+
+    <h3 class="fw-semibold text-primary-emphasis mb-4">Leave Requests</h3>
+
+    <!-- Toolbar -->
+
+    <div class="card border-0 shadow-sm rounded-3 mb-4">
+      <div class="card-body">
+        <div class="row g-3 align-items-center d-flex justify-content-between align-items-center">
+
+          <div class="col-lg-3">
+
+            <mat-form-field appearance="outline" class="w-100 mb-3">
+              <mat-label>Leave Type</mat-label>
+
+              <mat-select>
+                <mat-option value="casual"> Casual Leave </mat-option>
+
+                <mat-option value="sick"> Sick Leave </mat-option>
+
+                <mat-option value="earned"> Earned Leave </mat-option>
+
+                <mat-option value="unpaid"> Unpaid Leave </mat-option>
+              </mat-select>
+            </mat-form-field>
+            
+          </div>
+
+          <div class="col-lg-3 text-lg-end">
+            <span class="badge bg-warning-subtle text-warning-emphasis fs-6 px-3 py-2">
+              Pending : {{(leaves|async)?.length }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Leave Requests -->
+
+    <div class="card border-0 shadow-sm rounded-4">
+      <div class="list-group list-group-flush">
+        <!-- Request -->
+
+        @for (leave of leaves | async; track leave.id) {
+          <div class="list-group-item p-4 rounded-4">
+            <div class="row align-items-center">
+              <!-- Employee -->
+
+              <div class="col-lg-7">
+                <div class="d-flex align-items-center">
+                  <div
+                    class="rounded-circle bg-primary-subtle text-primary fw-bold d-flex justify-content-center align-items-center"
+                    style="width: 52px; height: 52px"
+                  >
+                    {{ leave.employee.firstName[0] }}{{ leave.employee.lastName[0] }}
+                  </div>
+
+                  <div class="ms-3">
+                    <h6 class="fw-semibold mb-1"> {{leave.employee.firstName}} {{leave.employee.lastName}} </h6>
+
+                    <div class="text-secondary"> {{leave.type}} </div>
+
+                    <small class="text-secondary"> {{leave.startDate | date:'dd MMMM yy'}} - {{leave.endDate | date:'dd MMMM yy'}} </small>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Days -->
+
+              <div class="col-lg-2 text-center">
+                <span class="badge rounded-pill px-3 py-2 bg-primary-subtle text-primary-emphasis"> {{getDays(leave.startDate, leave.endDate)}} Days </span>
+              </div>
+
+              <!-- Actions -->
+
+              <div class="col-lg-3">
+                <div class="d-flex justify-content-lg-end gap-2 mt-3 mt-lg-0">
+                  <button class="btn btn-success" (click)="approveRequest(leave.id)">Approve</button>
+
+                  <button class="btn btn-outline-danger" (click)="rejectRequest(leave.id)">Reject</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+        
+
+      </div>
+    </div>
+  </div>
+</div>

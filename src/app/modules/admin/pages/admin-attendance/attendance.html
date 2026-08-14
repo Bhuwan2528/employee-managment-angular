@@ -1,0 +1,119 @@
+<div class="attendance ">
+    <div class="conatiner p-3 py-2">
+
+        <div class="card border-0 p-3 py-2 shadow-sm rounded-4 mb-5 mt-3">
+
+            <div class=" d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-start align-items-center gap-3">
+                    <span class="d-flex justify-content-center align-items-center rounded-3">
+                        <i class="fa-solid fa-calendar-days fs-5 text-white fw-lighter"></i>
+                    </span>
+                    <div class="card-heade-text">
+                        <h4>Monthly Attendance Report</h4>
+                        <p class="text-muted m-0">Comprehensive monthly attendance tracking and analysis</p>
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <mat-form-field appearance="outline" class="month-selector">
+                        <mat-icon matPrefix><i class="fa-solid fa-calendar-days text-primary-emphasis"></i></mat-icon>
+                        <mat-label>Month</mat-label>
+                        <mat-select>
+                            @for (month of months; track $index) {
+                                <mat-option [value]="month">{{month}}</mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class=" d-flex justify-content-between align-items-center">
+
+                <div class="mt-3">
+                    <mat-form-field appearance="outline" class="employee-selector" style="width: 350px; max-height: 500px;">
+                        <mat-label>Select Employee</mat-label>
+                        <mat-select (selectionChange)="onEmployeeChange($event.value)">
+                            @for (employee of employees| async; track $index) {
+                                <mat-option [value]="employee.id">{{employee.firstName}} {{employee.lastName}}</mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                    <button class="btn btn-outline-primary py-2"> <i class="fa-solid fa-download me-2"></i> Export Attendance Report</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="">
+            <div class="card-body rounded-4 shadow-sm ">
+                @if (employeeAttendance | async; as AttendanceList) {
+                    @if (AttendanceList.length>0) {
+                    <div class=" table-responsive rounded-3 shadow-sm table-container">
+                    <table class="table table-bordered align-middle mb-0">
+
+                        <thead class="table-light">
+                        <tr>
+                            <th>Employee</th>
+                            <th>Designation</th>
+                            <th>Date</th>
+                            <th>Check In</th>
+                            <th>Check Out</th>
+                            <th>Working Duration</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+
+                            @for (attendance of employeeAttendance | async; track $index) {
+
+                                <tr>
+                                    <td> {{attendance.employee.firstName}} {{attendance.employee.lastName}} </td>
+                                    <td> {{attendance.employee.designationId}} </td>
+                                    <td> {{attendance.date | date:'EEE, dd MMM'}} </td>
+                                    <td> {{attendance.checkIn| date:'hh:mm a'}} </td>
+                                    <td> {{attendance.checkOut| date:'hh:mm a'}} </td>
+                                    <td> duration </td>
+                                    <td>
+                                        @if (attendance.status == 'PRESENT') {
+                                        <span class="badge rounded-pill status-present bg-success-subtle text-success-emphasis px-3 py-2">
+                                            Present
+                                        </span>
+                                        }
+                                        @else if (attendance.status == 'ABSENT') {
+                                        <span class="badge rounded-pill status-present bg-danger-subtle text-danger px-3 py-2">
+                                            Present
+                                        </span>
+                                        }
+                                    </td>
+                                </tr>
+
+                            }
+
+                        </tbody>
+
+                    </table>
+                    </div>
+                    }
+
+                @else {
+                    <div class="d-flex flex-column justify-content-center align-items-center text-center py-5 px-3 h-100">
+
+                        <div class="d-flex justify-content-center align-items-center rounded-circle bg-primary-subtle text-primary-emphasis mb-3"
+                            style="width: 64px; height: 64px;" >
+                            <i class="fa-solid fa-user-check fs-4"></i>
+                        </div>
+                        <h4 class="fw-semibold text-dark mb-2"> Select an Employee </h4>
+                        <p class="text-secondary mb-0">Choose an employee from the dropdown above<br> to view their attendance records.</p>
+
+                    </div>
+                }
+                }
+            </div>
+        </div>
+
+    </div>
+</div>

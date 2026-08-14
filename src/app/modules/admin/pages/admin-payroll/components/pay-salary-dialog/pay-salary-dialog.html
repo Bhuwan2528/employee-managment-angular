@@ -1,0 +1,46 @@
+<div class="dialog">
+    <div class="conatiner p-4">
+
+    <div class="d-flex justify-content-start align-items-center gap-3 mb-4">
+        <div class="avatar">{{ employee.firstName[0] }}{{ employee.lastName[0] }}</div>
+        <div>
+        <h6 class="mb-1 text-dark">{{ employee.firstName }} {{ employee.lastName }}</h6>
+        <small>{{ employee.employeeCode }}</small>
+        </div>
+    </div>
+
+    <form class="mt-2 mb-5" [formGroup]="payForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label class="form-label">Month</label>
+                    <input class="form-control" type="number" placeholder="Enter Month in number " formControlName="month">
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label class="form-label">Year</label>
+                    <input class="form-control" type="number" placeholder="Enter year" formControlName="year">
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label class="form-label">Allowances</label>
+                    <input class="form-control" type="number" placeholder="Enter year " formControlName="allowances">
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    <label class="form-label">Deductions</label>
+                    <input class="form-control" type="number" placeholder="Enter year " formControlName="deductions">
+                </div>
+            </div>
+
+            <h6 class="mt-2 text-dark">Net Salary Calculated = {{getNetSalary()}} </h6>
+
+            <button class="btn btn-primary mt-2">Pay Salary</button>
+        </div>
+    </form>
+
+    </div>
+</div>
