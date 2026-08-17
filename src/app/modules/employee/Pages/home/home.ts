@@ -15,11 +15,16 @@ export class Home {
   store = inject(Store)
   checkinTime = signal<null | string | Date>(null);
   checkoutTime = signal<null | string | Date>(null);
+  workingDuration = signal<string | number>('00:00:00')
+
+  empName = signal<string>('')
 
   currentTime = new Date();
 
   attendance = this.store.select(selectAttendance)
-  
+
+  userList = this.store.select(selectUserAttendanceList)
+
   constructor(){
     this.attendance.subscribe(attendance =>{
 
@@ -44,12 +49,27 @@ export class Home {
     }, 1000);
   }
 
-  userList = this.store.select(selectUserAttendanceList)
-
   ngOnInit(){
     this.store.dispatch(loadUserAttendance())
-
     this.userList.subscribe(list=> console.log(list))
+    
+    this.userList.subscribe((lists)=>{
+      const list = lists[0] 
+      if(!list){
+        return
+      }
+
+      const today = new Date().toDateString();
+      const apiDate = new Date(list.date).toDateString();
+
+      if(today === apiDate){
+        this.checkinTime.set(list.checkIn)
+        this.checkoutTime.set(list.checkOut)
+        this.workingDuration.set(list.workingDuration * 60 * 1000)
+        this.empName.set(list.employee.firstName)
+      }
+
+    })
   }
 
 

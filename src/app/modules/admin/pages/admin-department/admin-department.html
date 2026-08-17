@@ -82,7 +82,7 @@
 
             @for (designation of designation$ |async; track designation.id) {
               <div class="list-group-item d-flex justify-content-between align-items-center">
-                <span class="fw-medium"> {{designation.title}} </span>
+                <span class="fw-medium"> {{designation.title | titlecase}} </span>
 
                 <div class="d-flex gap-2">
                   <button class="btn btn-light btn-sm" (click)="editDesignation(designation)">

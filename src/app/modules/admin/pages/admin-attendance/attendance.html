@@ -72,7 +72,7 @@
 
                                 <tr>
                                     <td> {{attendance.employee.firstName}} {{attendance.employee.lastName}} </td>
-                                    <td> {{attendance.employee.designation?.title}} </td>
+                                    <td> {{attendance.employee.designation?.title | titlecase}} </td>
                                     <td> {{attendance.date | date:'EEE, dd MMM'}} </td>
                                     <td> {{attendance.checkIn| date:'hh:mm a'}} </td>
                                     <td> {{attendance.checkOut| date:'hh:mm a'}} </td>

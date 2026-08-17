@@ -9,7 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LeaveRequest, LeaveServerResponse } from '../../../../core/models/leaves.model';
 import { Store } from '@ngrx/store';
-import { addLeave, userLeaves } from '../../../../store/actions/leave.actions';
+import { addLeave, loadLeaves, userLeaves } from '../../../../store/actions/leave.actions';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { selectUserLeaves } from '../../../../store/selectors/leave.selector';
 import { DatePipe } from '@angular/common';
@@ -42,8 +42,10 @@ addLeave(){
   }
 
   this.store.dispatch(addLeave({request}))
+  this.store.dispatch(loadLeaves())
   
   this.userLeaves = toSignal(this.store.select(selectUserLeaves), {initialValue: [] as LeaveServerResponse[]})
+  this.store.dispatch(userLeaves())
 }
 
 ngOnInit(){

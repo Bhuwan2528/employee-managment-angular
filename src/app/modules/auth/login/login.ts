@@ -31,11 +31,15 @@ export class Login {
     console.log('btn clicked')
     this.store.dispatch(AuthActions.loginLoaded({request: this.loginForm.getRawValue()}))
 
-    if(this.user.role.name === 'EMPLOYEE'){
+    const role = this.user.role.name;
+    if(role == 'ADMIN' || role == 'HR' || role == 'SUPER_ADMIN'){
+      this.router.navigate(['/admin'])
+    }
+    else if(this.user.role.name == 'EMPLOYEE'){
       this.router.navigate(['/employee'])
     }
-    else if(this.user.role.name !== 'EMPLOYEE'){
-      this.router.navigate(['/admin'])
+    else{
+      this.router.navigate(['/employee'])
     }
 
   }

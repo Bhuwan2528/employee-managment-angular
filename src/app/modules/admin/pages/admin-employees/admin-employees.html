@@ -13,7 +13,8 @@
             <input
               type="text"
               class="form-control"
-              placeholder="Search by Employee ID"
+              placeholder="Search by Employee Name or ID"
+              [(ngModel)]="searchText"
             />
           </div>
 
@@ -51,15 +52,19 @@
 
           <tbody>
 
-            @for (employee of employees(); track employee.id) {
+            @for (employee of filteredEmployees(); track employee.id) {
               <tr>
                 <td> {{employee.employeeCode}} </td>
 
-                <td> {{employee.firstName}} {{employee.lastName}} </td>
+                <td> {{employee.firstName}} {{employee.lastName}} 
+                  @if(employee.attendances?.[0]?.status)  {
+                    <span class="bg-success rounded-circle d-inline-block ms-2" style="width: 8px; height: 8px;"></span>
+                  }
+                </td>
 
                 <td> {{employee.department?.name}} </td>
 
-                <td> {{employee.designation?.title}} </td>
+                <td> {{employee.designation?.title | titlecase }} </td>
 
                 <td class="text-center">
                   @if(employee.status=='ACTIVE'){
@@ -77,12 +82,21 @@
                 </td>
 
                 <td>
-                  <div class="d-flex justify-content-center gap-3">
+                  <div class="d-flex justify-content-center gap-3 ">
                     <i class="fa-solid fa-eye text-primary-emphasis" (click)="openEmployeeDetailDialog(employee)"></i>
 
-                    <i class="fa-solid fa-pen-to-square text-warning" (click)="openEditEmployeeDialog(employee)"></i>
-
+                    @if (employee.status !=='TERMINATED') {
+                    <i class="fa-solid fa-pen-to-square text-warning "  (click)="openEditEmployeeDialog(employee)"></i>
                     <i class="fa-solid fa-trash-can text-danger" (click)="openDeleteEmployeDialog(employee.id)"></i>
+                    }
+
+                    @if(employee.status =='TERMINATED'){
+
+                    <i class="fa-solid fa-pen-to-square dull-icon " ></i>
+
+                    <i class="fa-solid fa-trash-can dull-icon" ></i>
+
+                    }
                   </div>
                 </td>
               </tr>

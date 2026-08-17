@@ -16,21 +16,21 @@
     <nav class="sidebar-nav nav flex-column flex-nowrap px-1 py-2 flex-grow-1">
 
         @for(item of menuItems; track item.route){
+            @if(canShowMenu(item.role)){
+            <a
+                [routerLink]="item.route"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact:true}"
+                class="sidebar-link nav-link d-flex align-items-center gap-3 rounded-3 mb-2">
 
-        <a
-            [routerLink]="item.route"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{exact:true}"
-            class="sidebar-link nav-link d-flex align-items-center gap-3 rounded-3 mb-2">
+                <i [class]="item.icon"></i>
 
-            <i [class]="item.icon"></i>
+                <span>
+                    {{item.label}}
+                </span>
 
-            <span>
-                {{item.label}}
-            </span>
-
-        </a>
-
+            </a>
+            }
         }
 
     </nav>
@@ -67,7 +67,7 @@
 
         <!-- Logout -->
 
-        <button class="logout-btn btn btn-outline-danger w-100 rounded-3 d-flex align-items-center justify-content-center gap-2">
+        <button class="logout-btn btn btn-outline-danger w-100 rounded-3 d-flex align-items-center justify-content-center gap-2" (click)="logout()">
             <i class="fa-solid fa-right-from-bracket"></i>
             <span>
                 Logout

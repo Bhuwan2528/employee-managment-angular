@@ -5,21 +5,13 @@ import { Store } from '@ngrx/store';
 import { selectedUserAttendance } from '../../../../store/actions/attendance.actions';
 import { loadEmployees } from '../../../../store/actions/employee.action';
 import { selectEmployees } from '../../../../store/selectors/employeeSelector';
-import { AsyncPipe, DatePipe } from '@angular/common';
+import { AsyncPipe, DatePipe, TitleCasePipe } from '@angular/common';
 import { selectedSelectedUserList } from '../../../../store/selectors/attendance.selector';
 import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-attendance',
-  imports: [
-    MatSelect,
-    MatOption,
-    MatFormField,
-    MatIconModule,
-    MatPrefix,
-    MatLabel,
-    AsyncPipe,
-    DatePipe,
+  imports: [ MatSelect, MatOption, MatFormField, MatIconModule, MatPrefix, MatLabel, AsyncPipe, DatePipe, TitleCasePipe
   ],
   templateUrl: './attendance.html',
   styleUrl: './attendance.scss',
@@ -38,7 +30,7 @@ export class AdminAttendance {
     'February 2026',
     'January 2026',
   ];
-  
+
   ngOnInit() {
     this.store.dispatch(loadEmployees());
   }

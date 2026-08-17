@@ -1,7 +1,7 @@
 <div class="home-page px-3 py-4 px-3">
   <div class="container">
     <div class="home-hero-bg col-12 p-5 rounded-5">
-      <h3 class="display- fw-bold text-primary-emphasis mb-2">Welcome Back, Bhuwan</h3>
+      <h3 class="display- fw-bold text-primary-emphasis mb-2">Welcome Back, {{empName()}}</h3>
       <h6 class="text-body-secondary mb-0">
         Access your attendance, leave requests and salary information from your dashboard.
       </h6>
@@ -16,11 +16,11 @@
 
             <div class="d-flex flex-column align-items-center gap-2">
               <button class="btn btn1 w-100 rounded-3 d-flex align-items-center justify-content-center gap-3"
-              (click)="checkin()" >
+              (click)="checkin()" [disabled]="checkinTime()" >
                 <i class="bi bi-box-arrow-in-right fs-5"></i> Check In
               </button>
               <button class="btn btn2 w-100 rounded-3 d-flex align-items-center justify-content-center gap-3" 
-              (click)="checkout()">
+              (click)="checkout()" [disabled]="checkoutTime()">
                 <i class="bi bi-box-arrow-left fs-5"></i> Check Out 
               </button>
             </div>
@@ -48,7 +48,7 @@
                   <i class="bi bi-clock-history text-primary fs-3"></i>
                   <h6 class="text-body-secondary mb-2 mt-4">Working Duration</h6>
 
-                  <h4 class="fw-semibold mb-1  text-nowrap"> 00:00:00 </h4>
+                  <h4 class="fw-semibold mb-1  text-nowrap"> {{(workingDuration()) | date:'H':'UTC' }}h {{(workingDuration()) | date:'mm':'UTC' }}min </h4>
 
                   <small class="text-primary"> Still Working </small>
                 </div>
@@ -122,16 +122,27 @@
                     </td>
 
                     <td class="text-center">
-                      @if (list.workingDuration > 0) {
+
+                      @if (list.workingDuration > 0 && list.checkOut) {
+
                         <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill">
                           Present
                         </span>
-                      }
-                      @else {
+
+                      } @else if (list.workingDuration <= 0 && !list.checkOut) {
+
+                        <span class="badge bg-warning-subtle text-warning px-3 py-2 rounded-pill">
+                          Pending
+                        </span>
+
+                      } @else if(!list.checkIn || list.workingDuration <= 0) {
+
                         <span class="badge bg-danger-subtle text-danger px-3 py-2 rounded-pill">
                           Absent
                         </span>
+
                       }
+
                     </td>
                   </tr>
                 }

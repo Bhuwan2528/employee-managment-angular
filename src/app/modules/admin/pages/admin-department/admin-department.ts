@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, TitleCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { addDepartment, deleteDepartment, loadDepartments, updateDepartment } from '../../../../store/actions/deapartment.actions';
@@ -15,7 +15,7 @@ import { DesignationServerResponseDTO } from '../../../../core/models/designatio
 
 @Component({
   selector: 'app-admin-department',
-  imports: [AsyncPipe, FormsModule],
+  imports: [AsyncPipe, FormsModule, TitleCasePipe],
   templateUrl: './admin-department.html',
   styleUrl: './admin-department.scss',
 })

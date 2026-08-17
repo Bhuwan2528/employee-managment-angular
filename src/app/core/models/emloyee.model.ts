@@ -34,6 +34,7 @@ export interface EmployeeServerResponse {
     designation?:  Designation;
     manager?:      EmployeeServerResponse;
     user?:         User;
+    attendances?:  AttendanceDTO[];
 }
 
 export interface Department {
@@ -67,6 +68,9 @@ export interface User {
     role:         Department;
 }
 
+export interface AttendanceDTO {
+  status: string;
+}
 
 export interface EmployeeDialogData {
   mode: 'add' | 'edit';

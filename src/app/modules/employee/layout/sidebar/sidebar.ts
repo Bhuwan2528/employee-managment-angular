@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from "@angular/router";
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from "@angular/router";
 import { UserDTO } from '../../../auth/model/auth.model';
 
 @Component({
@@ -28,6 +28,7 @@ menuItems = [
   }
 ];
 
+router = inject(Router)
 user: UserDTO | null = null;
 
 ngOnInit(){
@@ -38,6 +39,11 @@ ngOnInit(){
   catch{
     this.user = null
   }
+}
+
+logout(){
+  localStorage.removeItem('accessToken')
+  this.router.navigate(['/login'])
 }
 
 }

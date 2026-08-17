@@ -106,7 +106,14 @@
               <div>
                 <h6 class="fw-semibold mb-1">{{ul.type}} Leave</h6>
 
-                <small class="text-body-secondary"> {{ul.startDate | date:'dd MMMM yy'}} - {{ul.endDate | date:'dd MMMM yy'}} </small>
+                @if (ul.startDate == ul.endDate) {
+                <small class="text-body-secondary"> {{ul.startDate | date:'dd MMMM yy'}} </small>
+                }
+                @else {
+                <small class="text-body-secondary"> {{ul.startDate | date:'dd MMMM yy'}} - {{ul.endDate | date:'dd MMMM yy'}}  </small>
+                }
+
+                <small class="text-dark mb-0">( {{ul.reason}} )</small>
               </div>
 
               @if(ul.status == 'APPROVED'){

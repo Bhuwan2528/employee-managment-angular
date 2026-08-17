@@ -9,10 +9,13 @@ import { FormsModule } from "@angular/forms";
 import { toSignal } from '@angular/core/rxjs-interop';
 import { EmployeeServerResponse } from '../../../../core/models/emloyee.model';
 import { LeaveServerResponse } from '../../../../core/models/leaves.model';
+import { loadDashboard } from '../../../../store/actions/dashboard.actions';
+import { OnLeaveTodayDTO } from '../../../../core/models/dashboard.model';
+import { selectDashboard } from '../../../../store/selectors/dashboard.selector';
 
 @Component({
   selector: 'app-admin-leaves',
-  imports: [MatFormFieldModule, MatSelect, MatOption, AsyncPipe, DatePipe, FormsModule],
+  imports: [MatFormFieldModule, MatSelect, MatOption, DatePipe, FormsModule],
   templateUrl: './admin-leaves.html',
   styleUrl: './admin-leaves.scss',
 })
@@ -20,16 +23,12 @@ export class AdminLeaves {
   
   store = inject(Store)
   leaveType = signal<string>('all')
-  empLeaves :LeaveServerResponse[] = []
+  empLeaves: OnLeaveTodayDTO[]  = []
 
-  ngOnInit(){
-    this.store.dispatch(loadLeaves())
 
-  this.store.select(selectLeave).subscribe((leave) => {
-    this.empLeaves = leave.filter(
-      l => l.status === 'APPROVED'
-    );
-  });
+  ngOnInit() {
+    this.store.dispatch(loadLeaves());
+    this.store.dispatch(loadDashboard())
   }
 
   allLeaves = toSignal(this.store.select(selectLeave), {initialValue: []})
@@ -44,6 +43,14 @@ export class AdminLeaves {
 
     return allLeaves.filter(leave => leave.type == type)
   })
+
+  selectDashboard = this.store.select(selectDashboard).subscribe((dashboard)=>{
+    this.empLeaves = dashboard?.OnLeaveToday ?? []
+    console.log(dashboard);
+    console.log(this.empLeaves);
+    
+  })
+  
 
   getDays(startDate: Date, endDate: Date): number {
     const start = new Date(startDate);
