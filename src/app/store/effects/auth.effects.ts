@@ -25,17 +25,9 @@ export class AuthEffects{
                     tap((userDetail)=>{
                         localStorage.setItem('accessToken',  userDetail.accessToken );
                         localStorage.setItem('user', JSON.stringify(userDetail.user));
-
-                        if(userDetail.user.role.name == "SUPER_ADMIN"){
-                            this.router.navigate(['/admin'])
-                        }
-                        if(userDetail.user.role.name == 'EMPLOYEE'){
-                            this.router.navigate(['/'])
-                        }
                     }),
 
                     map((userDetail)=> AuthActions.loginSuccess({userDetail})),
-                    tap(()=> this.toast.success('Login Succesfully')),
                     catchError((error)=>
                         of(AuthActions.loginError({ error: error.error?.message ?? 'something Went Wrong'}))
                     )
