@@ -4,4 +4,144 @@ th, td{
 
 .dull-icon{
     color: grey;
+    cursor: not-allowed;
+}
+
+.pagination {
+  gap: 6px;
+}
+
+.pagination .page-item .page-link {
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+  color: #212529;
+  background-color: #fff;
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #e9e9e9;
+  border-color: #9d9d9e;
+  color: #fff;
+}
+
+.pagination .page-item:not(.active):not(.disabled) .page-link:hover {
+  background-color: #f1f3f5;
+}
+
+.pagination .page-item.disabled .page-link {
+  color: #adb5bd;
+  background-color: #f8f9fa;
+}
+
+.badge{
+    width: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #eaf2ff;
+    color: #0d4fa3;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+th, td{
+    padding: 10px 20px;
+}
+
+.role-badge {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.role-admin {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+.role-hr {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.role-super-admin {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+.role-employee {
+  background: #eaf2ff;
+    color: #0d4fa3;
+}
+
+.role-default {
+  background: #f3f4f6;
+  color: #4b5563;
+}
+
+.page-size {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  span {
+    font-size: 13px;
+    color: #64748b;
+  }
+
+  select {
+    width: 60px;
+    height: 34px;
+    padding: 0 8px;
+
+    border: 1px solid #dfe3e8;
+    border-radius: 7px;
+
+    background: #fff;
+    color: #334155;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    cursor: pointer;
+    outline: none;
+
+    &:hover {
+      border-color: #cbd5e1;
+    }
+
+    &:focus {
+      border-color: #94a3b8;
+      box-shadow: 0 0 0 2px rgba(148, 163, 184, 0.12);
+    }
+
+    option {
+      background: #fff;
+      color: #334155;
+      padding: 8px;
+
+      span{
+        width: 100%;
+
+      }
+    }
+  }
 }

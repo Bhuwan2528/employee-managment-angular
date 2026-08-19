@@ -64,8 +64,8 @@ export class AttendanceEffects{
     selectedUserList$ = createEffect(()=>
         this.action$.pipe(
             ofType(AttendanceActions.selectedUserAttendance),
-            mergeMap(({id})=>
-                this.attendanceService.selectedUserAttendance(id).pipe(
+            mergeMap(({month, year, id})=>
+                this.attendanceService.selectedUserAttendance(month, year, id).pipe(
                     map((selectedUserList)=>
                         AttendanceActions.selectedUserAttendanceSuccesfull({selectedUserList})
                     ),
@@ -73,6 +73,23 @@ export class AttendanceEffects{
                         of(AttendanceActions.selectedUserAttendanceFaliure({error: error.error?.message ?? 'something went wrong '}))
                     )
                 )
+            )
+        )
+    )
+
+
+    downloadAttendance$ = createEffect(()=>
+        this.action$.pipe(
+            ofType(AttendanceActions.downloadFile),
+            mergeMap(({empId})=>
+                this.attendanceService.downloadFile(empId).pipe(
+                    map((file)=>
+                        AttendanceActions.downloadFileSuccesfully({file})
+                    )
+                )
+            ),
+            catchError((error)=>
+                of(AttendanceActions.downloadFileFailed({error: error.error.message ?? 'something went wrong'}))
             )
         )
     )

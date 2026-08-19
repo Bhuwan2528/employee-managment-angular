@@ -18,9 +18,9 @@ export class EmployeeEffects{
         this.action$.pipe(
             ofType(EmployeeActions.loadEmployees),
 
-            mergeMap(()=>
-                this.employeeService.getEmployees().pipe(
-                    map((employees)=> EmployeeActions.loadEmployeesSuccesfully({employees})),
+            mergeMap(({page, limit})=>
+                this.employeeService.getEmployees(page, limit).pipe(
+                    map((response)=> EmployeeActions.loadEmployeesSuccesfully({employees: response.data, pagination: response.pagination})),
                     catchError((error)=>
                         of (EmployeeActions.loadEmployeesFaliure({error: error.error?.message ?? 'something went wrong'}))
                     )

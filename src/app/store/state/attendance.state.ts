@@ -2,7 +2,7 @@ import { AttendanceServerResponse } from "../../core/models/attendance.model";
 
 export interface AttendanceState{
     userList: AttendanceServerResponse[]
-    selectedUserList: AttendanceServerResponse[] 
+    selectedUserList: AttendanceServerResponse[] | null 
     attendance : AttendanceServerResponse| null;
     loading: boolean;
     error: string | null
@@ -10,7 +10,7 @@ export interface AttendanceState{
 
 export const initialAttendanceState: AttendanceState = {
     userList: [],
-    selectedUserList: [],
+    selectedUserList: null,
     attendance: null,
     loading: false,
     error: null

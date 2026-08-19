@@ -1,4 +1,4 @@
-import { createAction, props } from "@ngrx/store";
+  import { createAction, props } from "@ngrx/store";
 import { LeaveRequest, LeaveServerResponse } from "../../core/models/leaves.model";
 
 export const loadLeaves = createAction(

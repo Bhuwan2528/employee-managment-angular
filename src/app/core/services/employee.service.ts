@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { environment } from "../../../Enviorment/enviorment";
 import { ApiConstants } from "../API_Constants";
-import { EmployeeRequest, employeeRoleRequest, EmployeeServerResponse, EmployeeUpdateRequest, User } from "../models/emloyee.model";
+import { EmployeeListResponse, EmployeeRequest, employeeRoleRequest, EmployeeServerResponse, EmployeeUpdateRequest, User } from "../models/emloyee.model";
 import { Observable } from "rxjs";
 
 @Injectable({
@@ -15,8 +15,13 @@ export class EmployeeServices{
     baseUrl = environment.apiUrl;
     apiURL = `${this.baseUrl}${ApiConstants.EMPLOYEE}`;
 
-    getEmployees(): Observable<EmployeeServerResponse[]>{
-        return this.http.get<EmployeeServerResponse[]>(this.apiURL)
+    getEmployees(page?: number, limit?: number): Observable<EmployeeListResponse>{
+        let params = {}
+
+        if(page&&limit){
+            params = {page, limit}
+        }
+        return this.http.get<EmployeeListResponse>(this.apiURL,{params})
     }
 
     addEmployee(request: EmployeeRequest): Observable<EmployeeServerResponse>{

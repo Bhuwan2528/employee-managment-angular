@@ -56,7 +56,7 @@ export const loadUserAttendanceFaliure = createAction(
 
 export const selectedUserAttendance = createAction(
     '[selected user] attendace selected user loaded',
-    props<{id: string}>()
+    props<{month: number, year: number, id: string}>()
 )
 
 export const selectedUserAttendanceSuccesfull = createAction(
@@ -66,5 +66,23 @@ export const selectedUserAttendanceSuccesfull = createAction(
 
 export const selectedUserAttendanceFaliure = createAction(
     '[selected user] seleceted user attendance failed',
+    props<{error: string}>()
+)
+
+
+// =========================doenload attendace===========================
+
+export const downloadFile = createAction(
+    '[downloadFile] download file started',
+    props<{empId: string}>()
+)
+
+export const downloadFileSuccesfully = createAction(
+    '[downloadFile] download file succesfully',
+    props<{file: Blob}>()
+)
+
+export const downloadFileFailed = createAction(
+    '[downloadFile] download file failed',
     props<{error: string}>()
 )

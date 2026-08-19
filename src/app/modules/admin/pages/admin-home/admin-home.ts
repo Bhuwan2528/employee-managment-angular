@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { selectEmployees } from '../../../../store/selectors/employeeSelector';
 import { selectDepartments } from '../../../../store/selectors/department.selectors';
 import { selectLeave } from '../../../../store/selectors/leave.selector';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { loadDepartments } from '../../../../store/actions/deapartment.actions';
 import { loadEmployees } from '../../../../store/actions/employee.action';
 import { loadLeaves } from '../../../../store/actions/leave.actions';
@@ -14,7 +14,7 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-admin-home',
-  imports: [AsyncPipe, RouterLink],
+  imports: [AsyncPipe, RouterLink, DatePipe],
   templateUrl: './admin-home.html',
   styleUrl: './admin-home.scss',
 })
@@ -26,15 +26,11 @@ export class AdminHome {
   leaves = this.store.select(selectLeave)
   dashboard = this.store.select(selectDashboard)
 
-
-
   ngOnInit(){
     this.store.dispatch(loadDepartments())
-    this.store.dispatch(loadEmployees())
+    this.store.dispatch(loadEmployees({}))
     this.store.dispatch(loadLeaves())
     this.store.dispatch(loadDashboard())
-    
-    
   }
 
 }

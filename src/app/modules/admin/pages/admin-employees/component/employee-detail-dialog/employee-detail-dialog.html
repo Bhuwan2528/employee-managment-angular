@@ -27,6 +27,13 @@
 
     <div class="col-md-6">
       <div class="border rounded p-3">
+        <small class="text-muted">Role</small>
+        <div>{{ employee.user.role.name ?? 'Staff Memeber' }}</div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="border rounded p-3">
         <small class="text-muted">Mobile</small>
         <div>{{ employee.phone }}</div>
       </div>
@@ -60,10 +67,17 @@
       </div>
     </div>
 
+    <div class="col-md-6">
+      <div class="border rounded p-3">
+        <small class="text-muted">Basic Monthly Salary</small>
+        <div>{{ employee.basic }}</div>
+      </div>
+    </div>
+
   </div>
 
   <div class="text-end mt-4">
-    <button class="btn btn-secondary" (click)="closeDialog()">
+    <button class="btn btn-primary" (click)="closeDialog()">
       Close
     </button>
   </div>

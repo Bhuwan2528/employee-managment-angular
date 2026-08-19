@@ -15,12 +15,12 @@
               class="form-control"
               placeholder="Search by Employee Name or ID"
               [(ngModel)]="searchText"
+              (ngModelChange)="onSearch($event)"
             />
           </div>
 
           <div class="col-lg-7 col-md-6 text-md-end">
-            <button class="btn btn-primary"
-            (click)="openAddEmployeeDialog()">
+            <button class="btn btn-primary" (click)="openAddEmployeeDialog()">
               <i class="fa-solid fa-plus"></i>
               Add Employee
             </button>
@@ -31,80 +31,173 @@
 
     <!-- Employee Table -->
 
-    <div class="card border-0 shadow-sm rounded-4">
-      <div class="table-responsive rounded-4">
-        <table class="table table-bordered align-middle mb-0">
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+      <!-- Table -->
+      <div class="table-responsive">
+        <table class="table align-middle mb-0">
           <thead class="table-light">
-            <tr >
-              <th>Employee ID</th>
-
-              <th>Name</th>
-
+            <tr>
+              <th>Employee </th>
+              <th>Role</th>
               <th>Department</th>
-
               <th>Designation</th>
-
               <th class="text-center">Status</th>
-
               <th class="text-center">Actions</th>
             </tr>
           </thead>
 
           <tbody>
-
             @for (employee of filteredEmployees(); track employee.id) {
               <tr>
-                <td> {{employee.employeeCode}} </td>
-
-                <td> {{employee.firstName}} {{employee.lastName}} 
-                  @if(employee.attendances?.[0]?.status)  {
-                    <span class="bg-success rounded-circle d-inline-block ms-2" style="width: 8px; height: 8px;"></span>
-                  }
+                <td>
+                    <div class="d-flex justify-content-start align-items-center gap-3">
+                        <div class="avatar">{{ employee.firstName[0] }}{{ employee.lastName[0] }}</div>
+                        <div>
+                            <h6 class="mb-1 text-dark">{{ employee.firstName }} {{ employee.lastName }}</h6>
+                            <small>{{ employee.employeeCode }}</small>
+                              @if (employee.attendances?.[0]?.status) {
+                                <span
+                                  class="bg-success rounded-circle d-inline-block ms-2"
+                                  style="width: 8px; height: 8px" ></span>
+                              }
+                        </div>
+                      </div>
                 </td>
 
-                <td> {{employee.department?.name}} </td>
+                <td><span class="role-badge rounded-pill py-2"
+                  [class]="employee.user?.role.name | roleClass"
+                  >{{(employee.user?.role.name) ?? 'Staff Member'}}</span></td>
 
-                <td> {{employee.designation?.title | titlecase }} </td>
+                <td>{{ employee.department?.name }}</td>
 
-                <td class="text-center">
-                  @if(employee.status=='ACTIVE'){
-                    <span class="badge  px-3 py-2 rounded-pill bg-success-subtle text-success"> {{employee.status}} </span>
-                  }
-                  @if(employee.status=='INACTIVE'){
-                    <span class="badge  px-3 py-2 rounded-pill bg-warning-subtle text-warning"> {{employee.status}} </span>
-                  }
-                  @if(employee.status=='ON_LEAVE'){
-                    <span class="badge  px-3 py-2 rounded-pill bg-primary-subtle text-primary-emphasis"> {{employee.status}} </span>
-                  }
-                  @if(employee.status=='TERMINATED'){
-                    <span class="badge  px-3 py-2 rounded-pill bg-danger-subtle text-danger"> {{employee.status}} </span>
-                  }
+                <td>{{ employee.designation?.title | titlecase }}</td>
+
+                <td class="text-center ">
+                  <div class="d-flex flex-column justify-content-between align-items-center w-100">
+                    @if (employee.status == 'ACTIVE') {
+                      <span class=".role-badge badge py-2 rounded-4 bg-success-subtle text-success text-center">
+                        {{ employee.status }}
+                      </span>
+                    }
+
+                    @if (employee.status == 'INACTIVE') {
+                      <span class="badge py-2 rounded-4 bg-warning-subtle text-warning">
+                        {{ employee.status }}
+                      </span>
+                    }
+
+                    @if (employee.status == 'ON_LEAVE') {
+                      <span
+                        class="badge py-2 rounded-2 bg-primary-subtle text-primary-emphasis"
+                      >
+                        {{ employee.status }}
+                      </span>
+                    }
+
+                    @if (employee.status == 'TERMINATED') {
+                      <span class="badge px-3 py-2 rounded-4 bg-danger-subtle text-danger">
+                        {{ employee.status }}
+                      </span>
+                    }
+                  </div>
                 </td>
 
                 <td>
-                  <div class="d-flex justify-content-center gap-3 ">
-                    <i class="fa-solid fa-eye text-primary-emphasis" (click)="openEmployeeDetailDialog(employee)"></i>
+                  <div class="d-flex justify-content-center gap-3">
+                    <i
+                      class="fa-solid fa-eye text-primary-emphasis action-icon"
+                      data-tooltip="View"
+                      (click)="openEmployeeDetailDialog(employee)"
+                    >
+                    </i>
 
-                    @if (employee.status !=='TERMINATED') {
-                    <i class="fa-solid fa-pen-to-square text-warning "  (click)="openEditEmployeeDialog(employee)"></i>
-                    <i class="fa-solid fa-trash-can text-danger" (click)="openDeleteEmployeDialog(employee.id)"></i>
+                    @if (employee.status !== 'TERMINATED') {
+                      <i
+                        class="fa-solid fa-pen-to-square text-warning action-icon"
+                        data-tooltip="Edit"
+                        (click)="openEditEmployeeDialog(employee)"
+                      >
+                      </i>
+
+                      <!-- <i
+                        class="fa-solid fa-trash-can text-danger action-icon"
+                        data-tooltip="Delete"
+                        (click)="openDeleteEmployeDialog(employee.id)"
+                      >
+                      </i> -->
                     }
 
-                    @if(employee.status =='TERMINATED'){
+                    @if (employee.status == 'TERMINATED') {
+                      <i class="fa-solid fa-pen-to-square dull-icon"></i>
 
-                    <i class="fa-solid fa-pen-to-square dull-icon " ></i>
-
-                    <i class="fa-solid fa-trash-can dull-icon" ></i>
-
+                      <!-- <i class="fa-solid fa-trash-can dull-icon"></i> -->
                     }
                   </div>
                 </td>
               </tr>
             }
-
-
           </tbody>
         </table>
+      </div>
+
+      <!-- Pagination Footer -->
+      <div class="border-top px-4 py-3">
+        <div class="d-flex justify-content-between align-items-center">
+          <!-- Result info -->
+
+          <div class="d-flex justify-content-start align-items-center gap-2">
+
+            <div class="page-size">
+              <span>Rows per page</span>
+              <select [(ngModel)]="pageSize" (change)="onPageSizeChange()">
+                <option value="10"><span>10</span></option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+              </select>
+            </div>
+
+          </div>
+
+          <!-- Pagination -->
+          <nav aria-label="Employee pagination">
+            <ul class="pagination mb-0">
+              <!-- Previous -->
+              <li class="page-item" [class.disabled]="!pagination()?.hasPreviousPage">
+                <button
+                  class="page-link btn btn-light"
+                  (click)="prevPage()"
+                  [class.d-none]="!pagination()?.hasPreviousPage"
+                  aria-label="Previous"
+                >
+                  <i class="bi bi-chevron-left"></i>
+                </button>
+              </li>
+
+              <!-- Pages -->
+              @if (pages().length>1) {
+                @for (page of pages(); track page) {
+                  <li class="page-item" [class.active]="currentPage() === page">
+                    <button class="page-link btn btn-light text-dark" (click)="goToPage(page)">
+                      {{ page }}
+                    </button>
+                  </li>
+                }
+              }
+
+              <!-- Next -->
+              <li class="page-item" [class.disabled]="!pagination()?.hasNextPage">
+                <button
+                  class="page-link  btn btn-light"
+                  (click)="nextPage()"
+                  [class.d-none]="!pagination()?.hasNextPage"
+                  aria-label="Next"
+                >
+                  <i class="bi bi-chevron-right"></i>
+                </button>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </div>
     </div>
   </div>

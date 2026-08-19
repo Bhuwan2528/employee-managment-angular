@@ -1,3 +1,20 @@
+export interface EmployeeListResponse {
+  message: string;
+  success: boolean;
+  data: EmployeeServerResponse[];
+  pagination: EmployeePagination;
+}
+
+export interface EmployeePagination {
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+}
+
+
 export interface EmployeeRequest {
     firstName:     string;
     lastName:      string;

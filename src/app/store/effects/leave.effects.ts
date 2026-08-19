@@ -86,6 +86,16 @@ this.action$.pipe(
 )
 )
 
+reloadLeavesAfterAdd = createEffect(()=>
+this.action$.pipe(
+    ofType(LeavesActions.addLeaveSuccesfully),
+    mergeMap(()=>[
+        LeavesActions.loadLeaves(),
+        LeavesActions.userLeaves()
+    ])
+)
+)
+
 userLeave$ = createEffect(()=>
 this.action$.pipe(
     ofType(LeavesActions.userLeaves),

@@ -2,11 +2,12 @@ import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { LeaveServerResponse } from '../../../../../../core/models/leaves.model';
 import { Store } from '@ngrx/store';
-import { loadEmployeeSalaryByAdmin } from '../../../../../../store/actions/salary.actions';
+import { DownloadEmployeeSalary, DownloadEmployeeSalarySuccesfully, loadEmployeeSalaryByAdmin } from '../../../../../../store/actions/salary.actions';
 import { selectParticularEmployeeSalary } from '../../../../../../store/selectors/salary.selector';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { EmployeeServerResponse } from '../../../../../../core/models/emloyee.model';
 import { DATA } from '../../../../../../core/models/payroll.model';
+import { Actions, ofType } from '@ngrx/effects';
 
 @Component({
   selector: 'app-salary-history',
@@ -19,6 +20,7 @@ export class SalaryHistory {
   dialoRef = inject(MatDialogRef);
   data = inject<DATA>(MAT_DIALOG_DATA)
   store = inject(Store)
+  action$ = inject(Actions)
 
   closeDialog(){
     this.dialoRef.close()
@@ -43,5 +45,21 @@ export class SalaryHistory {
       month: 'long'
     });
   }
-  
+
+  downloadSalary(empId: string){
+    this.store.dispatch(DownloadEmployeeSalary({empId}))
+  }
+
+  constructor(){
+    this.action$.pipe(ofType (DownloadEmployeeSalarySuccesfully) ).subscribe(({file})=>{
+      const url = window.URL.createObjectURL(file)
+      const link = document.createElement('a')
+
+      link.href = url
+      link.download = 'salary.xlsx'
+      link.click()
+
+      window.URL.revokeObjectURL(url)
+    })
+  }
 }

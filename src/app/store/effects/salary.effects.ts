@@ -117,5 +117,19 @@ export class SalaryEffects{
         ),
     )
 
+    downloadEmployeeSalary$ = createEffect(()=>
+        this.action$.pipe(
+            ofType(SalaryActions.DownloadEmployeeSalary),
+            mergeMap(({empId})=>
+                this.salaryService.downloadSalary(empId).pipe(
+                    map((file)=> SalaryActions.DownloadEmployeeSalarySuccesfully({file}))
+                )
+            ),
+            catchError((error)=>
+                of(SalaryActions.DownloadEmployeeSalaryFailed({error: error.error.message ?? 'something went wrong'}))
+            )
+        )
+    )
+
 
 }

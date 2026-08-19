@@ -38,17 +38,17 @@ body {
 
 
 .btn-outline-primary{
-  border: 1.5px solid #052c65;
+  border: 1px solid #052c65;
   color: #052c65;
 
   &:hover{
     background: #052c65;
-    border: #033c7a;
+    border: 1px solid #033c7a;
     outline: #052c65 !important;
     color: whitesmoke !important;
+    transform: 0;
   }
   &:active{
-    scale: 0.97;
     background: #0c3c84 !important;
   }
 }
@@ -67,6 +67,48 @@ body {
   &:active{
     scale: 0.97;
   }
+}
+
+.pointer-cursor{
+  cursor: pointer;
+}
+.cursor-not-allowed{
+  cursor: not-allowed !important;
+}
+
+
+.action-icon{
+  position: relative;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+.action-icon:hover{
+  transform: translateY(-1px);
+}
+.action-icon::after{
+  content: attr(data-tooltip);
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  text-wrap: nowrap;
+  position: absolute;
+  bottom: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  border: 1px solid rgb(222, 222, 222);
+  padding: 6px 10px ;
+  border-radius: 6px;
+  font-weight: 500;
+  opacity: 0;
+  z-index: 100;
+}
+.action-icon:hover::after{
+  opacity: 1;
+  transform: translateX(-50%) translateY(0px);
+}
+
+.text-nowrap{
+  text-wrap: nowrap;
 }
 
 :host ::ng-deep {

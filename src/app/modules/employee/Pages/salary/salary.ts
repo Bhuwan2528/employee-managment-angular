@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { loadEmployeeLastpaid, loadEmployeeSalary } from '../../../../store/actions/salary.actions';
+import { DownloadEmployeeSalary, DownloadEmployeeSalarySuccesfully, loadEmployeeLastpaid, loadEmployeeSalary } from '../../../../store/actions/salary.actions';
 import { selectEmployeeLastPaid, selectEmployeeSalary } from '../../../../store/selectors/salary.selector';
 import { AsyncPipe, DatePipe, DecimalPipe, TitleCasePipe } from '@angular/common';
 import { SalaryServerResponse } from '../../../../core/models/payroll.model';
 import * as XLSX from 'xlsx';
+import { Actions, ofType } from '@ngrx/effects';
 
 @Component({
   selector: 'app-salary',
@@ -15,6 +16,7 @@ import * as XLSX from 'xlsx';
 export class Salary {
 
   store = inject(Store)
+  action$ = inject(Actions)
   empSalary = this.store.select(selectEmployeeSalary)
   empLastPaid = this.store.select(selectEmployeeLastPaid)
   
@@ -36,27 +38,41 @@ export class Salary {
     });
   }
 
-  downloadExcel() {
-    this.empSalary.subscribe((salary) => {
+  // downloadExcel() {
+  //   this.empSalary.subscribe((salary) => {
 
-      const data = salary.map((item) => ({
-        'Month': `${this.getMonthName(item.month)} ${item.year}`,
-        'Basic': item.basic,
-        'Deductions': item.deductions,
-        'Allowances': item.allowances,
-        'Net Pay': item.netPay,
-        'Status': 'Paid'
-      }));
+  //     const data = salary.map((item) => ({
+  //       'Month': `${this.getMonthName(item.month)} ${item.year}`,
+  //       'Basic': item.basic,
+  //       'Deductions': item.deductions,
+  //       'Allowances': item.allowances,
+  //       'Net Pay': item.netPay,
+  //       'Status': 'Paid'
+  //     }));
 
-      const worksheet = XLSX.utils.json_to_sheet(data);
+  //     const worksheet = XLSX.utils.json_to_sheet(data);
 
-      const workbook = XLSX.utils.book_new();
+  //     const workbook = XLSX.utils.book_new();
 
-      XLSX.utils.book_append_sheet(workbook, worksheet, 'Salary');
+  //     XLSX.utils.book_append_sheet(workbook, worksheet, 'Salary');
 
-      XLSX.writeFile(workbook, `${salary[0].employee.firstName} Salary Report.xlsx`);
-    });
+  //     XLSX.writeFile(workbook, `${salary[0].employee.firstName} Salary Report.xlsx`);
+  //   });
+  // }
+
+  downloadSalary(empId: string){
+    this.store.dispatch(DownloadEmployeeSalary({empId}))
   }
 
-  
+  constructor(){
+    this.action$.pipe(ofType(DownloadEmployeeSalarySuccesfully)).subscribe(({file})=>{
+      const url = window.URL.createObjectURL(file)
+      const link = document.createElement('a')
+      link.href = url;
+      link.download = 'salary.xlsx'
+
+      link.click()
+      window.URL.revokeObjectURL(url)
+    })
+  }
 }

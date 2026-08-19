@@ -71,6 +71,7 @@ export const AttendanceReducer = createReducer(
     on(AttendanceActions.selectedUserAttendance, (state)=>({
         ...state,
         loading: true,
+        selectedUserList: null
     })),
 
     on(AttendanceActions.selectedUserAttendanceSuccesfull, (state, {selectedUserList})=>({

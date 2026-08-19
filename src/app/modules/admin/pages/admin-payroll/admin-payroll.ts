@@ -21,7 +21,7 @@ export class AdminPayroll {
   dialog = inject(MatDialog)
 
   ngOnInit(){
-    this.store.dispatch(loadEmployees())
+    this.store.dispatch(loadEmployees({}))
   }
 
   openPaySalaryDialog(employee: EmployeeServerResponse){

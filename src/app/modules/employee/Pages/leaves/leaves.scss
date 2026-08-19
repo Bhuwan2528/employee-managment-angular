@@ -65,5 +65,9 @@
     border-radius: 12px !important;
     background: white;
   }
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: white;
+    border: 1px solid grey;
+  }
  
 }

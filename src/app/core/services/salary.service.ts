@@ -32,4 +32,10 @@ export class SalaryService{
     createSalary(request: SalaryRequest, id: string): Observable<SalaryServerResponse>{
         return this.http.post<SalaryServerResponse>(`${this.baseUrl}${ApiConstants.PAYROLL.CREATE_SALARY}/${id}`, request)
     }
+
+    downloadSalary(employeeId: string){
+        return this.http.get(`${this.baseUrl}${ApiConstants.PAYROLL.DOWNLOAD_SALARY}`,{
+            params: {employeeId}, responseType: 'blob'
+        })
+    }
 }

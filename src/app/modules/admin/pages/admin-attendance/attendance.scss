@@ -7,7 +7,7 @@
     .employee-selector{
         :host ::ng-deep{
             .mat-mdc-text-field-wrapper{
-                width: 300px;
+                width: auto;
             }
         }
     }
@@ -30,6 +30,12 @@
     overflow-y: auto;
 }
 
+.time-selctor{
+    width: 250px;
+    flex-shrink: shrink;
+    flex-wrap: nowrap;
+}
+
 
 
 :host ::ng-deep {
@@ -44,7 +50,7 @@
         height: 50px;
     }
     .employee-selector .mat-mdc-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-mdc-text-field-wrapper{
-        width: 300px;
+        width: auto;
     }
 
   .mat-mdc-select-panel {

@@ -1,21 +1,15 @@
 .admin-home-page{
-    background: #fffefe;
+    background: #f8f9fa;
     height: 100vh;
+    max-height: 100vh;
+    overflow-y: hidden;
 }
 
-.col-lg-3 .card{
-    border: 0;
-    border-left: 3px solid #052c65;
-    background: linear-gradient(135deg, #ffffff89, #fbfdff);
+.dashboard-card {
     cursor: pointer;
+    transition: 0.2s ease;
 }
 
-.list-group-item{
-
-    padding: 13px 18px;
-
-    h5{
-        font-size: 17px;
-    }
-
+.dashboard-card:hover {
+    transform: translateY(-3px);
 }

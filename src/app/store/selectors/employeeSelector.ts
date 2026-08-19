@@ -8,3 +8,5 @@ export const selectEmployees = createSelector(selectEmployeeState, (state)=> sta
 export const selectEmployeeLoading = createSelector(selectEmployeeState, (state)=> state.loading)
 
 export const selectEmployeeError = createSelector(selectEmployeeState, (state)=> state.error)
+
+export const selectEmployeePagination = createSelector(selectEmployeeState, (state)=> state.pagination )

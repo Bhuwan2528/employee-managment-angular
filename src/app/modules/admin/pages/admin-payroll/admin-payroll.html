@@ -33,8 +33,23 @@
                     </div>
                 </td>
                 <td>{{ employee.designation?.title | titlecase}}</td>
-                <td> {{employee.user?.role?.name | titlecase}} </td>
-                <td class="text-center"><button class="btn btn-sm btn-primary" (click)="openPaySalaryDialog(employee)"><i class="fa-solid fa-indian-rupee-sign me-2"></i>Pay Salary</button></td>
+                @if(employee.status == 'ACTIVE'){
+                  <td> {{(employee.user?.role?.name) ?? '__' | titlecase}} </td>
+                }
+                @else {
+                  @if (employee.status == 'INACTIVE') {
+                    <td class="text-warning fw-medium"> {{employee.status | titlecase}} </td>
+                  }
+                  @else {
+                    <td class="text-danger fw-medium"> {{employee.status | titlecase}} </td>
+                  }
+                }
+                @if (employee.status == 'ACTIVE') {
+                  <td class="text-center"><button class="btn btn-sm btn-primary" (click)="openPaySalaryDialog(employee)"><i class="fa-solid fa-indian-rupee-sign me-2"></i>Pay Salary</button></td>
+                }
+                @else {
+                  <td class="text-center"><span class="cursor-not-allowed"><button class="btn btn-sm btn-primary" [class.disabled]="true"><i class="fa-solid fa-indian-rupee-sign me-2"></i>Pay Salary</button></span></td>
+                }
                 <td class="text-center"><button class="btn btn-sm btn-outline-primary" (click)="openSalaryHistoryDialog(employee.id, employee)"><i class="fa-solid fa-clock-rotate-left me-2"></i>Salary Records</button></td>
               </tr>
             }

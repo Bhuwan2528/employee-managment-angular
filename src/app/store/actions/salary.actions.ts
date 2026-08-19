@@ -90,3 +90,22 @@ export const AddEmployeeSalaryFaliure = createAction(
     '[create Salary] employee salary loaded faliure',
     props<{error: string}>()
 )
+
+
+
+// ==================downloadSalary============================
+
+export const DownloadEmployeeSalary = createAction(
+    '[employee salary] employe salary started downloading',
+    props<{empId: string}>()
+)
+
+export const DownloadEmployeeSalarySuccesfully = createAction(
+    '[employee salary] employe salary downloaded succesfully',
+    props<{file: Blob}>()
+)
+
+export const DownloadEmployeeSalaryFailed = createAction(
+    '[employee salary] employe salary downloaded failed',
+    props<{error: string}>()
+)

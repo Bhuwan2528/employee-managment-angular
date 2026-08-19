@@ -23,7 +23,7 @@ export class AdminLeaves {
   
   store = inject(Store)
   leaveType = signal<string>('all')
-  empLeaves: OnLeaveTodayDTO[]  = []
+  empLeaves = signal<OnLeaveTodayDTO[]>([])
 
 
   ngOnInit() {
@@ -45,7 +45,7 @@ export class AdminLeaves {
   })
 
   selectDashboard = this.store.select(selectDashboard).subscribe((dashboard)=>{
-    this.empLeaves = dashboard?.OnLeaveToday ?? []
+    this.empLeaves.set(dashboard?.OnLeaveToday ?? [])
     console.log(dashboard);
     console.log(this.empLeaves);
     

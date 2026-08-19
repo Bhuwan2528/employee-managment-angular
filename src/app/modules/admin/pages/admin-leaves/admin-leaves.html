@@ -125,7 +125,7 @@
       <!-- Employees Currently on Leave -->
       <div class="col-lg-4">
 
-        @if(empLeaves; as leave){
+        @if(empLeaves(); as leave){
           <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden">
             <div class="card-body p-4">
               <!-- Header -->
@@ -136,19 +136,19 @@
                   <small class="text-secondary"> Employees currently away </small>
                 </div>
 
-                <div class="on-leave-count">{{empLeaves.length}}</div>
+                <div class="on-leave-count">{{empLeaves().length}}</div>
               </div>
               
-              @if (empLeaves.length > 0) {
+              @if (empLeaves().length > 0) {
               <!-- Employee -->
-               @for (leave of empLeaves; track leave.id) {                  
+               @for (leave of empLeaves(); track leave.id) {                  
                 <div class="employee-leave-item">
                   <div class="employee-avatar">{{leave.employee.firstName[0]}}{{leave.employee.lastName[0]}}</div>
 
                   <div class="employee-info">
                     <div class="fw-semibold">{{leave.employee.firstName}} {{leave.employee.lastName}}</div>
 
-                    <small class="text-secondary"> {{leave.type}} </small>
+                    <small class="text-secondary"> {{leave.type}} ( {{leave.startDate | date:'dd MMM'}} - {{leave.endDate | date:'dd MMM'}} )</small>
                   </div>
 
                   <div class="leave-indicator"></div>

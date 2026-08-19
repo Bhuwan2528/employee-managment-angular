@@ -24,12 +24,20 @@ export class Leaves {
 
 fb = inject(NonNullableFormBuilder)
 store = inject(Store)
+today = new Date();
+minDate = new Date();
+maxDate = new Date();
+
+constructor(){
+  this.minDate.setDate( this.today.getDate() - 15 )
+  this.maxDate.setDate( this.today.getDate() + 15 )
+}
 
 addLeaveForm = this.fb.group({
   type: ['', Validators.required],
   startDate: ['', Validators.required],
   endDate: ['', Validators.required],
-  reason: ['', Validators.required]
+  reason: ['', [Validators.required, Validators.maxLength(100)]]
 })
 
 addLeave(){
@@ -45,7 +53,13 @@ addLeave(){
   this.store.dispatch(loadLeaves())
   
   this.userLeaves = toSignal(this.store.select(selectUserLeaves), {initialValue: [] as LeaveServerResponse[]})
-  this.store.dispatch(userLeaves())
+  this.addLeaveForm.reset({
+    type: '',
+    startDate: '',
+    endDate: '',
+    reason: ''
+
+  })
 }
 
 ngOnInit(){

@@ -13,9 +13,10 @@ export const EmployeeReducer = createReducer(
         loading: true,
     })),
 
-    on(EmployeeActions.loadEmployeesSuccesfully, (state, {employees}): EmployeeState=>({
+    on(EmployeeActions.loadEmployeesSuccesfully, (state, {employees, pagination}): EmployeeState=>({
         ...state,
         employees,
+        pagination,
         loading: false,
         error: null
     })),
@@ -64,7 +65,7 @@ export const EmployeeReducer = createReducer(
         ...state,
         loading: false,
         error: null,
-        employee : state.employees.map((emp)=> emp.id == employee.id ? employee : emp )
+        employees : state.employees.map((emp)=> emp.id == employee.id ? employee : emp )
     })),
 
     on(EmployeeActions.updateEmployeeFaliure, (state, {error})=>({
@@ -109,7 +110,7 @@ export const EmployeeReducer = createReducer(
         ...state,
         loading: false,
         error: null,
-        employee : state.employees.map((emp)=> emp.id == employee.id ? employee : emp )
+        employees : state.employees.map((emp)=> emp.id == employee.id ? employee : emp )
     })),
 
     on(EmployeeActions.updateRoleEmployeeFaliure, (state, {error})=>({

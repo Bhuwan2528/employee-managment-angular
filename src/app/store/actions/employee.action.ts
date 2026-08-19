@@ -1,13 +1,14 @@
 import { createAction, props } from "@ngrx/store";
-import { EmployeeRequest, employeeRoleRequest, EmployeeServerResponse, EmployeeUpdateRequest } from "../../core/models/emloyee.model";
+import { EmployeePagination, EmployeeRequest, employeeRoleRequest, EmployeeServerResponse, EmployeeUpdateRequest } from "../../core/models/emloyee.model";
 
 export const loadEmployees = createAction(
-    '[Employees] employees loaded'
+    '[Employees] employees loaded',
+    props<{page?: number; limit?: number}>()
 )
 
 export const loadEmployeesSuccesfully = createAction(
     '[Employees] employe loaded succesfully',
-    props<{employees: EmployeeServerResponse[]}>()
+    props<{employees: EmployeeServerResponse[], pagination: EmployeePagination}>()
 )
 
 export const loadEmployeesFaliure = createAction(

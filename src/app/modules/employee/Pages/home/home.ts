@@ -15,7 +15,7 @@ export class Home {
   store = inject(Store)
   checkinTime = signal<null | string | Date>(null);
   checkoutTime = signal<null | string | Date>(null);
-  workingDuration = signal<string | number>('00:00:00')
+  workingDuration = signal<number>(0)
 
   empName = signal<string>('')
 
@@ -70,14 +70,19 @@ export class Home {
       }
 
     })
+
+    console.log('WORKING DURATION:', this.workingDuration());
+console.log('TYPE:', typeof this.workingDuration());
   }
 
 
   checkin(){
     this.store.dispatch(checkin())
+    this.store.dispatch(loadUserAttendance())
   }
 
   checkout(){
     this.store.dispatch(checkout())
+    this.store.dispatch(loadUserAttendance())
   }
 }

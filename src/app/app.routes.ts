@@ -23,7 +23,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'employee',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
 

@@ -16,7 +16,7 @@ export class AttendanceService{
     checkinUrl = `${this.baseUrl}${ApiConstants.Attendance.CHECK_IN}`
     checkOutUrl = `${this.baseUrl}${ApiConstants.Attendance.CHECK_OUT}`
     userAttendanceUrl = `${this.baseUrl}${ApiConstants.Attendance.ATTENDANCE_USER}`
-    AdminuserAttendanceUrl = `${this.baseUrl}${ApiConstants.Attendance.ATTENDANCE_USER_ADMIN}`
+    AdminuserAttendanceUrl = `${this.baseUrl}attendance`
 
     checkin(): Observable<AttendanceServerResponse>{
         return this.http.post<AttendanceServerResponse>(this.checkinUrl, {})
@@ -30,8 +30,16 @@ export class AttendanceService{
         return this.http.get<AttendanceServerResponse[]>(this.userAttendanceUrl)
     }
 
-    selectedUserAttendance(id: string): Observable<AttendanceServerResponse[]>{
-        return this.http.get<AttendanceServerResponse[]>(`${this.AdminuserAttendanceUrl}/${id}`)
+    selectedUserAttendance(month: number, year: number, employeeId: string): Observable<AttendanceServerResponse[]>{
+        return this.http.get<AttendanceServerResponse[]>(`${this.AdminuserAttendanceUrl}`,{
+            params: {month, year, employeeId}
+        })
+    }
+
+    downloadFile(employeeId: string){
+        return this.http.get(`${this.baseUrl}${ApiConstants.Attendance.DOWNLOAD_ATTENDANCE_OF_EMPLOYEE}`,{
+            params:{employeeId}, responseType: 'blob'
+        })
     }
 
 }

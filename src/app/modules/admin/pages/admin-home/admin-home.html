@@ -1,63 +1,149 @@
 <div class="admin-home-page">
-    <div class="container py-4 px-3">
+  <div class="container py-4 px-3">
+    <h2 class="text-primary-emphasis fw-semibold mb-1">Overview</h2>
+    <p class="text-secondary mb-4">Here's a quick overview of your organization.</p>
 
-        <h2 class="text-primary-emphasis fw-semibold mb-4">Overview</h2>
+    <!-- Overview Cards -->
 
-        <div class="row g-4 mt-2 mb-5">
+    <div class="row g-4 mb-4">
+      <div class="col-xl-3 col-md-6">
+        <div class="card border-0 shadow-sm h-100 p-3 dashboard-card" routerLink="/admin/employee">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <h6 class="text-secondary mb-2">Total Employees</h6>
 
-            <div class="col-lg-3">
-                <div class="card p-3 shadow" routerLink="/admin/employee">
-                    <h5 class="text-primary-emphasis">Total Employees</h5>
-                    <h4 class="text-secondary-emphasis">{{(employees|async)?.length}}</h4>
-                </div>
+              <h3 class="fw-semibold text-dark mb-1">
+                {{ (employees | async)?.length }}
+              </h3>
+
+              <small class="text-muted"> Employees in organization </small>
             </div>
 
-            <div class="col-lg-3">
-                <div class="card p-3 shadow" routerLink="/admin/department">
-                    <h5 class="text-primary-emphasis">Total Departments</h5>
-                    <h4 class="text-secondary-emphasis"> {{(departments|async)?.length}} </h4>
-                </div>
+            <div class="bg-primary-subtle text-primary-emphasis rounded-3 p-3">
+              <i class="fa-solid fa-users fs-6"></i>
             </div>
-
-            <div class="col-lg-3">
-                <div class="card p-3 shadow" routerLink="/admin/leaves">
-                    <h5 class="text-primary-emphasis">Pending Leaves</h5>
-                    <h4 class="text-secondary-emphasis"> {{(leaves|async)?.length}} </h4>
-                </div>
-            </div>
-
-            <div class="col-lg-3">
-                <div class="card p-3 shadow" routerLink="/admin/leaves">
-                    <h5 class="text-primary-emphasis">Present Today</h5>
-                    <h4 class="text-secondary-emphasis">{{(dashboard|async)?.presentToday}}</h4>
-                </div>
-            </div>
-
+          </div>
         </div>
+      </div>
 
-        <h5>Recent Activity</h5>
-        <div class="card mt-4">
-            <div class="list-group list-group-flush">
+      <div class="col-xl-3 col-md-6">
+        <div
+          class="card border-0 shadow-sm h-100 p-3 dashboard-card"
+          routerLink="/admin/department"
+        >
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <h6 class="text-secondary mb-2">Total Departments</h6>
 
-                @for(re of (dashboard|async)?.recentEmployees; track re.id){
+              <h3 class="fw-semibold text-dark mb-1">
+                {{ (departments | async)?.length }}
+              </h3>
 
-                    <div class="list-group-item d-flex justify-content-between align-items-center">
-                        <h6 class="mb-0 text-dark"> {{re.name}} joined as a {{re.designation}} in {{re.department}} Department </h6>
-                        <h6 class="mb-0 text-muted">2h ago</h6>
-                    </div>
-                }
-
-                @for(rl of (dashboard|async)?.recentLeave; track rl.id){
-
-                    <div class="list-group-item d-flex justify-content-between align-items-center">
-                        <h6 class="mb-0 text-dark"> {{rl.employeeName}} leaves of {{rl.reason}} reason is {{rl.status}}</h6>
-                        <h6 class="mb-0 text-muted">2h ago</h6>
-                    </div>
-                }
-
+              <small class="text-muted"> Departments in organization </small>
             </div>
-        </div>
 
-        
+            <div class="bg-primary-subtle text-primary-emphasis fw-light rounded-3 p-3">
+              <i class="fa-solid fa-building fs-6"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-md-6">
+        <div class="card border-0 shadow-sm h-100 p-3 dashboard-card" routerLink="/admin/leaves">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <p class="text-secondary mb-2">Pending Leaves</p>
+
+              <h3 class="fw-semibold text-dark mb-1">
+                {{ (leaves | async)?.length }}
+              </h3>
+
+              <small class="text-muted text-nowrap"> Requests waiting for approval </small>
+            </div>
+
+            <div class="bg-primary-subtle text-primary-emphasis fw-light rounded-3 p-3">
+              <i class="fa-solid fa-calendar-days fs-6"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-md-6">
+        <div
+          class="card border-0 shadow-sm h-100 p-3 dashboard-card"
+          routerLink="/admin/attendance"
+        >
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <p class="text-secondary mb-2">Present Today</p>
+
+              <h3 class="fw-semibold text-dark mb-1">
+                {{ (dashboard | async)?.presentToday }}
+              </h3>
+
+              <small class="text-muted"> Employees present today </small>
+            </div>
+
+            <div class="bg-primary-subtle text-primary-emphasis fw-light  rounded-3 p-3">
+              <i class="fa-solid fa-user-check fs-6"></i>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <!-- Recent Activity -->
+
+    <div class="my-3 mt-5">
+      <h5 class="fw-semibold mb-1">Recent Activity</h5>
+
+      <p class="text-muted mb-0">Latest updates from your organization.</p>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-3">
+      <div class="list-group list-group-flush">
+
+        @for (re of (dashboard | async)?.recentEmployees; track re.id) {
+          <div class="list-group-item px-3 py-3">
+            <div class="d-flex align-items-center">
+              <div class="bg-primary-subtle text-primary-emphasis rounded-circle p-2">
+                <i class="fa-solid fa-user-plus"></i>
+              </div>
+
+              <div class="ms-3 flex-grow-1">
+                <h6 class="mb-1 text-dark">{{ re.name }} joined the team</h6>
+
+                <small class="text-muted">
+                  Joined as {{ re.designation }} in {{ re.department }} Department
+                </small>
+              </div>
+
+              <small class="text-muted"> {{re.dateOfJoin | date:'dd MMM'}} </small>
+            </div>
+          </div>
+        }
+
+        @for (rl of (dashboard | async)?.recentLeave; track rl.id) {
+          <div class="list-group-item px-3 py-3">
+            <div class="d-flex align-items-center">
+              <div class="bg-warning-subtle text-warning-emphasis rounded-circle p-2">
+                <i class="fa-solid fa-calendar-minus"></i>
+              </div>
+
+              <div class="ms-3 flex-grow-1">
+                <h6 class="mb-1 text-dark">Leave request from {{ rl.employeeName }}</h6>
+
+                <small class="text-muted"> Reason: {{ rl.reason }} </small>
+              </div>
+
+              <span class="badge bg-warning-subtle text-warning-emphasis rounded-pill px-3 py-2">
+                {{ rl.status }}
+              </span>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
 </div>

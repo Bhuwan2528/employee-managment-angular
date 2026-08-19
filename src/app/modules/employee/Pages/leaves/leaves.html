@@ -41,7 +41,7 @@
                 <div class="col-lg-6">
                     <mat-form-field>
                         <mat-label>Start Date</mat-label>
-                        <input matInput [matDatepicker]="startpicker" formControlName="startDate">
+                        <input matInput [matDatepicker]="startpicker" formControlName="startDate" [min]="minDate" [max]="maxDate">
                         <mat-datepicker-toggle matIconSuffix [for]="startpicker"></mat-datepicker-toggle>
                         <mat-datepicker #startpicker></mat-datepicker>
                     </mat-form-field>
@@ -51,7 +51,7 @@
                 <div class="col-lg-6">
                     <mat-form-field>
                         <mat-label>End Date</mat-label>
-                        <input matInput [matDatepicker]="endpicker" formControlName="endDate">
+                        <input matInput [matDatepicker]="endpicker" formControlName="endDate" [min]="minDate" [max]="maxDate">
                         <mat-datepicker-toggle matIconSuffix [for]="endpicker"></mat-datepicker-toggle>
                         <mat-datepicker #endpicker></mat-datepicker>
                     </mat-form-field>
@@ -62,15 +62,25 @@
             <!-- Reason -->
 
             <div class="mb-4">
-              <label class="form-label fw-medium"> Reason </label>
+              
+              <mat-form-field>
+              <mat-label class="form-label fw-medium"> Reason </mat-label>
 
               <textarea
+              matInput
                 rows="3"
                 class="form-control"
                 placeholder="Briefly describe the reason for your leave..."
                 formControlName="reason"
+                maxlength="100"
               >
               </textarea>
+
+              <mat-hint align="end">
+                {{addLeaveForm.get('reason')?.value?.length || 0}}/100
+              </mat-hint>
+
+              </mat-form-field>
             </div>
 
             <!-- Button -->
