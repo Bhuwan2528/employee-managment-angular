@@ -92,7 +92,7 @@
 
         <div class="card-body p-0 border">
           <div class="table-responsive">
-            <table class="table table-hover table-bordered align-middle mb-0">
+            <table class="table table-bordered align-middle mb-0">
               <thead class="table-light">
                 <tr>
                   <th class="">Date</th>
@@ -123,27 +123,9 @@
                     </td>
 
                     <td class="text-center">
-
-                      @if (list.workingDuration > 0 && list.checkOut) {
-
-                        <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill">
-                          Present
-                        </span>
-
-                      } @else if (list.workingDuration <= 0 && !list.checkOut) {
-
-                        <span class="badge bg-warning-subtle text-warning px-3 py-2 rounded-pill">
-                          Pending
-                        </span>
-
-                      } @else if(!list.checkIn || list.workingDuration <= 0) {
-
-                        <span class="badge bg-danger-subtle text-danger px-3 py-2 rounded-pill">
-                          Absent
-                        </span>
-
-                      }
-
+                      <span class="badge rounded-pill status-present bg-success-subtle text-success-emphasis px-3 py-2 shadow-sm">
+                        <span class="rounded-circle d-inline-block green-bg me-2" style="width: 5px; height: 5px;"></span>Present
+                      </span>
                     </td>
                   </tr>
                 }

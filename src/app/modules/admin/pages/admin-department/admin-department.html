@@ -10,7 +10,7 @@
       <div class="col-lg-6 h-fit">
         <div class="card border-0 shadow-sm rounded-4 h-100">
             
-          <div class="card-header border-bottom py-3">
+          <div class="card-header border-0 py-3">
             <h5 class="fw-semibold mb-0">
               <i class="fa-solid fa-building me-2 text-primary-emphasis"></i>
               Departments
@@ -18,8 +18,8 @@
           </div>
 
           <div class="card-body border-bottom">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Department Name"
+            <div class="input-group " >
+              <input type="text" class="form-control py-2 px-3" placeholder="Department Name"
                 [(ngModel)]="departmentName"
                />
 
@@ -38,11 +38,11 @@
                 <span class="fw-medium"> {{department.name}} </span>
 
                 <div class="d-flex gap-2">
-                  <button class="btn btn-light btn-sm" (click)="editDepartment(department)">
-                    <i class="fa-solid fa-pen text-warning"></i>
+                  <button class="btn btn-light bg-white btn-sm shadow-sm" (click)="editDepartment(department)">
+                    <i class="fa-solid fa-pen-to-square text-warning"></i>
                   </button>
 
-                  <button class="btn btn-light btn-sm" (click)="deleteDepartment(department.id)">
+                  <button class="btn btn-light bg-white btn-sm shadow-sm" (click)="deleteDepartment(department.id)">
                     <i class="fa-solid fa-trash text-danger"></i>
                   </button>
                 </div>
@@ -85,11 +85,11 @@
                 <span class="fw-medium"> {{designation.title | titlecase}} </span>
 
                 <div class="d-flex gap-2">
-                  <button class="btn btn-light btn-sm" (click)="editDesignation(designation)">
-                    <i class="fa-solid fa-pen text-warning"></i>
+                  <button class="btn btn-light bg-white btn-sm shadow-sm" (click)="editDesignation(designation)">
+                    <i class="fa-solid fa-pen-to-square text-warning"></i>
                   </button>
 
-                  <button class="btn btn-light btn-sm" (click)="deleteDesignation(designation.id)">
+                  <button class="btn btn-light bg-white btn-sm shadow-sm" (click)="deleteDesignation(designation.id)">
                     <i class="fa-solid fa-trash text-danger"></i>
                   </button>
                 </div>

@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { EmployeeServerResponse } from '../../../../../../core/models/emloyee.model';
 
 @Component({
   selector: 'app-employee-detail-dialog',
@@ -10,7 +11,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class EmployeeDetailDialog {
 
-  employee = inject(MAT_DIALOG_DATA)
+  employee = inject<EmployeeServerResponse>(MAT_DIALOG_DATA)
   private dialogRef = inject(MatDialogRef<EmployeeDetailDialog>)
 
   closeDialog(){

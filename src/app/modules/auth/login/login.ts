@@ -21,7 +21,7 @@ export class Login {
   store = inject(Store)
   toast = inject(ToastService)
   localUser = localStorage.getItem('user')
-  user = signal<UserDTO>(JSON.parse(this.localUser ?? ''))
+  user = signal<UserDTO | null>(this.localUser ? JSON.parse(this.localUser) : null)
   router = inject(Router)
 
   action$ = inject(Actions)

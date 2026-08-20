@@ -11,8 +11,9 @@ import { LeaveRequest, LeaveServerResponse } from '../../../../core/models/leave
 import { Store } from '@ngrx/store';
 import { addLeave, loadLeaves, userLeaves } from '../../../../store/actions/leave.actions';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { selectUserLeaves } from '../../../../store/selectors/leave.selector';
+import { selectUserLeaves, sleectLeaveError } from '../../../../store/selectors/leave.selector';
 import { DatePipe } from '@angular/common';
+import { PrintError } from '../../../../shared/utils/prinitingError';
 
 @Component({
   selector: 'app-leaves',
@@ -24,6 +25,7 @@ export class Leaves {
 
 fb = inject(NonNullableFormBuilder)
 store = inject(Store)
+printError = inject(PrintError)
 today = new Date();
 minDate = new Date();
 maxDate = new Date();
@@ -49,6 +51,7 @@ addLeave(){
     endDate: new Date(formValue.endDate).toLocaleDateString('en-CA')
   }
 
+  console.log(request)
   this.store.dispatch(addLeave({request}))
   this.store.dispatch(loadLeaves())
   
@@ -67,5 +70,7 @@ ngOnInit(){
 }
 
 userLeaves = toSignal(this.store.select(selectUserLeaves), {initialValue: [] as LeaveServerResponse[]})
+
+resError = this.store.select(sleectLeaveError).subscribe(error=> this.printError.toastError(error))
 
 }

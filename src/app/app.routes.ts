@@ -105,3 +105,4 @@ export const routes: Routes = [
     ],
   },
 ];
+// isme / route par login me nhi jaa rha 

@@ -26,6 +26,7 @@ GET_LASTPAID_ADMIN: 'salary/lastpaid',  //id
 GET_EMPLOYEE_SALARY: 'salary/user',
 GET_EMPLOYEE_LASTPAID_SELF: 'salary/user/lastpaid',
 DOWNLOAD_SALARY: 'salary/reports' //?employeeId=kljhslxukgq3yrt2i6473o82uficq
-}
+},
 
+PROFILE_UPDATE: 'employee/profile'
 }

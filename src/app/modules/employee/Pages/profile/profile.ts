@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, Validators, ɵInternalFormsSharedModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
-  imports: [],
+  imports: [ɵInternalFormsSharedModule, ReactiveFormsModule],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',
 })
@@ -18,7 +19,6 @@ export class Profile {
     }
 
     const file = input.files[0];
-
     const reader = new FileReader();
 
     reader.onload = () => {
@@ -27,4 +27,15 @@ export class Profile {
 
     reader.readAsDataURL(file);
   }
+
+  fb = inject(FormBuilder)
+
+  profileForm = this.fb.group({
+
+    firstName: ['', Validators.required],
+    lastName: ['', Validators.required],
+    phone: ['', Validators.required],
+    dateOfBirth: ['', [Validators.required, Validators.pattern(/^(0[1-9]|[12]\d|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/)]]
+  })
+
 }

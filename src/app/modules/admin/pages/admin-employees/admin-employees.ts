@@ -129,7 +129,7 @@ export class AdminEmployees {
     }
 
     return employees.filter((emp)=>{
-      return `${emp.firstName}`.toLowerCase().startsWith(search)||`${emp.lastName}`.toLowerCase().startsWith(search)|| `${emp.employeeCode}`.toLowerCase().startsWith(search)
+      return `${emp.firstName}`.toLowerCase().startsWith(search)||`${emp.lastName}`.toLowerCase().startsWith(search)|| `${emp.employeeCode}`.toLowerCase().startsWith(search) || `${emp.user?.role.name}`.toLocaleLowerCase().startsWith(search)
     })
   })
 

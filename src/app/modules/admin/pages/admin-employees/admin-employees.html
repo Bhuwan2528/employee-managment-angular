@@ -13,7 +13,7 @@
             <input
               type="text"
               class="form-control"
-              placeholder="Search by Employee Name or ID"
+              placeholder="Search by Employee Name, Id or Role"
               [(ngModel)]="searchText"
               (ngModelChange)="onSearch($event)"
             />
@@ -51,15 +51,17 @@
               <tr>
                 <td>
                     <div class="d-flex justify-content-start align-items-center gap-3">
-                        <div class="avatar">{{ employee.firstName[0] }}{{ employee.lastName[0] }}</div>
+                        <div class="avatar">{{ employee.firstName[0] }}{{ employee.lastName[0] }}
+                          @if (employee.attendances?.[0]?.status) {
+                                <span
+                                  class="green-bg rounded-circle d-inline-block"
+                                  style="width: 10px; height: 10px" ></span>
+                            }
+                        </div>
                         <div>
                             <h6 class="mb-1 text-dark">{{ employee.firstName }} {{ employee.lastName }}</h6>
                             <small>{{ employee.employeeCode }}</small>
-                              @if (employee.attendances?.[0]?.status) {
-                                <span
-                                  class="bg-success rounded-circle d-inline-block ms-2"
-                                  style="width: 8px; height: 8px" ></span>
-                              }
+                              
                         </div>
                       </div>
                 </td>

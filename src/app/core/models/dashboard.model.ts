@@ -39,3 +39,4 @@ export interface OnLeaveTodayDTO {
   updatedAt: string;
   employee: EmployeeServerResponse;
 }
+

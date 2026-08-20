@@ -13,6 +13,10 @@
     }
 }
 
+.green-bg{
+    background: rgb(24, 68, 43);
+}
+
 
     th{
         padding-left: 12px;
@@ -25,7 +29,7 @@
     }
 
 .table-container, .card-body{
-    height: 55vh;
+    height: 63vh;
     background: white;
     overflow-y: auto;
 }
@@ -76,5 +80,9 @@
     &::-webkit-scrollbar-thumb:hover {
       background: #9da3ab;
     }
+  }
+
+  .mat-mdc-form-field-subscript-wrapper{
+    display: none !important;
   }
 }

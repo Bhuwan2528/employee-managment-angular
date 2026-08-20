@@ -1,5 +1,5 @@
 <div class="admin-leaves">
-  <div class="container py-4">
+  <div class="container py-4 px-3">
     <!-- Heading -->
 
     <h3 class="fw-semibold text-primary-emphasis mb-4">Leave Requests</h3>
@@ -63,7 +63,7 @@
                   <div class="col-md-7">
                     <div class="d-flex align-items-center">
                       <div
-                        class="rounded-circle bg-primary-subtle text-primary fw-semibold d-flex justify-content-center align-items-center flex-shrink-0"
+                        class="rounded-circle bg-primary-subtle text-primary-emphasis fw-semibold d-flex justify-content-center align-items-center flex-shrink-0"
                         style="width: 46px; height: 46px"
                       >
                         {{ leave.employee.firstName[0] }}{{ leave.employee.lastName[0] }}
@@ -143,7 +143,7 @@
               <!-- Employee -->
                @for (leave of empLeaves(); track leave.id) {                  
                 <div class="employee-leave-item">
-                  <div class="employee-avatar">{{leave.employee.firstName[0]}}{{leave.employee.lastName[0]}}</div>
+                  <div class="employee-avatar bg-primary-subtle text-primary-emphasis">{{leave.employee.firstName[0]}}{{leave.employee.lastName[0]}}</div>
 
                   <div class="employee-info">
                     <div class="fw-semibold">{{leave.employee.firstName}} {{leave.employee.lastName}}</div>

@@ -70,9 +70,9 @@
               matInput
                 rows="3"
                 class="form-control"
-                placeholder="Briefly describe the reason for your leave..."
                 formControlName="reason"
                 maxlength="100"
+                class="p-0"
               >
               </textarea>
 
@@ -114,7 +114,11 @@
             <div class="request-row d-flex justify-content-between align-items-center px-4 py-3 border-bottom">
 
               <div>
-                <h6 class="fw-semibold mb-1">{{ul.type}} Leave</h6>
+                <h6 class="fw-semibold mb-1 d-flex align-items-start gap-2">{{ul.type}} Leave 
+                  <span class="bg-primary-subtle i rounded-circle action-icon"
+                  [attr.data-tooltip]="ul.reason">
+                  <i class="fa-solid fa-info text-primary-emphasis"></i></span>
+                </h6>
 
                 @if (ul.startDate == ul.endDate) {
                 <small class="text-body-secondary"> {{ul.startDate | date:'dd MMMM yy'}} </small>
@@ -122,8 +126,6 @@
                 @else {
                 <small class="text-body-secondary"> {{ul.startDate | date:'dd MMMM yy'}} - {{ul.endDate | date:'dd MMMM yy'}}  </small>
                 }
-
-                <small class="text-dark mb-0">( {{ul.reason}} )</small>
               </div>
 
               @if(ul.status == 'APPROVED'){

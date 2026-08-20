@@ -1,67 +1,65 @@
-.home-hero-bg{
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.373), rgba(232, 241, 251, 0.502)), url(https://static.vecteezy.com/system/resources/previews/068/687/378/non_2x/soft-abstract-blue-background-minimalist-and-clean-background-suitable-for-ads-promotion-background-banner-and-background-presentation-free-vector.jpg);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+.home-hero-bg {
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.373), rgba(232, 241, 251, 0.502)),
+    url(https://static.vecteezy.com/system/resources/previews/068/687/378/non_2x/soft-abstract-blue-background-minimalist-and-clean-background-suitable-for-ads-promotion-background-banner-and-background-presentation-free-vector.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
-.btn{
-    padding: 6px;
+.btn {
+  padding: 6px;
 }
 
 .btn1 {
-    background: #052c65;
+  background: #052c65;
+  color: white;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #1944a2;
+  }
+
+  &:active {
+    transform: scale(0.96);
     color: white;
-    transition: all .2s ease;
-
-    &:hover {
-        background: #1944a2;
-    }
-
-    &:active {
-        transform: scale(0.96);
-        color: white;
-    }
+  }
 }
 
+.btn2 {
+  border: 2px solid #333;
+  color: #333;
 
-.btn2{
-    border: 2px solid #333;
-    color: #333;
+  &:hover {
+    background: #222;
+    color: white;
+  }
 
-    &:hover {
-        background: #222;
-        color: white;
-    }
-
-    &:active {
-        transform: scale(0.96);
-        color: white;
-    }
+  &:active {
+    transform: scale(0.96);
+    color: white;
+  }
 }
-
 
 .border {
+  transition: 0.25s ease;
 
-    transition: .25s ease;
-
-    &:hover {
-
-
-        box-shadow: 0 .5rem 1rem rgba(103, 103, 103, 0.08);
-
-    }
-
+  &:hover {
+    box-shadow: 0 0.5rem 1rem rgba(103, 103, 103, 0.08);
+  }
 }
 
-
-
-td{
-    padding: 4px !important;
-    padding-left: 15px !important;
-    font-size: 14px;
+td {
+  padding: 4px !important;
+  padding-left: 15px !important;
+  font-size: 14px;
 }
 
-th{
-    padding-left: 15px;
+th {
+  padding-left: 15px;
+  padding-top: 10px;
+}
+
+.green-bg{
+    background: rgb(24, 68, 43);
 }

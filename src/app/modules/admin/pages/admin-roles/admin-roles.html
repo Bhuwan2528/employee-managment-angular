@@ -20,7 +20,7 @@
 
               <div class="form-floating mb-3 mt-3">
                   <input type="text" class="form-control" id="email" placeholder="Enter email" name="email" formControlName="email">
-                  <label for="email" class="fw-semibold text-muted">Email</label>
+                  <label for="email" class="fw-semibold text-muted">Email *</label>
               </div>
 
               <!-- Role -->
@@ -71,8 +71,8 @@
                   </div>
                 </div>
 
-                <span class="badge rounded-pill px-3 py-2 fw-medium bg-primary-subtle text-primary-emphasis px-3 py-2">
-                  {{admin.user?.role.name}}
+                <span class="badge rounded-pill px-3 py-2 fw-medium bg-primary-subtle text-primary-emphasis fw-semibold px-3 py-2">
+                  {{admin.user?.role.name | titlecase}}
                 </span>
               </div>
             </div>

@@ -46,3 +46,4 @@ export const appConfig: ApplicationConfig = {
     provideEffects(DepartmentEffects, DesignationEffects, EmployeeEffects, LeavesEffects, AuthEffects, DashboardEffects, AttendanceEffects, SalaryEffects)
   ]
 };
+

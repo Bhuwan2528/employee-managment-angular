@@ -59,6 +59,16 @@ th, td{
     color: #0d4fa3;
   font-size: 13px;
   font-weight: 600;
+  position: relative;
+
+  span{
+    position: absolute;
+    top: 94%;
+    left: 94%;
+    transform: translate(-50%, -50%);
+    background: #20b958;
+    border: 2px solid white;
+  }
 }
 
 th, td{

@@ -28,7 +28,7 @@
     <div class="col-md-6">
       <div class="border rounded p-3">
         <small class="text-muted">Role</small>
-        <div>{{ employee.user.role.name ?? 'Staff Memeber' }}</div>
+        <div>{{ employee.user?.role.name ?? 'Staff Member' }}</div>
       </div>
     </div>
 
@@ -42,14 +42,14 @@
     <div class="col-md-6">
       <div class="border rounded p-3">
         <small class="text-muted">Designation</small>
-        <div>{{ employee.designation.title }}</div>
+        <div>{{ employee.designation?.title }}</div>
       </div>
     </div>
 
     <div class="col-md-6">
       <div class="border rounded p-3">
         <small class="text-muted">Department</small>
-        <div>{{ employee.department.name }}</div>
+        <div>{{ employee.department?.name }}</div>
       </div>
     </div>
 
