@@ -45,6 +45,7 @@ export class AuthEffects{
             mergeMap(()=>
                 this.authService.logout().pipe(
                     map(()=>{
+                        this.authService.stopTokenRefresh();
                         localStorage.clear();
                         return AuthActions.logoutSuccess()
                     })

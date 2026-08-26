@@ -1,5 +1,6 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { ApplicationConfig, inject, provideAppInitializer, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { AuthService } from './modules/auth/services/auth-service/auth-service';
 
 
 import { routes } from './app.routes';
@@ -44,7 +45,17 @@ export const appConfig: ApplicationConfig = {
       salary: salaryReducer
     }),
 
-    provideEffects(DepartmentEffects, DesignationEffects, EmployeeEffects, LeavesEffects, AuthEffects, DashboardEffects, AttendanceEffects, SalaryEffects)
+    provideEffects(DepartmentEffects, DesignationEffects, EmployeeEffects, LeavesEffects, AuthEffects, DashboardEffects, AttendanceEffects, SalaryEffects),
+
+    // A page reload/new tab re-bootstraps the app, which loses the in-memory
+    // setInterval that keeps the access token refreshed -- without this, a
+    // resumed session silently stops refreshing and 401s ~15 minutes later.
+    provideAppInitializer(() => {
+      const authService = inject(AuthService);
+      if (localStorage.getItem('accessToken') && localStorage.getItem('user')) {
+        authService.setTokenRefresh();
+      }
+    })
   ]
 };
 

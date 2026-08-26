@@ -13,6 +13,7 @@ export class AuthService {
 
     private readonly http = inject(HttpClient);
     private readonly baseURL = environment.apiUrl;
+    private refreshIntervalId: ReturnType<typeof setInterval> | null = null;
 
     login(request : LoginRequest): Observable<LoginServerResponseDTO> {
         return this.http.post<LoginServerResponseDTO>( `${this.baseURL}${ApiConstants.LOGIN}`, request, { withCredentials: true } );
@@ -24,13 +25,23 @@ export class AuthService {
         return this.http.post<RefreshTokenResponseDTO>(`${this.baseURL}${ApiConstants.REFRESH_TOKEN}`, {}, { withCredentials: true })
     }
 
+    // Guards against stacking intervals -- called both right after login and,
+    // on app bootstrap, for a page reload/new tab resuming an existing session.
     setTokenRefresh(){
-        setInterval(()=>{
+        this.stopTokenRefresh();
+        this.refreshIntervalId = setInterval(()=>{
             this.refreshToken().subscribe( response => {
                 localStorage.setItem('accessToken', response.accessToken);
                 console.log("TOKEN REFRESHED", response );
             })
         }, 10000)
+    }
+
+    stopTokenRefresh(){
+        if(this.refreshIntervalId !== null){
+            clearInterval(this.refreshIntervalId);
+            this.refreshIntervalId = null;
+        }
     }
 
     logout(){
