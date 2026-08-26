@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
-import { selectGlobalLoading } from '../../store/selectors/global-loading.selector';
+import { selectGlobalLoading } from '../../../store/selectors/global-loading.selector';
 
 @Component({
   selector: 'app-global-loaders',

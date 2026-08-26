@@ -1,0 +1,15 @@
+
+<div class=" delete p-4 d-flex align-items-center flex-column">
+    <span class="bg-primary-subtle text-primary-emphasis p-3 rounded-circle flex-grow-1 d-flex justify-content-center align-items-center mb-3">
+        <i class="fa-solid display-6"
+        [class]=" data.icon ?? 'fa-trash-can' "></i>
+    </span>
+
+    <h4 class="text-primary-emphasis mt-3 text-center">Are you sure you want to {{data.title ?? 'Delete'}}</h4>
+    <p class="fs-6 text-dark-emphasis mt-2">{{data.description ?? 'You will no Longer see this in Your Account'}}</p>
+
+    <div class="buttons d-flex gap-2 align-self-end mt-4">
+        <button class="btn btn-outline-dark" (click)="closeDialog()">Cancel</button>
+        <button class="btn btn-primary" (click)="confirmDelete()" >{{data.btn ?? 'Delete'}}</button>
+    </div>
+</div>

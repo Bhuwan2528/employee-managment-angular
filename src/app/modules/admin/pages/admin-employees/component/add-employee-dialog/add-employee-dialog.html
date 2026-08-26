@@ -1,127 +1,190 @@
+<div class="card border-0">
+  <div class="card-header d-flex justify-content-between align-items-center bg-blue py-3">
 
-<div class="form-container p-4">
-    <div class="form-header d-flex justify-content-between align-items-center mb-4">
-        <h4 class="text-primary-emphasis">{{data.mode == 'add' ? 'Add Employee' : 'Update Employee'}}</h4>
-        <i class="fa-solid fa-x" (click)="closeDialog()"></i>
-    </div>
-
-    <form  [formGroup]="addEmployeeForm" (ngSubmit)="addEmployee()">
-        <div class="row">
-
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label class="form-label">
-                        First Name
-                    </label>
-                    <input type="text" class="form-control" placeholder="Enter First Name" formControlName="firstName">
-                </div>
+    @if (data.mode == 'add') {
+        <div class="d-flex align-items-center justify-content-start gap-2">
+            <div class="circle-35 d-flex align-items-center justify-content-center bg-light text-primary-emphasis rounded-circle flex-shrink-0">
+                <i class="fa-solid fa-user-plus fs-6"></i>
             </div>
-
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label class="form-label">
-                        Last Name
-                    </label>
-                    <input type="text" class="form-control" placeholder="Enter Last Name" formControlName="lastName">
-                </div>
-            </div>
-
-            @if (data.mode == 'edit') {
-                <div class="col-md-6">
-                        <label class="form-label">Status</label>
-                    <mat-form-field appearance="outline" class="w-100 compact-select mb-3">
-                        <mat-label></mat-label>
-
-                        <mat-select formControlName="status">
-                            <mat-option value="ACTIVE"> ACTIVE </mat-option>
-                            <mat-option value="INACTIVE"> INACTIVE </mat-option>
-                            <mat-option value="TERMINATED"> TERMINATED </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            }
-
-            @if (data.mode == 'add') {
-
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label class="form-label">
-                            Email
-                        </label>
-                        <input type="email" class="form-control" placeholder="example@gmail.com"  formControlName="email">
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label class="form-label">
-                            Password
-                        </label>
-                        <input type="string" class="form-control" placeholder="*********"  formControlName="password">
-                    </div>
-                </div>
-
-            }
-
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label class="form-label">
-                        Mobile Number
-                    </label>
-                    <input type="number" class="form-control" placeholder="Enter Mobile Number"  formControlName="phone">
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label class="form-label">
-                        Date Of Joinning
-                    </label>
-                    <input type="text" class="form-control" placeholder="Enter Date Of Joinning"  formControlName="dateOfJoining">
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label class="form-label">
-                        Monthly Salary
-                    </label>
-                    <input type="number" class="form-control" placeholder="Enter Date Of Joinning"  formControlName="basic">
-                </div>
-            </div>
-
-            <div class="col-md-6 mb-3">
-                <label class="form-label">Department</label>
-                <mat-form-field appearance="outline" class="w-100 compact-select mb-3">
-                    <!-- <mat-label>Department</mat-label> -->
-
-                    <mat-select formControlName="departmentId">
-                        @for (department of departments |async; track department.id) {
-                            <mat-option [value]="department.id"> {{department.name}} </mat-option>
-                        }
-                    </mat-select>
-                </mat-form-field>
-            </div>
-
-            <div class="col-md-6 mb-3">
-                <label class="form-label">Designation</label>
-                <mat-form-field appearance="outline" class="w-100 compact-select mb-3">
-                    <!-- <mat-label>Designation</mat-label> -->
-
-                    <mat-select formControlName="designationId">
-                        @for (designation of designations | async; track designation.id) {
-                            <mat-option [value]="designation.id"> {{designation.title}} </mat-option>
-                        }
-                    </mat-select>
-                </mat-form-field>
-            </div>
-
-            @if (data.mode == 'add') {
-                <button class="btn btn-primary py-2 mt-3" (click)="addEmployee()"><i class="fa-solid fa-plus me-2"></i> Add Employee</button>
-            }@else {
-                <button class="btn btn-primary py-2 mt-3" (click)="updateEmployee(data.employee?.id)"><i class="fa-solid fa-pen-to-square me-2"></i> Update Employee</button>
-            }
-            
+            <h5 class="m-0">Add Employee</h5>
         </div>
+    }
+    @else {
+        <div class="d-flex align-items-center justify-content-start gap-2">
+            <div class="circle-35 d-flex align-items-center justify-content-center bg-light text-primary-emphasis rounded-circle flex-shrink-0">
+                <i class="fa-solid fa-user-pen fs-6"></i>
+            </div>
+            <h5 class="m-0">Update Employee</h5>
+        </div>
+    }
+
+    <span class="bg-light text-dark rounded-circle circle-20">
+      <i class="fa-solid fa-xmark" (click)="closeDialog()"></i>
+    </span>
+  </div>
+
+  <div class="card-body">
+    <form [formGroup]="addEmployeeForm" (ngSubmit)="addEmployee()">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3 mt-1">
+            <label class="form-label"> 
+                <i class="fa-solid fa-user text-primary-emphasis me-1"></i> First Name 
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter First Name"
+              formControlName="firstName"
+            />
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="mb-3 mt-1">
+            <label class="form-label"> 
+                <i class="fa-solid fa-user text-primary-emphasis me-1"></i> Last Name 
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter Last Name"
+              formControlName="lastName"
+            />
+          </div>
+        </div>
+
+        @if (data.mode == 'edit') {
+          <div class="col-md-6">
+            <label class="form-label"> 
+                <i class="fa-solid fa-toggle-on text-primary-emphasis me-1"></i> Status 
+            </label>
+            <mat-form-field appearance="outline" class="w-100 compact-select mb-3 mt-1">
+              <mat-label></mat-label>
+
+              <mat-select formControlName="status">
+                <mat-option value="ACTIVE"> ACTIVE </mat-option>
+                <mat-option value="INACTIVE"> INACTIVE </mat-option>
+                <mat-option value="TERMINATED"> TERMINATED </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        }
+
+        @if (data.mode == 'add') {
+          <div class="col-md-6">
+            <div class="mb-3 mt-1">
+            <label class="form-label"> 
+                <i class="fa-solid fa-envelope text-primary-emphasis me-1"></i> Email 
+            </label>
+              <input
+                type="email"
+                class="form-control"
+                placeholder="example@gmail.com"
+                formControlName="email"
+              />
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="mb-3 mt-1">
+            <label class="form-label"> 
+                <i class="fa-solid fa-user-lock text-primary-emphasis me-1"></i> Password
+            </label>
+              <input
+                type="string"
+                class="form-control"
+                placeholder="*********"
+                formControlName="password"
+              />
+            </div>
+          </div>
+        }
+
+        <div class="col-md-6">
+          <div class="mb-3 mt-1">
+            <label class="form-label"> 
+                <i class="fa-solid fa-phone text-primary-emphasis me-1"></i> Phone 
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              placeholder="Enter Mobile Number"
+              formControlName="phone"
+            />
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="mb-3 mt-1">
+            <label class="form-label"> 
+                <i class="fa-solid fa-calendar-days text-primary-emphasis me-1"></i> Date Of Joinning 
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter Date Of Joinning"
+              formControlName="dateOfJoining"
+            />
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="mb-3 mt-1">
+            <label class="form-label"> 
+                <i class="fa-solid fa-hand-holding-dollar text-primary-emphasis me-1"></i> Salary 
+            </label>
+            <input
+              type="number"
+              class="form-control"
+              placeholder="Enter Date Of Joinning"
+              formControlName="basic"
+            />
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3 mt-1">
+            <label class="form-label"> 
+                <i class="fa-solid fa-building text-primary-emphasis me-1"></i> Department 
+            </label>
+          <mat-form-field appearance="outline" class="w-100 compact-select mb-3 mt-1">
+
+            <mat-select formControlName="departmentId">
+              @for (department of departments | async; track department.id) {
+                <mat-option [value]="department.id"> {{ department.name | titlecase }} </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6 mb-3 mt-1">
+            <label class="form-label"> 
+                <i class="fa-solid fa-building text-primary-emphasis me-1"></i> Designation 
+            </label>
+          <mat-form-field appearance="outline" class="w-100 compact-select mb-3 mt-1">
+
+            <mat-select formControlName="designationId">
+              @for (designation of designations | async; track designation.id) {
+                <mat-option [value]="designation.id"> {{ designation.title | titlecase}} </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
     </form>
+  </div>
+
+  <div class="card-footer d-flex justify-content-end align-items-center gap-2 border-0 pb-3 pt-0 bg-white">
+    <button class="btn btn-secondary py-2" (click)="closeDialog()">Cancel</button>
+
+    @if (data.mode == 'add') {
+      <button class="btn btn-primary py-2" (click)="addEmployee()">
+        <i class="fa-solid fa-plus me-2"></i> Add Employee
+      </button>
+    } @else {
+      <button class="btn btn-primary py-2" (click)="updateEmployee(data.employee?.id)">
+        <i class="fa-solid fa-pen-to-square me-2"></i> Update Employee
+      </button>
+    }
+  </div>
 </div>

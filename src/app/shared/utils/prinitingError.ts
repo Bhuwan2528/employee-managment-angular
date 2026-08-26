@@ -10,7 +10,7 @@ export class PrintError{
 
     toastError( error : string | null): void{
     if(error){
-      this.toast    .error(JSON.parse(JSON.stringify(error)))
+      this.toast.error(JSON.parse(JSON.stringify(error)))
     }
 }
 }

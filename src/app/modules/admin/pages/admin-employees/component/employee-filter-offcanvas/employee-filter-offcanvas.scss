@@ -1,0 +1,59 @@
+label{
+    margin-bottom: 5px;
+}
+
+input{
+    font-size: 14px;
+    padding: 10px 12px;
+}
+
+.form-check-input{
+    border: 2px solid rgb(206, 228, 246);
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px;
+  min-height: 18px;
+}
+.form-check-input:checked{
+    background: rgb(134, 192, 247);
+}
+
+:host ::ng-deep {
+    .mat-mdc-form-field{
+        height: 45px !important;
+        width: 100%;
+        border: 1px solid #ccc;
+        border-bottom: 0;
+        border-radius: 5px;
+    }
+    .mat-mdc-form-field-subscript-wrapper{
+        display: none;
+    }
+    .mdc-text-field--no-label .mat-mdc-form-field-infix{
+        padding-bottom: 0;
+        padding-top: 12px;
+    }
+    .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+        background: white;
+    }
+    .mat-mdc-option.mdc-list-item, div.mat-mdc-select-panel{
+        background: white;
+    }
+
+    .mat-mdc-select-min-line{
+        font-size: 14px;
+        color: #222;
+    }
+
+        //hovering
+
+    .mat-mdc-option:focus.mdc-list-item, .mat-mdc-option.mat-mdc-option-active.mdc-list-item {
+        background: rgb(239, 245, 255);
+    }
+    
+    .mat-mdc-option.mdc-list-item{
+        &:hover{
+            background: rgb(239, 244, 255);
+        }
+    }
+}

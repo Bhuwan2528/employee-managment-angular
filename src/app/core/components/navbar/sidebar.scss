@@ -1,0 +1,86 @@
+.sidebar {
+  width: 250px;
+  min-width: 250px;
+  max-height: 100vh;
+  height: calc(100vh - 80px);
+  position: sticky;
+  top: 80px;
+  left: 0;
+  overflow-y: hidden;
+
+  .sidebar-link {
+    color: #222;
+    font-weight: 500;
+    position: relative;
+    transition: all 0.2s ease;
+    text-wrap: nowrap;
+    padding: 15px;
+    gap: 10px;
+
+    i {
+      width: 22px;
+      text-align: center;
+      font-size: 1.2rem;
+      transition: inherit;
+      color: #333;
+    }
+
+    span {
+      transition: inherit;
+    }
+
+    &:hover,
+    &.active {
+      background: #e9f2ff;
+      color: #052c65;
+      border-left: 3px solid #052c65;
+
+      i {
+        color: #052c65;
+      }
+    }
+  }
+
+  .profile-card {
+    transition: 0.25s;
+
+    .profile-image {
+      img {
+        width: 48px;
+        height: 48px;
+        object-fit: cover;
+      }
+
+      .online-status {
+        width: 10px;
+        height: 10px;
+        background: #22c55e;
+        border: 2px solid white;
+        border-radius: 50%;
+        position: absolute;
+        right: 2px;
+        bottom: 2px;
+      }
+    }
+
+    h6 {
+      font-size: 0.95rem;
+    }
+
+    small {
+      font-size: 0.78rem;
+    }
+
+    &:hover {
+      background: #f8f9fa;
+    }
+  }
+
+  .logout-btn {
+    transition: 0.25s;
+
+    &:hover {
+      transform: translateY(-1px);
+    }
+  }
+}

@@ -1,102 +1,115 @@
-<div class="login-page container-fluid vh-100 bg-page">
-  <div class="row h-100">
-    <!-- Left Side -->
-    <div class="col-lg-8 d-none d-lg-flex p-3 bg-light-subtle">
-      <div class="left-panel position-relative w-100 rounded-5 overflow-hidden">
-        <img
-          src="https://www.rithwik.co.in/wp-content/uploads/2026/06/office-fitting-scaled.jpg"
-          class="w-100 h-100 object-fit-cover rounded-3"
-          alt="EMS Illustration"
-        />
+<div class="container-fluid vh-100 bg-light p-4">
+  <div class="container-fluid h-100 bg-white border rounded-5 shadow-sm overflow-hidden px-3 py-2">
+    <div class="row h-100">
 
-        <div class="overlay"></div>
-      </div>
-    </div>
+      <!-- ================= LEFT IMAGE ================= -->
 
-    <!-- Right Side -->
-    <div class="col-12 col-lg-4 d-flex align-items-center bg-white">
-      <div class="login-wrapper mx-auto w-100">
-        <!-- Brand -->
-        <div class="d-flex align-items-center gap-2 mb-2">
-          <div class="brand-dot"></div>
+      <div class="col-lg-8 d-none d-lg-block p-3">
+        <div class="position-relative h-100 overflow-hidden rounded-5">
+          <img
+            src="https://www.rithwik.co.in/wp-content/uploads/2026/06/office-fitting-scaled.jpg"
+            class="w-100 h-100 object-fit-cover"
+            alt="EMS Office"
+          />
 
-          <h5 class="fw-semibold text-primary-emphasis">EMS</h5>
+          <div class="image-overlay"></div>
+
+          <!-- Image Content -->
+          <div class="position-absolute bottom-0 start-0 text-white p-5">
+            <div
+              class="d-flex align-items-center justify-content-center bg-white bg-opacity-25 rounded-4 mb-4"
+              style="width: 55px; height: 55px"
+            >
+              <i class="fa-solid fa-users fs-4"></i>
+            </div>
+
+            <h2 class="fw-bold mb-3">Empowering Teams,<br /> Driving Excellence </h2>
+            <p class="mb-0 opacity-75">Streamline operations, enhance productivity,<br /> and achieve more together.</p>
+
+          </div>
         </div>
+      </div>
 
-        <!-- Heading -->
-        <h1 class="fw-bold text-dark mb-2">Welcome Back</h1>
+      <!-- ================= RIGHT FORM ================= -->
 
-        <p class="text-body-secondary mb-5">
-          You have to Login first to access your account and employee services.
-        </p>
+      <div class="col-12 col-lg-4">
+        <div class="h-100 d-flex align-items-center">
+          <div class="w-100 px-3 py-4 pb-0  ">
+            <!-- Brand -->
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <span class=" blue-circle rounded-circle"></span>
+              <span class="fw-bold fs-5 text-primary-emphasis"> EMS </span>
+            </div>
 
-        <form class="me-5" [formGroup]="loginForm" (ngSubmit)="login()">
-          <div class="mb-3">
-            <label for="username" class="form-label fw-semibold text-primary-emphasis">
-              Email
-            </label>
+            <div class="mb-4">
+              <h1 class="fw-bold text-dark mb-2">Welcome Back</h1>
 
-            <div class="input-group">
+              <p class="text-body-secondary lh-lg mb-0">
+                You have to Login first to access your account and employee services.
+              </p>
+            </div>
 
-              <span class="input-group-text bg-light">
-                <i class="fa-solid fa-user"></i>
-              </span>
+            <!-- FORM -->
+            <form [formGroup]="loginForm" (ngSubmit)="login()">
+              <!-- EMAIL -->
+              <div class="mb-4">
+                <label for="email" class="form-label fw-semibold"> Email </label>
 
-              <input
-                id="email"
-                type="text"
-                class="form-control p-2 px-3"
-                placeholder="Enter email"
-                formControlName = 'email'
-                required="true"
-              />
+                <div class="input-group">
+                  <span class="input-group-text bg-light border-end-0">
+                    <i class="fa-solid fa-user text-secondary"></i>
+                  </span>
+
+                  <input id="email" type="email" class="form-control border-start-0 py-2" placeholder="Enter your email" formControlName="email"/>
+                </div>
+              </div>
+
+              <!-- PASSWORD -->
+              <div class="mb-4">
+                <label for="password" class="form-label fw-semibold"> Password </label>
+
+                <div class="input-group">
+                  <span class="input-group-text bg-light border-end-0">
+                    <i class="fa-solid fa-lock text-secondary"></i>
+                  </span>
+
+                  <input id="password" class="form-control border-start-0 border-end-0 py-2"
+                  placeholder="Enter your password" formControlName="password"
+                  [type]="showPassword ? 'text' : 'password'"  
+                  />
+
+                  <button type="button" class="btn border border-start-0 bg-white text-secondary" (click)="showPassword = !showPassword">
+                    <i class="fa-solid" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- REMEMBER -->
+              <div class="form-check mb-4">
+                <input id="remember" class="form-check-input" type="checkbox" />
+                <label for="remember" class="form-check-label text-body-secondary">Remember me</label>
+              </div>
+
+              <!-- LOGIN BUTTON -->
+              <button class="btn btn-primary w-100 py-2 rounded-3 fw-semibold shadow-sm" 
+              [disabled]="loginForm.invalid">
+                Login
+              </button>
+            </form>
+
+            <!-- HELP -->
+            <div class="text-center mt-5">
+
+              <div class="d-flex align-items-center justify-content-between gap-2 mb-3">
+                <hr class="flex-grow-1 m-0">
+                <p class=" m-0 text-body-secondary">Need Help</p>
+                <hr class="flex-grow-1 m-0">
+              </div>
+              <p class="text-body-secondary">Contact
+                <a href="#" class="text-decoration-none fw-semibold text-primary-emphasis">Administrator</a>
+              </p>
             </div>
           </div>
-
-          <div class="mb-4">
-            <label for="password" class="form-label fw-semibold text-primary-emphasis">
-              Password
-            </label>
-
-            <div class="input-group">
-              <span class="input-group-text bg-light">
-                <i class="fa-solid fa-lock"></i>
-              </span>
-
-              <input
-                id="password"
-                type="password"
-                class="form-control p-2 px-3"
-                placeholder="Enter password"
-                formControlName = 'password'
-                required="true"
-              />
-            </div>
-          </div>
-
-          <div class="form-check mb-4">
-            <input id="remember" class="form-check-input" type="checkbox" />
-
-            <label for="remember" class="form-check-label text-body-secondary"> Remember me </label>
-          </div>
-
-          <button
-            type="submit"
-            class="btn login-btn btn-lg rounded-3 w-100 text-light fs-6 fw-semibold"
-            [disabled]="loginForm.invalid"
-          >
-            Login
-          </button>
-        </form>
-
-        <div class="mt-4">
-          <small class="text-body-secondary">
-            Need help?
-
-            <a href="#" class="text-decoration-none fw-semibold text-primary-emphasis">
-              Contact Administrator
-            </a>
-          </small>
         </div>
       </div>
     </div>

@@ -1,14 +1,12 @@
 <div class="admin-home-page">
   <div class="container py-4 px-3">
-    <h2 class="text-primary-emphasis fw-semibold mb-1">Overview</h2>
-    <p class="text-secondary mb-4">Here's a quick overview of your organization.</p>
 
     <!-- Overview Cards -->
 
     <div class="row g-4 mb-4">
       <div class="col-xl-3 col-md-6">
         <div class="card border-0 shadow-sm h-100 p-3 dashboard-card" routerLink="/admin/employee">
-          <div class="d-flex justify-content-between align-items-start">
+          <div class="d-flex justify-content-between align-items-start h-100">
             <div>
               <h6 class="text-secondary mb-2">Total Employees</h6>
 
@@ -16,10 +14,10 @@
                 {{ (employees | async)?.length }}
               </h3>
 
-              <small class="text-muted"> Employees in organization </small>
+              <small class="text-muted">  </small>
             </div>
 
-            <div class="bg-primary-subtle text-primary-emphasis rounded-3 p-3">
+            <div class="bg-primary-subtle text-primary-emphasis rounded-3 p-3 align-self-end">
               <i class="fa-solid fa-users fs-6"></i>
             </div>
           </div>
@@ -31,18 +29,16 @@
           class="card border-0 shadow-sm h-100 p-3 dashboard-card"
           routerLink="/admin/department"
         >
-          <div class="d-flex justify-content-between align-items-start">
+          <div class="d-flex justify-content-between align-items-start h-100">
             <div>
               <h6 class="text-secondary mb-2">Total Departments</h6>
 
               <h3 class="fw-semibold text-dark mb-1">
                 {{ (departments | async)?.length }}
               </h3>
-
-              <small class="text-muted"> Departments in organization </small>
             </div>
 
-            <div class="bg-primary-subtle text-primary-emphasis fw-light rounded-3 p-3">
+            <div class="bg-primary-subtle text-primary-emphasis fw-light rounded-3 p-3 align-self-end">
               <i class="fa-solid fa-building fs-6"></i>
             </div>
           </div>
@@ -51,18 +47,16 @@
 
       <div class="col-xl-3 col-md-6">
         <div class="card border-0 shadow-sm h-100 p-3 dashboard-card" routerLink="/admin/leaves">
-          <div class="d-flex justify-content-between align-items-start">
+          <div class="d-flex justify-content-between align-items-start h-100">
             <div>
               <p class="text-secondary mb-2">Pending Leaves</p>
 
               <h3 class="fw-semibold text-dark mb-1">
                 {{ (leaves | async)?.length }}
               </h3>
-
-              <small class="text-muted text-nowrap"> Requests waiting for approval </small>
             </div>
 
-            <div class="bg-primary-subtle text-primary-emphasis fw-light rounded-3 p-3">
+            <div class="bg-primary-subtle text-primary-emphasis fw-light rounded-3 p-3 align-self-end">
               <i class="fa-solid fa-calendar-days fs-6"></i>
             </div>
           </div>
@@ -74,7 +68,7 @@
           class="card border-0 shadow-sm h-100 p-3 dashboard-card"
           routerLink="/admin/attendance"
         >
-          <div class="d-flex justify-content-between align-items-start">
+          <div class="d-flex justify-content-between align-items-start h-100">
             <div>
               <p class="text-secondary mb-2">Present Today</p>
 
@@ -82,10 +76,9 @@
                 {{ (dashboard | async)?.presentToday }}
               </h3>
 
-              <small class="text-muted"> Employees present today </small>
             </div>
 
-            <div class="bg-primary-subtle text-primary-emphasis fw-light  rounded-3 p-3">
+            <div class="bg-primary-subtle text-primary-emphasis fw-light  rounded-3 p-3 align-self-end">
               <i class="fa-solid fa-user-check fs-6"></i>
             </div>
           </div>
@@ -95,19 +88,19 @@
 
     <!-- Recent Activity -->
 
-    <div class="my-3 mt-5">
-      <h5 class="fw-semibold mb-1">Recent Activity</h5>
+    <div class=" card-header border rounded-3 rounded-bottom-0 py-3 px-4 bg-blue mt-5">
+      <p class="fs-17 fw-semibold mb-1">Recent Activity</p>
 
-      <p class="text-muted mb-0">Latest updates from your organization.</p>
+      <small class="mb-0">Latest updates from your organization.</small>
     </div>
 
-    <div class="card border-0 shadow-sm rounded-3">
+    <div class="card border-0 shadow-sm rounded-3 rounded-top-0">
       <div class="list-group list-group-flush">
 
         @for (re of (dashboard | async)?.recentEmployees; track re.id) {
           <div class="list-group-item px-3 py-3">
             <div class="d-flex align-items-center">
-              <div class="bg-primary-subtle text-primary-emphasis rounded-circle p-2">
+              <div class="bg-primary-subtle text-primary-emphasis rounded-circle circle-35">
                 <i class="fa-solid fa-user-plus"></i>
               </div>
 
@@ -127,7 +120,7 @@
         @for (rl of (dashboard | async)?.recentLeave; track rl.id) {
           <div class="list-group-item px-3 py-3">
             <div class="d-flex align-items-center">
-              <div class="bg-warning-subtle text-warning-emphasis rounded-circle p-2">
+              <div class="bg-warning-subtle text-warning-emphasis rounded-circle circle-35">
                 <i class="fa-solid fa-calendar-minus"></i>
               </div>
 

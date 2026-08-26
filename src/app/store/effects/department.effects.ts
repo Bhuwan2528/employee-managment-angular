@@ -43,9 +43,10 @@ addDepartment$ = createEffect(() =>
     ofType(DepartmentActions.addDepartment),
     mergeMap(({ request }) =>
       this.departmentService.addDepartment(request).pipe(
-        map((department) =>
-          DepartmentActions.addDepartmentSuccess({ department })
-        ),
+        map((department) =>{
+          this.toast.success('Department Added Succesfully')
+          return DepartmentActions.addDepartmentSuccess({ department })
+        }),
         catchError((error) =>
           of(
             DepartmentActions.addDepartmentFailure({
@@ -54,10 +55,7 @@ addDepartment$ = createEffect(() =>
           )
         )
       )
-    ),
-    tap(()=>{
-      this.toast.success('Designation Added Succesfully')
-    })
+    )
   )
 );
 
@@ -67,9 +65,10 @@ updateDepartment$ = createEffect(() =>
     ofType(DepartmentActions.updateDepartment),
     mergeMap(({ id, request }) =>
       this.departmentService.updateDepartment(id, request).pipe(
-        map((department) =>
-          DepartmentActions.updateDepartmentSuccess({ department })
-        ),
+        map((department) =>{
+          this.toast.success('Department Updated Succesfully')
+          return DepartmentActions.updateDepartmentSuccess({ department })
+        }),
         catchError((error) =>
           of(
             DepartmentActions.updateDepartmentFailure({
@@ -91,9 +90,10 @@ deleteDepartment$ = createEffect(() =>
     ofType(DepartmentActions.deleteDepartment),
     mergeMap(({ id }) =>
       this.departmentService.deleteDepartment(id).pipe(
-        map((department) =>
-          DepartmentActions.deleteDepartmentSuccess({ id })
-        ),
+        map((department) =>{
+          this.toast.success('Department Deleted Succesfully')
+          return DepartmentActions.deleteDepartmentSuccess({ id })
+        }),
         catchError((error) =>
           of(
             DepartmentActions.deleteDepartmentFailure({
@@ -103,9 +103,6 @@ deleteDepartment$ = createEffect(() =>
         )
       )
     ),
-    tap(()=>{
-      this.toast.success('Designation Deleted Succesfully')
-    })
   )
 );
 

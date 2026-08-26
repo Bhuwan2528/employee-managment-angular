@@ -23,13 +23,14 @@ import { AttendanceReducer } from './store/reducers/attendance.reducers';
 import { AttendanceEffects } from './store/effects/attendance.effects';
 import { salaryReducer } from './store/reducers/salary.reducers';
 import { SalaryEffects } from './store/effects/salary.effects';
+import { errorInterceptor } from './core/interceptors/error.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideHttpClient(
-      withInterceptors([authInterceptor])
+      withInterceptors([authInterceptor, errorInterceptor])
     ),
 
     provideStore({

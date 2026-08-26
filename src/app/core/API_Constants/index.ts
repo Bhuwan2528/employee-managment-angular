@@ -1,6 +1,8 @@
 export const ApiConstants = {
 
 LOGIN: 'auth/login',
+REFRESH_TOKEN: 'auth/refresh',
+LOGOUT: 'auth/logout',
 DESIGNATION: 'designations',
 DEPARTMENT: 'departments',
 EMPLOYEE: 'employees',

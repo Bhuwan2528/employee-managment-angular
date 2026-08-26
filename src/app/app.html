@@ -1,5 +1,19 @@
 <app-toast-component></app-toast-component>
+@if (isLoginPge()) {
+<app-header></app-header>
+}
 
-<router-outlet></router-outlet>
+<div class="d-flex">
 
+    @if (isLoginPge()) {
+        <app-sidebar></app-sidebar>
+    }
+    <main class="dashboard-content flex-grow-1">
+       <router-outlet></router-outlet> 
+    </main>
+    
+</div>
+
+<!-- <app-footer></app-footer> -->
 <app-global-loaders></app-global-loaders>
+

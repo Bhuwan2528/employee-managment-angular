@@ -13,6 +13,6 @@ export const updateProfileActionSuccesfully = createAction(
 
 export const updateProfileActionFaliure = createAction(
     '[proflile] profile updated succesfull',
-    props<{request: ProfileRequest}>()
+    props<{error: string}>()
 )
 

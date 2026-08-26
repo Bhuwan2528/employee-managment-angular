@@ -1,9 +1,6 @@
 <div class="admin-salary-page">
   @if (empSalary | async; as salary) {
     <div class="container py-4 px-3">
-      <!-- Heading -->
-
-      <h3 class="fw-semibold text-primary-emphasis mb-4">Employee Salary</h3>
 
       <!-- Employee Summary -->
 
@@ -61,7 +58,7 @@
             <div class="card-body">
               <small class="text-secondary"> Last Payment </small>
 
-              <h4 class="fw-bold mt-2">{{(empLastPaid|async)?.paidOn | date: 'dd MMMM'}}</h4>
+              <h4 class="fw-bold mt-2">{{((empLastPaid|async)?.paidOn | date: 'dd MMMM') ?? 'NA'}}</h4>
             </div>
           </div>
         </div>

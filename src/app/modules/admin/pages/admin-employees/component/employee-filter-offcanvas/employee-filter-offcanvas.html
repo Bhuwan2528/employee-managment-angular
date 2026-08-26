@@ -1,0 +1,78 @@
+
+<div class="offcanvas offcanvas-end rounded-start-4" id="employeSearchFilters">
+
+    <div class="offcanvas-header bg-primary-subtle rounded-top-4">
+        <div class="offcanvas-title w-100 d-flex align-items-center justify-content-between">
+            <h6>Search Employees</h6>
+            <button class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+    </div>
+
+    <div class="offcanvas-body">
+        <div class="form-group mb-3">
+            <label class="form-label text-dark">Employee Name</label>
+            <input type="text" class="form-control" placeholder="Enter Employee Name">
+        </div>
+        <div class="form-group mb-3">
+            <label class="form-label text-dark">Employee Id</label>
+            <input type="text" class="form-control" placeholder="Enter Employee Name">
+        </div>
+        <div class="form-group mb-3">
+            <label class="form-label text-dark">Employee Role</label>
+            <input type="text" class="form-control" placeholder="Enter Employee Name">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label"> Department </label>
+          <mat-form-field>
+
+            <mat-select formControlName="departmentId">
+              @for (department of departments | async; track department.id) {
+                <mat-option [value]="department.id"> {{ department.name | titlecase }} </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        
+        <div class="mb-3">
+         <label class="form-label"> Designation </label>
+          <mat-form-field>
+
+            <mat-select formControlName="designationId">
+              @for (designation of designations | async; track designation.id) {
+                <mat-option [value]="designation.id"> {{ designation.title | titlecase}} </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-group mb-3">
+            <h6>Status</h6>
+
+            <div class="d-flex justify-content-evenly align-items-center">
+                <div>
+                    <input type="radio" class="form-check-input" id="active" name="status" value="ACTIVE">
+                    <label for="active">Active</label>
+                </div>
+                <div>
+                    <input type="radio" class="form-check-input" id="active" name="status" value="INACTIVE">
+                    <label for="active">Inactive</label>
+                </div>
+                <div>
+                    <input type="radio" class="form-check-input" id="active" name="status" value="TERMINATED">
+                    <label for="active">Terminated</label>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="offcanvas-footer p-3">
+        <div class="button-group justify-content-center align-items-center d-flex gap-2">
+            <button class="btn btn-secondary py-2">Reset</button>
+            <button class="btn btn-primary py-2">Apply Filters</button>
+        </div>
+    </div>
+</div>

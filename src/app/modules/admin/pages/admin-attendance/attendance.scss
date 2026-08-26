@@ -2,7 +2,7 @@
     span{
         height: 50px;
         width: 50px;
-        background: linear-gradient(135deg, rgb(48, 117, 222), rgb(9, 45, 91));
+        background: #0d3c84;
     }
     .employee-selector{
         :host ::ng-deep{
@@ -35,16 +35,28 @@
 }
 
 .time-selctor{
-    width: 250px;
+    width: 300px;
     flex-shrink: shrink;
     flex-wrap: nowrap;
 }
 
+.filter-box {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: opacity 0.3s ease,
+}
+
+.filter-box-open {
+  max-height: 300px;
+  opacity: 1;
+  display: flex;
+}
 
 
 :host ::ng-deep {
     div.mat-mdc-select-panel {
-        max-height: fit-content !important;
+        max-height: 450px !important;
         background-color: white ;
     }
     .mat-mdc-form-field-icon-prefix > .mat-icon{
@@ -72,17 +84,32 @@
 
     /* Thumb */
     &::-webkit-scrollbar-thumb {
-      background: #9aa2ac;
+      background: #103b6f;
       border-radius: 5px;
     }
 
     /* Thumb hover */
     &::-webkit-scrollbar-thumb:hover {
-      background: #9da3ab;
+      background: #103b6f;
     }
   }
 
   .mat-mdc-form-field-subscript-wrapper{
     display: none !important;
   }
+
+    //hovering
+
+    .mat-mdc-option:focus.mdc-list-item, .mat-mdc-option.mat-mdc-option-active.mdc-list-item {
+        background: rgb(239, 245, 255);
+    }
+    
+    .mat-mdc-option.mdc-list-item{
+        border: 0.5px dashed #d1d0d0;
+        &:hover{
+            background: rgb(239, 244, 255);
+        }
+    }
+
+    
 }

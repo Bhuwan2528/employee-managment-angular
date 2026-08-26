@@ -155,3 +155,23 @@ th, td{
     }
   }
 }
+
+.else-card{
+  height: 65vh;
+}
+
+.search-boxes{
+  transition: 0.3s ease;
+  opacity: 0;
+  transform: translateX(-30px);
+  visibility: hidden;
+}
+.search-boxes.show-search-boxes {
+  display: flex !important;
+  opacity: 1;
+  transform: translateX(0);
+  visibility: visible;
+}
+input{
+  width: 180px;
+}

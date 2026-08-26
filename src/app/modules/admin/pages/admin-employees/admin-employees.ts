@@ -11,11 +11,12 @@ import { DeleteEmployeeComponent } from './component/delete-employee-component/d
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from "@angular/forms";
 import { RoleClassPipe } from '../../../../shared/pipes/role-class-pipe';
+import { EmployeeFilterOffcanvas } from "./component/employee-filter-offcanvas/employee-filter-offcanvas";
 
 
 @Component({
   selector: 'app-admin-employees',
-  imports: [TitleCasePipe, FormsModule, RoleClassPipe],
+  imports: [TitleCasePipe, FormsModule, RoleClassPipe, EmployeeFilterOffcanvas],
   templateUrl: './admin-employees.html',
   styleUrl: './admin-employees.scss',
 })
@@ -24,9 +25,12 @@ export class AdminEmployees {
   dialog = inject(MatDialog)
   store = inject(Store)
   addEmployeeData : EmployeeRequest | null = null
-  searchText = signal('')
+  searchNameText = signal('')
+  searchIdText = signal('')
+  searchRoleText = signal('')
   pageSize = signal(10)
   currentPage = signal(1)
+  showSearchBoxes = signal<boolean>(false)
 
   openAddEmployeeDialog(){
     this.dialog.open(AddEmployeeDialog, {
@@ -59,15 +63,16 @@ export class AdminEmployees {
     })
   }
 
-
   ngOnInit(){
     this.loadEmployees()
   }
 
   loadEmployees(){
-    const search = this.searchText().trim()
+    const Namesearch = this.searchNameText().trim()
+    const Idsearch = this.searchIdText().trim()
+    const Rolesearch = this.searchRoleText().trim()
 
-    if(!search){
+    if(!Namesearch && !Idsearch && !Rolesearch){
       this.store.dispatch(loadEmployees({
         page: this.currentPage(),
         limit: this.pageSize()
@@ -119,25 +124,50 @@ export class AdminEmployees {
     this.loadEmployees()
   }
 
-  filteredEmployees = computed(()=>{
-    
-    const employees = this.employees()
-    const search = this.searchText().trim().toLowerCase()
+  filteredEmployees = computed(() => {
 
-    if(!search){
-      return employees
-    }
+    const employees = this.employees();
 
-    return employees.filter((emp)=>{
-      return `${emp.firstName}`.toLowerCase().startsWith(search)||`${emp.lastName}`.toLowerCase().startsWith(search)|| `${emp.employeeCode}`.toLowerCase().startsWith(search) || `${emp.user?.role.name}`.toLocaleLowerCase().startsWith(search)
-    })
-  })
+    const nameSearch = this.searchNameText().trim().toLowerCase();
+    const idSearch = this.searchIdText().trim().toLowerCase();
+    const roleSearch = this.searchRoleText().trim().toLowerCase();
 
-  onSearch(value: string){
-    this.searchText.set(value)
+    return employees.filter(emp => {
+
+      const fullName = `${emp.firstName} ${emp.lastName}`.toLowerCase();
+      const employeeCode = `${emp.employeeCode}`.toLowerCase();
+      const role = `${emp.user?.role?.name ?? ''}`.toLowerCase();
+
+      const nameMatches = !nameSearch || fullName.startsWith(nameSearch);
+
+      const idMatches = !idSearch || employeeCode.startsWith(idSearch);
+
+      const roleMatches = !roleSearch || role.startsWith(roleSearch);
+
+      return nameMatches && idMatches && roleMatches;
+    });
+  });
+
+  onNameSearch(value: string){
+    this.searchNameText.set(value)
     this.currentPage.set(1)
-
     this.loadEmployees()
+  }
+
+  onIdSearch(value: string){
+    this.searchIdText.set(value)
+    this.currentPage.set(1)
+    this.loadEmployees()
+  }
+
+  onRoleSearch(value: string){
+    this.searchRoleText.set(value)
+    this.currentPage.set(1)
+    this.loadEmployees()
+  }
+
+  toggleSearch(){
+    this.showSearchBoxes.set(!this.showSearchBoxes())
   }
   
 }

@@ -1,40 +1,5 @@
 <div class="admin-leaves">
   <div class="container py-4 px-3">
-    <!-- Heading -->
-
-    <h3 class="fw-semibold text-primary-emphasis mb-4">Leave Requests</h3>
-
-    <!-- Toolbar -->
-
-    <div class="card border-0 shadow-sm rounded-3 mb-4">
-      <div class="card-body">
-        <div class="row g-3 align-items-center d-flex justify-content-between align-items-center">
-          <div class="col-lg-3">
-            <mat-form-field appearance="outline" class="w-100 mb-3">
-              <mat-label>Leave Type</mat-label>
-
-              <mat-select [(value)]="leaveType">
-                <mat-option value="all"> All Leaves </mat-option>
-
-                <mat-option value="CASUAL"> Casual Leave </mat-option>
-
-                <mat-option value="SICK"> Sick Leave </mat-option>
-
-                <mat-option value="PAID"> Paid Leave </mat-option>
-
-                <mat-option value="UNPAID"> Unpaid Leave </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-
-          <div class="col-lg-3 text-lg-end">
-            <span class="badge bg-warning-subtle text-warning-emphasis fs-6 px-3 py-2">
-              Pending : {{ leaves()?.length }}
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- Leave Requests + Employees on Leave -->
 
@@ -44,14 +9,28 @@
         <div class="card border-0 shadow-sm rounded-4 h-100">
           <div class="card-header bg-white border-0 px-4 pt-4 pb-3">
             <div class="d-flex justify-content-between align-items-center">
-              <div>
-                <h5 class="fw-semibold mb-1">Leave Requests</h5>
-                <small class="text-secondary"> Review and manage pending requests </small>
+              <div class="d-flex justify-content-start align-items-center">
+                <div>
+                  <h5 class="fw-semibold mb-1 d-flex align-items-start">Leave Requests ({{ leaves()?.length }})</h5>
+                  <small class="text-secondary"> Review and manage pending requests </small>
+                </div>
+                
               </div>
 
-              <span class="badge bg-warning-subtle text-warning-emphasis rounded-pill px-3 py-2">
-                {{ leaves()?.length }} Pending
-              </span>
+              <div class="col-lg-3">
+                <mat-form-field appearance="outline" class="w-100 mb-3">
+                  <mat-label>Leave Type</mat-label>
+
+                  <mat-select [(value)]="leaveType">
+                    <mat-option value="all"> All Leaves </mat-option>
+                    <mat-option value="CASUAL"> Casual Leave </mat-option>
+                    <mat-option value="SICK"> Sick Leave </mat-option>
+                    <mat-option value="PAID"> Paid Leave </mat-option>
+                    <mat-option value="UNPAID"> Unpaid Leave </mat-option>
+                  </mat-select>
+                  
+                </mat-form-field>
+              </div>
             </div>
           </div>
 
@@ -127,7 +106,7 @@
 
         @if(empLeaves(); as leave){
           <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden">
-            <div class="card-body p-4">
+            <div class="card-body p-4 h-100">
               <!-- Header -->
               <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>

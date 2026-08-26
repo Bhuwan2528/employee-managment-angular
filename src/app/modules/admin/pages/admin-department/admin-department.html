@@ -1,8 +1,5 @@
 <div class="admin-department-page">
-  <div class="container py-4 px-3">
-    <!-- Heading -->
-
-    <h3 class="fw-semibold text-primary-emphasis mb-4">Manage Departments & Designations</h3>
+  <div class="container py-4 px-4">
 
     <div class="row g-4">
       <!-- ================= Departments ================= -->
@@ -10,41 +7,42 @@
       <div class="col-lg-6 h-fit">
         <div class="card border-0 shadow-sm rounded-4 h-100">
             
-          <div class="card-header border-0 py-3">
-            <h5 class="fw-semibold mb-0">
-              <i class="fa-solid fa-building me-2 text-primary-emphasis"></i>
+          <div class="card-header border-0 d-flex justify-content-between align-items-center rounded-top-3 bg-blue">
+            <h5 class="mb-0">
+              <i class="fa-solid fa-building me-2 fw-normal text-light"></i>
               Departments
             </h5>
+
+            <button class="circle-25 btn bg-light shadow-sm text-muted rounded-2"  (click)="departmentAddToggle()">
+              <i class="fa-solid fa-plus"></i>
+            </button>
           </div>
 
-          <div class="card-body border-bottom">
-            <div class="input-group " >
-              <input type="text" class="form-control py-2 px-3" placeholder="Department Name"
-                [(ngModel)]="departmentName"
-               />
-
-              <button class="btn btn-primary px-4" (click)="addEditDepartment()">
-                <i class="fa-solid fa-plus me-2"></i>
-
-                Add
-              </button>
-            </div>
-          </div>
 
           <div class="list-group list-group-flush">
+
+            <div class="card-body border-bottom" [class.d-none]="departmentAddHide()" >
+              <div class="input-group " >
+                <input type="text" class="form-control py-2 px-3" placeholder="Department Name"
+                  [(ngModel)]="departmentName"
+                />
+
+                <button class="btn btn-primary px-4" (click)="addEditDepartment()">
+                  <i class="fa-solid fa-plus me-2"></i>
+
+                  Add
+                </button>
+              </div>
+            </div>
 
             @for (department of departments$ | async; track department.id) {
               <div class="list-group-item d-flex justify-content-between align-items-center">
                 <span class="fw-medium"> {{department.name}} </span>
 
-                <div class="d-flex gap-2">
-                  <button class="btn btn-light bg-white btn-sm shadow-sm" (click)="editDepartment(department)">
-                    <i class="fa-solid fa-pen-to-square text-warning"></i>
-                  </button>
+                <div class="d-flex">
+                    <i class="fa-solid fa-pen-to-square text-warning" (click)="editDepartment(department)" (click)="departmentAddHide.set(false)"></i>
 
-                  <button class="btn btn-light bg-white btn-sm shadow-sm" (click)="deleteDepartment(department.id)">
-                    <i class="fa-solid fa-trash text-danger"></i>
-                  </button>
+                    <i class="fa-solid fa-trash text-danger" (click)="deleteDepartment(department.id)"></i>
                 </div>
               </div>
             }
@@ -57,41 +55,40 @@
 
       <div class="col-lg-6 h-fit">
         <div class="card border-0 shadow-sm rounded-4 h-100">
-          <div class="card-header bg-white border-bottom py-3">
-            <h5 class="fw-semibold mb-0">
-              <i class="fa-solid fa-briefcase me-2 text-primary-emphasis"></i>
-
+            
+          <div class="card-header border-0 d-flex justify-content-between align-items-center rounded-top-3 bg-blue">
+            <h5 class=" mb-0">
+              <i class="fa-solid fa-briefcase me-2 text-light"></i>
               Designations
             </h5>
-          </div>
 
-          <div class="card-body border-bottom">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Designation Name"
-              [(ngModel)] = "designationName" />
-
-              <button class="btn btn-primary px-4" (click)="addEditDesignation()">
-                <i class="fa-solid fa-plus me-2"></i>
-
-                Add
-              </button>
-            </div>
+            <button class="circle-25 btn bg-light shadow-sm text-muted rounded-2" (click)="designationAddToggle()">
+              <i class="fa-solid fa-plus"></i>
+            </button>
           </div>
 
           <div class="list-group list-group-flush">
+
+            <div class="card-body border-bottom" [class.d-none]="designationAddHide()">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Designation Name"
+                [(ngModel)] = "designationName" />
+
+                <button class="btn btn-primary px-4" (click)="addEditDesignation()">
+                  <i class="fa-solid fa-plus me-2"></i>
+
+                  Add
+                </button>
+              </div>
+            </div>
 
             @for (designation of designation$ |async; track designation.id) {
               <div class="list-group-item d-flex justify-content-between align-items-center">
                 <span class="fw-medium"> {{designation.title | titlecase}} </span>
 
-                <div class="d-flex gap-2">
-                  <button class="btn btn-light bg-white btn-sm shadow-sm" (click)="editDesignation(designation)">
-                    <i class="fa-solid fa-pen-to-square text-warning"></i>
-                  </button>
-
-                  <button class="btn btn-light bg-white btn-sm shadow-sm" (click)="deleteDesignation(designation.id)">
-                    <i class="fa-solid fa-trash text-danger"></i>
-                  </button>
+                <div class="d-flex">
+                    <i class="fa-solid fa-pen-to-square text-warning " (click)="editDesignation(designation)" (click)="designationAddHide.set(false)"></i>
+                    <i class="fa-solid fa-trash text-danger" (click)="deleteDesignation(designation.id)"></i>
                 </div>
               </div>
             }

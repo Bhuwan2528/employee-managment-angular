@@ -23,6 +23,7 @@ export class AdminAttendance {
   month = signal<number>(new Date().getMonth() + 1);
   year = signal<number>(new Date().getFullYear());
   selectedEmployeeId = signal<string>('');
+  toggleFilterBoxValue = signal<boolean>(false)
 
   months = [ 1,2,3,4,5,6,7,8,9,10,11,12 ];
   years = [ 2020, 2021, 2022, 2023, 2024, 2025, 2026 ];
@@ -70,5 +71,9 @@ export class AdminAttendance {
       link.click()
       window.URL.revokeObjectURL(url)
     })
+  }
+
+  toggleFilter(){
+    this.toggleFilterBoxValue.set(!this.toggleFilterBoxValue())
   }
 }

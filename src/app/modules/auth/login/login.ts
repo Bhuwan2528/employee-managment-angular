@@ -23,6 +23,7 @@ export class Login {
   localUser = localStorage.getItem('user')
   user = signal<UserDTO | null>(this.localUser ? JSON.parse(this.localUser) : null)
   router = inject(Router)
+  showPassword = false;
 
   action$ = inject(Actions)
 

@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GlobalSpinner } from './global-spinner';
+import { EmployeeFilterOffcanvas } from './employee-filter-offcanvas';
 
-describe('GlobalSpinner', () => {
-  let component: GlobalSpinner;
-  let fixture: ComponentFixture<GlobalSpinner>;
+describe('EmployeeFilterOffcanvas', () => {
+  let component: EmployeeFilterOffcanvas;
+  let fixture: ComponentFixture<EmployeeFilterOffcanvas>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GlobalSpinner],
+      imports: [EmployeeFilterOffcanvas],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(GlobalSpinner);
+    fixture = TestBed.createComponent(EmployeeFilterOffcanvas);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

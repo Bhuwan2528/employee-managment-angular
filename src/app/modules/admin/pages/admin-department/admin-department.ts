@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AsyncPipe, TitleCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -12,6 +12,8 @@ import { selectDesignation } from '../../../../store/selectors/designation.selec
 
 import { DepartmentServerResponseDto } from '../../../../core/models/department.model';
 import { DesignationServerResponseDTO } from '../../../../core/models/designation.model';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteDialog } from '../../../../core/components/delete-dialog/delete-dialog';
 
 @Component({
   selector: 'app-admin-department',
@@ -22,6 +24,7 @@ import { DesignationServerResponseDTO } from '../../../../core/models/designatio
 export class AdminDepartment implements OnInit {
 
   private readonly store = inject(Store);
+  dialog = inject(MatDialog)
 
   // ================= Department =================
 
@@ -35,6 +38,9 @@ export class AdminDepartment implements OnInit {
 
   departments$ = this.store.select(selectDepartments);
   designation$ = this.store.select(selectDesignation);
+
+  departmentAddHide = signal<boolean>(true)
+  designationAddHide = signal<boolean>(true)
 
   ngOnInit(): void {
     this.store.dispatch(loadDepartments());
@@ -114,7 +120,25 @@ export class AdminDepartment implements OnInit {
   }
 
   deleteDesignation(id: string): void {
-    this.store.dispatch(deleteDesignation({ id }));
+
+    const dialogRef = this.dialog.open(DeleteDialog)
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result == true){
+        this.store.dispatch(deleteDesignation({ id }));
+      }
+    })
+
   }
+
+
+  departmentAddToggle(){
+    this.departmentAddHide.set(!this.departmentAddHide())
+  }
+
+  designationAddToggle(){
+    this.designationAddHide.set(!this.designationAddHide())
+  }
+
 
 }

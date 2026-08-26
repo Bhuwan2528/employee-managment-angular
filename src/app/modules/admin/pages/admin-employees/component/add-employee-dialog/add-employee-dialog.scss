@@ -1,8 +1,17 @@
-.form-container{
-    width: 500px;
+.card{
+    max-width: 500px;
+    border-radius: 10px !important;
 }
 input{
     font-size: 15px !important;
+}
+
+span{
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 :host ::ng-deep {
@@ -74,4 +83,46 @@ input{
     .mat-pseudo-checkbox-minimal.mat-pseudo-checkbox-checked::after {
         color: rgb(5, 47, 105);
     }
+
+    //hovering
+
+    .mat-mdc-option:focus.mdc-list-item, .mat-mdc-option.mat-mdc-option-active.mdc-list-item {
+        background: rgb(239, 245, 255);
+    }
+    
+    .mat-mdc-option.mdc-list-item{
+        &:hover{
+            background: rgb(239, 244, 255);
+        }
+    }
+
+
+    //scrollbar
+
+
+  .mat-mdc-select-panel {
+    overflow-y: auto;
+
+    /* Scrollbar width */
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    /* Thumb */
+    &::-webkit-scrollbar-thumb {
+      background: #0e3569;
+      border-radius: 5px;
+    }
+
+    /* Thumb hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: #0e3569;
+    }
+  }
+
 }

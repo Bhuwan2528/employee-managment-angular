@@ -15,8 +15,21 @@ export class AuthService {
     private readonly baseURL = environment.apiUrl;
 
     login(request : LoginRequest): Observable<LoginServerResponseDTO> {
-
         return this.http.post<LoginServerResponseDTO>( `${this.baseURL}${ApiConstants.LOGIN}`, request  );
     }
 
+    refreshToken(){
+        return this.http.post(`${this.baseURL}${ApiConstants.REFRESH_TOKEN}`, {})
+    }
+
+    setTokenRefresh(){
+        setInterval(()=>{
+            this.refreshToken().subscribe( response => console.log("TOKEN REFRESHED", response ) )
+        }, 10000)
+    }
+
+    logout(){
+        return this.http.post(`${this.baseURL}${ApiConstants.LOGOUT}`, {})
+    }
 }
+

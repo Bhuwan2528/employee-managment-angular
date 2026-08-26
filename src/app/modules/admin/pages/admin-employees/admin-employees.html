@@ -1,35 +1,66 @@
 <div class="admin-employee-page">
-  <div class="container py-4">
-    <!-- Heading -->
-
-    <h3 class="fw-semibold text-primary-emphasis mb-4">Employee List</h3>
+  <div class="container py-4 px-3">
 
     <!-- Toolbar -->
 
-    <div class="card border-0 shadow-sm rounded-3 mb-4">
-      <div class="card-body">
-        <div class="row g-3 align-items-center">
-          <div class="col-lg-5 col-md-6">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Search by Employee Name, Id or Role"
-              [(ngModel)]="searchText"
-              (ngModelChange)="onSearch($event)"
-            />
+    <div class="card border-0 shadow-sm rounded-3 mb-4 rounded-4 ">
+      <div class="card-header border-0 bg-white shadow-sm rounded-4">
+        <div class="d-flex justify-content-between align-items-center gap-3">
+
+          <div class=" d-flex justify-content-end align-items-center gap-5">
+              <h4 class="text-primary-emphasis fw-semibold text-nowrap m-0 me-5">Employee List</h4>
+
+              <div class="d-none justify-content-center align-items-center gap-2 search-boxes"
+              [class.show-search-boxes]="showSearchBoxes()" >
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Employee Name"
+                  [(ngModel)]="searchNameText"
+                  (ngModelChange)="onNameSearch($event)"
+                />
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Employee Id"
+                  [(ngModel)]="searchIdText"
+                  (ngModelChange)="onIdSearch($event)"
+                />
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Employee Role"
+                  [(ngModel)]="searchRoleText"
+                  (ngModelChange)="onRoleSearch($event)"
+                />
+              </div>
           </div>
 
-          <div class="col-lg-7 col-md-6 text-md-end">
-            <button class="btn btn-primary" (click)="openAddEmployeeDialog()">
+          <div class="d-flex align-items-center justify-content-center gap-2">
+
+            <span class="bg-white border shadow-sm rounded-3 flex-shrink-0 circle-35"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#employeSearchFilters"
+            >
+              <i class="fa-solid fa-magnifying-glass text-primary-emphasis fs-6"></i>
+            </span>  
+
+            <app-employee-filter-offcanvas></app-employee-filter-offcanvas>
+
+            <button class="btn btn-primary flex-shrink-0" (click)="openAddEmployeeDialog()">
               <i class="fa-solid fa-plus"></i>
               Add Employee
             </button>
+
           </div>
+
         </div>
       </div>
     </div>
 
     <!-- Employee Table -->
+
+    @if(filteredEmployees().length > 0){
 
     <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
       <!-- Table -->
@@ -68,7 +99,7 @@
 
                 <td><span class="role-badge rounded-pill py-2"
                   [class]="employee.user?.role.name | roleClass"
-                  >{{(employee.user?.role.name) ?? 'Staff Member'}}</span></td>
+                  >{{(employee.user?.role.name) ? (employee.user?.role.name | titlecase) : 'Staff Member'}}</span></td>
 
                 <td>{{ employee.department?.name }}</td>
 
@@ -202,5 +233,20 @@
         </div>
       </div>
     </div>
+
+    }@else {
+
+    <div class=" else-card d-flex flex-column justify-content-center align-items-center text-center py-5 px-3 bg-white rounded-4 shadow-sm">
+
+      <div class="d-flex justify-content-center align-items-center rounded-circle bg-primary-subtle text-primary-emphasis mb-3"
+        style="width: 64px; height: 64px;" >
+        <i class="fa-solid fa-user-xmark fs-3"></i>
+      </div>
+      <h4 class="fw-semibold text-dark mb-2"> Employee does not Exists  </h4>
+      <p class="text-secondary mb-0">Choose an different employee from the dropdown above or filters<br> to view their attendance records.</p>
+
+      </div>
+
+    }
   </div>
 </div>

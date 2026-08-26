@@ -8,14 +8,14 @@ import { addEmployee, loadEmployees, updateEmployee } from '../../../../../../st
 import { FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { selectDesignation } from '../../../../../../store/selectors/designation.selector';
 import { selectDepartments } from '../../../../../../store/selectors/department.selectors';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, TitleCasePipe } from '@angular/common';
 import { loadDesignation } from '../../../../../../store/actions/designation.actions';
 import { loadDepartments } from '../../../../../../store/actions/deapartment.actions';
 import { ToastService } from '../../../../../../core/services/toast.service';
 
 @Component({
   selector: 'app-add-employee-dialog',
-  imports: [MatFormField, MatSelect, MatOption, MatLabel, AsyncPipe, ReactiveFormsModule],
+  imports: [MatFormField, MatSelect, MatOption, MatLabel, AsyncPipe, ReactiveFormsModule, TitleCasePipe],
   templateUrl: './add-employee-dialog.html',
   styleUrl: './add-employee-dialog.scss',
 })

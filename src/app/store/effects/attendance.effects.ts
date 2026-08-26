@@ -3,6 +3,7 @@ import * as AttendanceActions from '../actions/attendance.actions'
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { AttendanceService } from "../../core/services/attendance.service";
 import { catchError, map, mergeMap, of } from "rxjs";
+import { ToastService } from "../../core/services/toast.service";
 
 @Injectable({
     providedIn: 'root'
@@ -12,15 +13,17 @@ export class AttendanceEffects{
 
     action$ = inject(Actions)
     attendanceService = inject(AttendanceService)
+    toast = inject(ToastService)
 
     checkin$ = createEffect(()=>
         this.action$.pipe(
             ofType(AttendanceActions.checkin),
             mergeMap(()=>
                 this.attendanceService.checkin().pipe(
-                    map((attendance)=>
-                        AttendanceActions.checkinSuccesfully({attendance})
-                    ),
+                    map((attendance)=>{
+                        this.toast.success('Checked In')
+                        return AttendanceActions.checkinSuccesfully({attendance})
+                    }),
                     catchError((error)=>
                         of(AttendanceActions.checkinFaliure({error: error.error?.message ?? 'something went wrong'}))
                     )
@@ -34,9 +37,10 @@ export class AttendanceEffects{
             ofType(AttendanceActions.checkout),
             mergeMap(()=>
                 this.attendanceService.checkout().pipe(
-                    map((attendance)=>
-                        AttendanceActions.checkoutSuccesfully({attendance})
-                    ),
+                    map((attendance)=>{
+                        this.toast.success('Checked Out')
+                       return AttendanceActions.checkoutSuccesfully({attendance})
+                    }),
                     catchError((error)=>
                         of(AttendanceActions.checkoutFaliure({error: error.error?.message ?? 'something went wrong'}))
                     )
@@ -83,9 +87,10 @@ export class AttendanceEffects{
             ofType(AttendanceActions.downloadFile),
             mergeMap(({empId})=>
                 this.attendanceService.downloadFile(empId).pipe(
-                    map((file)=>
-                        AttendanceActions.downloadFileSuccesfully({file})
-                    )
+                    map((file)=>{
+                        this.toast.success('Attendance File Downloaded')
+                       return AttendanceActions.downloadFileSuccesfully({file})
+                    })
                 )
             ),
             catchError((error)=>

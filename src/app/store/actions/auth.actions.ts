@@ -16,3 +16,20 @@ export const loginError = createAction(
   '[login] login faliure',
   props<{error: string}>()
 )
+
+
+// ===========================LOGOUT===================================
+
+
+
+export const logoutLoaded = createAction(
+  '[logout] logout loaded'
+)
+
+export const logoutSuccess = createAction(
+  '[logout] logout succesfull'
+)
+
+export const logoutError = createAction(
+  '[logout] logout faliure'
+)

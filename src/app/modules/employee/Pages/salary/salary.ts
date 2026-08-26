@@ -38,28 +38,6 @@ export class Salary {
     });
   }
 
-  // downloadExcel() {
-  //   this.empSalary.subscribe((salary) => {
-
-  //     const data = salary.map((item) => ({
-  //       'Month': `${this.getMonthName(item.month)} ${item.year}`,
-  //       'Basic': item.basic,
-  //       'Deductions': item.deductions,
-  //       'Allowances': item.allowances,
-  //       'Net Pay': item.netPay,
-  //       'Status': 'Paid'
-  //     }));
-
-  //     const worksheet = XLSX.utils.json_to_sheet(data);
-
-  //     const workbook = XLSX.utils.book_new();
-
-  //     XLSX.utils.book_append_sheet(workbook, worksheet, 'Salary');
-
-  //     XLSX.writeFile(workbook, `${salary[0].employee.firstName} Salary Report.xlsx`);
-  //   });
-  // }
-
   downloadSalary(empId: string){
     this.store.dispatch(DownloadEmployeeSalary({empId}))
   }

@@ -1,0 +1,32 @@
+header{
+    position: sticky;
+    top: 0px;
+    left: 0px;
+    z-index: 100;
+}
+
+.blue-circle {
+  width: 14px;
+  height: 14px;
+  background: rgb(0, 43, 97);
+}
+
+small {
+  font-size: 12px;
+}
+
+.profile-image img {
+  height: 50px;
+  width: 50px;
+}
+
+.online-status {
+  width: 10px;
+  height: 10px;
+  background: #1cb354;
+  border: 2px solid white;
+  border-radius: 50%;
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
+}

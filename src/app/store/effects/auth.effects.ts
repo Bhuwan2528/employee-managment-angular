@@ -27,7 +27,10 @@ export class AuthEffects{
                         localStorage.setItem('user', JSON.stringify(userDetail.user));
                     }),
 
-                    map((userDetail)=> AuthActions.loginSuccess({userDetail})),
+                    map((userDetail)=>{ 
+                        this.authService.setTokenRefresh()
+                        return AuthActions.loginSuccess({userDetail})
+                    }),
                     catchError((error)=>
                         of(AuthActions.loginError({ error: error.error?.message ?? 'something Went Wrong'}))
                     )
@@ -35,4 +38,18 @@ export class AuthEffects{
             )
         )
 )
+
+    loadLogout$ = createEffect(()=>
+        this.action$.pipe(
+            ofType(AuthActions.logoutLoaded),
+            mergeMap(()=>
+                this.authService.logout().pipe(
+                    map(()=>{
+                        localStorage.clear();
+                        return AuthActions.logoutSuccess()
+                    })
+                )
+            )
+        )
+    )
 }
