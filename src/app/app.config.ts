@@ -25,13 +25,16 @@ import { AttendanceEffects } from './store/effects/attendance.effects';
 import { salaryReducer } from './store/reducers/salary.reducers';
 import { SalaryEffects } from './store/effects/salary.effects';
 import { errorInterceptor } from './core/interceptors/error.interceptor';
+import { tokenRefreshInterceptor } from './core/interceptors/token-refresh.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideHttpClient(
-      withInterceptors([authInterceptor, errorInterceptor])
+      // tokenRefreshInterceptor is last so it sees a 401 before errorInterceptor's
+      // toast does -- it gets first chance to silently refresh and retry.
+      withInterceptors([authInterceptor, errorInterceptor, tokenRefreshInterceptor])
     ),
 
     provideStore({
