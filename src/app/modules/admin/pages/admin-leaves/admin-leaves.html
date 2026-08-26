@@ -42,7 +42,7 @@
                   <div class="col-md-7">
                     <div class="d-flex align-items-center">
                       <div
-                        class="rounded-circle bg-primary-subtle text-primary-emphasis fw-semibold d-flex justify-content-center align-items-center flex-shrink-0"
+                        class="rounded-circle bg-sky-blue text-primary-emphasis fw-semibold d-flex justify-content-center align-items-center flex-shrink-0"
                         style="width: 46px; height: 46px"
                       >
                         {{ leave.employee.firstName[0] }}{{ leave.employee.lastName[0] }}
@@ -70,7 +70,7 @@
                   <!-- Days -->
                   <div class="col-md-2 text-center mt-3 mt-md-0">
                     <span
-                      class="badge rounded-pill px-3 py-2 bg-primary-subtle text-primary-emphasis"
+                      class="badge rounded-pill px-3 py-2 bg-sky-blue text-primary-emphasis"
                     >
                       {{ getDays(leave.startDate, leave.endDate) }} Days
                     </span>
@@ -122,7 +122,7 @@
               <!-- Employee -->
                @for (leave of empLeaves(); track leave.id) {                  
                 <div class="employee-leave-item">
-                  <div class="employee-avatar bg-primary-subtle text-primary-emphasis">{{leave.employee.firstName[0]}}{{leave.employee.lastName[0]}}</div>
+                  <div class="employee-avatar bg-sky-blue text-primary-emphasis">{{leave.employee.firstName[0]}}{{leave.employee.lastName[0]}}</div>
 
                   <div class="employee-info">
                     <div class="fw-semibold">{{leave.employee.firstName}} {{leave.employee.lastName}}</div>
@@ -140,7 +140,7 @@
 
                   <!-- Icon Circle -->
                   <div
-                    class="rounded-circle bg-primary-subtle text-primary-emphasis d-flex align-items-center justify-content-center mb-3"
+                    class="rounded-circle bg-sky-blue text-primary-emphasis d-flex align-items-center justify-content-center mb-3"
                     style="width: 64px; height: 64px;"
                   >
                     <i class="fa-solid fa-user-check fs-4"></i>

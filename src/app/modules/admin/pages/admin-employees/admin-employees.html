@@ -4,37 +4,10 @@
     <!-- Toolbar -->
 
     <div class="card border-0 shadow-sm rounded-3 mb-4 rounded-4 ">
-      <div class="card-header border-0 bg-white shadow-sm rounded-4">
+      <div class="card-header border-0 bg-sky-blue py-3 px-4 rounded-4">
         <div class="d-flex justify-content-between align-items-center gap-3">
 
-          <div class=" d-flex justify-content-end align-items-center gap-5">
-              <h4 class="text-primary-emphasis fw-semibold text-nowrap m-0 me-5">Employee List</h4>
-
-              <div class="d-none justify-content-center align-items-center gap-2 search-boxes"
-              [class.show-search-boxes]="showSearchBoxes()" >
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Employee Name"
-                  [(ngModel)]="searchNameText"
-                  (ngModelChange)="onNameSearch($event)"
-                />
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Employee Id"
-                  [(ngModel)]="searchIdText"
-                  (ngModelChange)="onIdSearch($event)"
-                />
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Employee Role"
-                  [(ngModel)]="searchRoleText"
-                  (ngModelChange)="onRoleSearch($event)"
-                />
-              </div>
-          </div>
+          <h4 class="text-primary-emphasis fw-semibold text-nowrap m-0 me-5">Employee List</h4>
 
           <div class="d-flex align-items-center justify-content-center gap-2">
 
@@ -45,7 +18,10 @@
               <i class="fa-solid fa-magnifying-glass text-primary-emphasis fs-6"></i>
             </span>  
 
-            <app-employee-filter-offcanvas></app-employee-filter-offcanvas>
+            <app-employee-filter-offcanvas
+              (filtersApplied)='onFiltersApplied($event)'
+              (filtersReset)="onFiltersReset()">
+            </app-employee-filter-offcanvas>
 
             <button class="btn btn-primary flex-shrink-0" (click)="openAddEmployeeDialog()">
               <i class="fa-solid fa-plus"></i>
@@ -121,7 +97,7 @@
 
                     @if (employee.status == 'ON_LEAVE') {
                       <span
-                        class="badge py-2 rounded-2 bg-primary-subtle text-primary-emphasis"
+                        class="badge py-2 rounded-2 bg-sky-blue text-primary-emphasis"
                       >
                         {{ employee.status }}
                       </span>
@@ -238,7 +214,7 @@
 
     <div class=" else-card d-flex flex-column justify-content-center align-items-center text-center py-5 px-3 bg-white rounded-4 shadow-sm">
 
-      <div class="d-flex justify-content-center align-items-center rounded-circle bg-primary-subtle text-primary-emphasis mb-3"
+      <div class="d-flex justify-content-center align-items-center rounded-circle bg-sky-blue text-primary-emphasis mb-3"
         style="width: 64px; height: 64px;" >
         <i class="fa-solid fa-user-xmark fs-3"></i>
       </div>

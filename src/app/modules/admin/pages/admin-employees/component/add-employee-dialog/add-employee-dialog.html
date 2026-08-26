@@ -1,17 +1,17 @@
 <div class="card border-0">
-  <div class="card-header d-flex justify-content-between align-items-center bg-blue py-3">
+  <div class="card-header d-flex justify-content-between align-items-center bg-sky-blue py-3">
 
     @if (data.mode == 'add') {
-        <div class="d-flex align-items-center justify-content-start gap-2">
-            <div class="circle-35 d-flex align-items-center justify-content-center bg-light text-primary-emphasis rounded-circle flex-shrink-0">
-                <i class="fa-solid fa-user-plus fs-6"></i>
+        <div class="d-flex align-items-center justify-content-start gap-10">
+            <div class="circle-35 bg-light text-primary-emphasis rounded-circle shadow-sm">
+                <i class="fa-solid fa-user-plus "></i>
             </div>
             <h5 class="m-0">Add Employee</h5>
         </div>
     }
     @else {
-        <div class="d-flex align-items-center justify-content-start gap-2">
-            <div class="circle-35 d-flex align-items-center justify-content-center bg-light text-primary-emphasis rounded-circle flex-shrink-0">
+        <div class="d-flex align-items-center justify-content-start gap-10">
+            <div class="circle-35 bg-light text-primary-emphasis rounded-circle shadow-sm">
                 <i class="fa-solid fa-user-pen fs-6"></i>
             </div>
             <h5 class="m-0">Update Employee</h5>

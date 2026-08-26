@@ -7,11 +7,10 @@ import { selectEmployeePagination, selectEmployees } from '../../../../store/sel
 import { AsyncPipe, TitleCasePipe } from '@angular/common';
 import { EmployeeDetailDialog } from './component/employee-detail-dialog/employee-detail-dialog';
 import { EmployeeRequest, EmployeeServerResponse } from '../../../../core/models/emloyee.model';
-import { DeleteEmployeeComponent } from './component/delete-employee-component/delete-employee-component';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from "@angular/forms";
 import { RoleClassPipe } from '../../../../shared/pipes/role-class-pipe';
-import { EmployeeFilterOffcanvas } from "./component/employee-filter-offcanvas/employee-filter-offcanvas";
+import { EmployeeFilterOffcanvas, EmployeeFilters } from "./component/employee-filter-offcanvas/employee-filter-offcanvas";
 
 
 @Component({
@@ -25,12 +24,17 @@ export class AdminEmployees {
   dialog = inject(MatDialog)
   store = inject(Store)
   addEmployeeData : EmployeeRequest | null = null
-  searchNameText = signal('')
-  searchIdText = signal('')
-  searchRoleText = signal('')
   pageSize = signal(10)
   currentPage = signal(1)
-  showSearchBoxes = signal<boolean>(false)
+
+  filters = signal<EmployeeFilters>({
+    employeeName: '',
+    employeeId: '',
+    employeeRole: '',
+    departmentId: '',
+    designationId: '',
+    status: ''
+  })
 
   openAddEmployeeDialog(){
     this.dialog.open(AddEmployeeDialog, {
@@ -55,24 +59,36 @@ export class AdminEmployees {
     })
   } 
 
-  openDeleteEmployeDialog(id: string){
-    this.dialog.open(DeleteEmployeeComponent, {
-      data:{
-        id
-      }
-    })
-  }
-
   ngOnInit(){
     this.loadEmployees()
   }
 
-  loadEmployees(){
-    const Namesearch = this.searchNameText().trim()
-    const Idsearch = this.searchIdText().trim()
-    const Rolesearch = this.searchRoleText().trim()
+  onFiltersApplied(filters: EmployeeFilters){
+    console.log('PARENT RECEIVED:', filters);
+    this.filters.set(filters)
+    console.log('PARENT SIGNAL:', this.filters());
+    this.loadEmployees();
+  }
 
-    if(!Namesearch && !Idsearch && !Rolesearch){
+  onFiltersReset(){
+    this.filters.set({
+      employeeName: '',
+      employeeId: '',
+      employeeRole: '',
+      departmentId: '',
+      designationId: '',
+      status: ''
+    })
+
+    this.loadEmployees();
+  }
+
+  loadEmployees(){
+
+    const filters = this.filters
+    const hasFilters = filters().employeeName || filters().employeeId || filters().employeeRole || filters().departmentId || filters().designationId || filters().status;
+
+    if(!hasFilters){
       this.store.dispatch(loadEmployees({
         page: this.currentPage(),
         limit: this.pageSize()
@@ -127,16 +143,24 @@ export class AdminEmployees {
   filteredEmployees = computed(() => {
 
     const employees = this.employees();
+    const filters = this.filters()
 
-    const nameSearch = this.searchNameText().trim().toLowerCase();
-    const idSearch = this.searchIdText().trim().toLowerCase();
-    const roleSearch = this.searchRoleText().trim().toLowerCase();
+    // Searches Ko filteration ke liye optimize krna 
+    const nameSearch = filters.employeeName.trim().toLowerCase();
+    const idSearch = filters.employeeId.trim().toLowerCase();
+    const roleSearch = filters.employeeRole.trim().toLowerCase();
 
     return employees.filter(emp => {
 
+      // Employee Server Response Signals Me se values extract krna for filteration
       const fullName = `${emp.firstName} ${emp.lastName}`.toLowerCase();
       const employeeCode = `${emp.employeeCode}`.toLowerCase();
       const role = `${emp.user?.role?.name ?? ''}`.toLowerCase();
+      const departmentId = emp.department?.id ;
+      const designationId = emp.designation?.id;
+      const status = emp.status;
+
+      //Filteration wala part
 
       const nameMatches = !nameSearch || fullName.startsWith(nameSearch);
 
@@ -144,30 +168,14 @@ export class AdminEmployees {
 
       const roleMatches = !roleSearch || role.startsWith(roleSearch);
 
-      return nameMatches && idMatches && roleMatches;
+      const departmentMatches = !filters.departmentId || departmentId === filters.departmentId;
+
+      const designationMatches = !filters.designationId || designationId === filters.designationId;
+
+      const statusMatches = !filters.status || status === filters.status
+
+      return nameMatches && idMatches && roleMatches && departmentMatches &&  designationMatches &&  statusMatches ;
     });
   });
-
-  onNameSearch(value: string){
-    this.searchNameText.set(value)
-    this.currentPage.set(1)
-    this.loadEmployees()
-  }
-
-  onIdSearch(value: string){
-    this.searchIdText.set(value)
-    this.currentPage.set(1)
-    this.loadEmployees()
-  }
-
-  onRoleSearch(value: string){
-    this.searchRoleText.set(value)
-    this.currentPage.set(1)
-    this.loadEmployees()
-  }
-
-  toggleSearch(){
-    this.showSearchBoxes.set(!this.showSearchBoxes())
-  }
   
 }

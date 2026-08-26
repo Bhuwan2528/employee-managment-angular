@@ -50,10 +50,10 @@ export class ToastComponent {
         return 'bg-warning-subtle';
 
       case 'info':
-        return 'bg-primary-subtle';
+        return 'bg-sky-blue';
 
       default:
-        return 'bg-primary-subtle';
+        return 'bg-sky-blue';
 
     }
 

@@ -1,78 +1,106 @@
 
 <div class="offcanvas offcanvas-end rounded-start-4" id="employeSearchFilters">
 
-    <div class="offcanvas-header bg-primary-subtle rounded-top-4">
+    <div class="offcanvas-header bg-sky-blue rounded-top-4">
         <div class="offcanvas-title w-100 d-flex align-items-center justify-content-between">
             <h6>Search Employees</h6>
             <button class="btn-close" data-bs-dismiss="offcanvas"></button>
         </div>
     </div>
 
-    <div class="offcanvas-body">
-        <div class="form-group mb-3">
-            <label class="form-label text-dark">Employee Name</label>
-            <input type="text" class="form-control" placeholder="Enter Employee Name">
-        </div>
-        <div class="form-group mb-3">
-            <label class="form-label text-dark">Employee Id</label>
-            <input type="text" class="form-control" placeholder="Enter Employee Name">
-        </div>
-        <div class="form-group mb-3">
-            <label class="form-label text-dark">Employee Role</label>
-            <input type="text" class="form-control" placeholder="Enter Employee Name">
-        </div>
+    <div class="offcanvas-body mt-2">
+        <form [formGroup]="filterForm">
+            <div class="form-group mb-3">
+                <label class="form-label text-dark">Employee Name</label>
 
-        <div class="mb-3">
-            <label class="form-label"> Department </label>
-          <mat-form-field>
+                <input type="text" class="form-control" 
+                placeholder="Enter Employee Name" 
+                formControlName="employeeName"
+                >
 
-            <mat-select formControlName="departmentId">
-              @for (department of departments | async; track department.id) {
-                <mat-option [value]="department.id"> {{ department.name | titlecase }} </mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
-        </div>
+            </div>
+            <div class="form-group mb-3">
+                <label class="form-label text-dark">Employee Id</label>
 
-        
-        <div class="mb-3">
-         <label class="form-label"> Designation </label>
-          <mat-form-field>
+                <input type="text" class="form-control" 
+                placeholder="Enter Employee Name"
+                formControlName="employeeId"
+                >
+                
+            </div>
+            <div class="form-group mb-3">
+                <label class="form-label text-dark">Employee Role</label>
+                <input type="text" class="form-control" 
+                placeholder="Enter Employee Name"
+                formControlName="employeeRole"
+                >
+            </div>
 
-            <mat-select formControlName="designationId">
-              @for (designation of designations | async; track designation.id) {
-                <mat-option [value]="designation.id"> {{ designation.title | titlecase}} </mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
-        </div>
+            <div class="mb-3">
+                <label class="form-label"> Department </label>
+            <mat-form-field>
 
-        <div class="form-group mb-3">
-            <h6>Status</h6>
+                <mat-select formControlName="departmentId">
+                @for (department of departments | async; track department.id) {
+                    <mat-option [value]="department.id"> {{ department.name | titlecase }} </mat-option>
+                }
+                </mat-select>
+            </mat-form-field>
+            </div>
+            
+            <div class="mb-3">
+            <label class="form-label"> Designation </label>
+            <mat-form-field>
 
-            <div class="d-flex justify-content-evenly align-items-center">
-                <div>
-                    <input type="radio" class="form-check-input" id="active" name="status" value="ACTIVE">
-                    <label for="active">Active</label>
-                </div>
-                <div>
-                    <input type="radio" class="form-check-input" id="active" name="status" value="INACTIVE">
-                    <label for="active">Inactive</label>
-                </div>
-                <div>
-                    <input type="radio" class="form-check-input" id="active" name="status" value="TERMINATED">
-                    <label for="active">Terminated</label>
+                <mat-select formControlName="designationId">
+                @for (designation of designations | async; track designation.id) {
+                    <mat-option [value]="designation.id"> {{ designation.title | titlecase}} </mat-option>
+                }
+                </mat-select>
+            </mat-form-field>
+            </div>
+
+            <div class="form-group mb-3">
+                <p class="text-dark">Status</p>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <input type="radio" 
+                        class="form-check-input me-2" 
+                        id="active" name="status" 
+                        value="ACTIVE"
+                        formControlName="status"
+                        >
+                        <label for="active">Active</label>
+                    </div>
+                    <div>
+                        <input type="radio" 
+                        class="form-check-input me-2" 
+                        id="inactive" 
+                        name="status" value="INACTIVE"
+                        formControlName="status"
+                        >
+                        <label for="inactive">Inactive</label>
+                    </div>
+                    <div>
+                        <input type="radio" 
+                        class="form-check-input me-2" 
+                        id="termainated" 
+                        name="status" value="TERMINATED"
+                        formControlName="status"
+                        >
+                        <label for="termainated">Terminated</label>
+                    </div>
                 </div>
             </div>
-        </div>
-
+        </form>
 
     </div>
 
     <div class="offcanvas-footer p-3">
         <div class="button-group justify-content-center align-items-center d-flex gap-2">
-            <button class="btn btn-secondary py-2">Reset</button>
-            <button class="btn btn-primary py-2">Apply Filters</button>
+            <button class="btn btn-secondary py-2" (click)="resetFilters()">Reset</button>
+            <button class="btn btn-primary py-2" (click)="applyFilters()">Apply Filters</button>
         </div>
     </div>
 </div>

@@ -35,7 +35,7 @@
 }
 
 .time-selctor{
-    width: 300px;
+    width: 220px;
     flex-shrink: shrink;
     flex-wrap: nowrap;
 }
@@ -55,18 +55,29 @@
 
 
 :host ::ng-deep {
+
+    .mdc-text-field--filled:not(.mdc-text-field--disabled){
+        background: white;
+        border: 1px solid #ccc;
+    }
+
     div.mat-mdc-select-panel {
         max-height: 450px !important;
         background-color: white ;
+        padding: 0;
     }
-    .mat-mdc-form-field-icon-prefix > .mat-icon{
-        padding-bottom: 2px;
+
+    .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--outlined{
+        height: 40px;
     }
-    .mat-mdc-form-field-flex {
-        height: 50px;
+    
+    .mdc-text-field--outlined .mat-mdc-form-field-infix{
+        padding-bottom: 0;
+        padding-top: 10px;
     }
-    .employee-selector .mat-mdc-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-mdc-text-field-wrapper{
-        width: auto;
+
+    .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label{
+        top: 22px;
     }
 
   .mat-mdc-select-panel {

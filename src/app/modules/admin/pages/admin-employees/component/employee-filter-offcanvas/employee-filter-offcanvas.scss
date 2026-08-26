@@ -2,20 +2,12 @@ label{
     margin-bottom: 5px;
 }
 
-input{
+.form-control{
     font-size: 14px;
     padding: 10px 12px;
 }
-
-.form-check-input{
-    border: 2px solid rgb(206, 228, 246);
-  width: 18px !important;
-  height: 18px !important;
-  min-width: 18px;
-  min-height: 18px;
-}
 .form-check-input:checked{
-    background: rgb(134, 192, 247);
+    border-color: rgb(147, 199, 249);
 }
 
 :host ::ng-deep {

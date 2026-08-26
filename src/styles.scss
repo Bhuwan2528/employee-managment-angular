@@ -158,6 +158,10 @@ body {
   color: #eee !important;
 }
 
+.bg-sky-blue{
+  background: #e6f1ff;
+}
+
 .fs-17{
   font-size: 17px;
 }
@@ -168,6 +172,7 @@ body {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  flex-shrink: 0;
 }
 
 .circle-20{
@@ -176,6 +181,7 @@ body {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  flex-shrink: 0;
 }
 
 .circle-25{
@@ -184,4 +190,8 @@ body {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+}
+
+.gap-10{
+  gap: 10px;
 }
