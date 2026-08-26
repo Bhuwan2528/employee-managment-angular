@@ -4,7 +4,6 @@ import { DownloadEmployeeSalary, DownloadEmployeeSalarySuccesfully, loadEmployee
 import { selectEmployeeLastPaid, selectEmployeeSalary } from '../../../../store/selectors/salary.selector';
 import { AsyncPipe, DatePipe, DecimalPipe, TitleCasePipe } from '@angular/common';
 import { SalaryServerResponse } from '../../../../core/models/payroll.model';
-import * as XLSX from 'xlsx';
 import { Actions, ofType } from '@ngrx/effects';
 
 @Component({
