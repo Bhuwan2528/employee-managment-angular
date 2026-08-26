@@ -91,7 +91,7 @@ body {
   font-size: 12px;
   text-wrap: nowrap;
   position: absolute;
-  bottom: calc(50% + 2px);
+  bottom: calc(100% + 4px);
   left: 100%;
   transform: translateX(-50%);
   background: #fff;
@@ -160,6 +160,10 @@ body {
 
 .bg-sky-blue{
   background: #e6f1ff;
+}
+
+.bg-light-blue{
+  background: #f4f8ff;
 }
 
 .fs-17{

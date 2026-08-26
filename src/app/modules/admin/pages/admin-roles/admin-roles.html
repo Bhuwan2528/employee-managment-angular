@@ -1,85 +1,95 @@
 <div class="admin-roles-page">
   <div class="container py-4">
+
+    <div class="card">
     <!-- Heading -->
 
-    <h3 class="fw-semibold text-primary-emphasis mb-4">Manage Roles & Admins</h3>
-
-    <div class="row g-4">
-      <!-- Left Card -->
-
-      <div class="col-lg-5">
-        <div class="card shadow-sm border-0 rounded-4 h-100">
-          <div class="card-header bg-white py-3">
-            <h5 class="fw-semibold mb-0">Create New Admin</h5>
-          </div>
-
-          <div class="card-body">
-
-            <form [formGroup]="roleForm" (ngSubmit)="addRole()">
-              <!-- Email -->
-
-              <div class="form-floating mb-3 mt-3">
-                  <input type="text" class="form-control" id="email" placeholder="Enter email" name="email" formControlName="email">
-                  <label for="email" class="fw-semibold text-muted">Email *</label>
-              </div>
-
-              <!-- Role -->
-
-              <mat-form-field appearance="outline" class="w-100 compact-select mb-3">
-                <mat-label> Role </mat-label>
-
-                <mat-select formControlName="rolename">
-                  <mat-option value="ADMIN"> Admin </mat-option>
-
-                  <mat-option value="HR"> HR </mat-option>
-                </mat-select>
-              </mat-form-field>
-
-              <button class="btn btn-primary w-100 py-2">
-                <i class="fa-solid fa-paper-plane me-2"></i>
-
-                Assign Role
-              </button>
-
-            </form>
-          </div>
-        </div>
+      <div class="card-header py-2 bg-sky-blue">
+        <h6 class="fw-medium mb-0 text-primary-emphasis">Manage Roles & Admins</h6>
       </div>
 
-      <!-- Right Card -->
+      <div class="card-body p-3 bg-transparent">
 
-      <div class="col-lg-7">
-        <div class="card shadow-sm border-0 rounded-4">
-          <div class="card-header bg-white py-3">
-            <h5 class="fw-semibold mb-0">Current Admins</h5>
-          </div>
+        <div class="row g-4">
+          <!-- Left Card -->
 
-          <div class="list-group list-group-flush">
-            <!-- Admin -->
-            @for (admin of admins(); track admin.id) {
-            <div class="list-group-item py-3">
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center">
-                  <div class="avatar rounded-circle bg-sky-blue text-primary-emphasis fw-bold">{{admin.firstName[0]}}{{admin.lastName[0]}}</div>
+          <div class="col-lg-5">
+            <div class="card shadow-sm border-0 rounded-4 h-100">
+              <div class="card-header bg-white py-3">
+                <h5 class="fw-semibold mb-0">Create New Admin</h5>
+              </div>
 
-                  <div class="ms-3">
-                    <h6 class="mb-1 fw-semibold">{{admin.firstName}} {{admin.lastName}}</h6>
+              <div class="card-body">
 
-                    <small class="text-secondary d-block"> {{admin.designation?.title | titlecase }} </small>
+                <form [formGroup]="roleForm" (ngSubmit)="addRole()">
+                  <!-- Email -->
 
-                    <small class="text-muted"> {{admin.email}} </small>
+                  <div class="form-floating mb-3 mt-3">
+                      <input type="text" class="form-control" id="email" placeholder="Enter email" name="email" formControlName="email">
+                      <label for="email" class="fw-semibold text-muted">Email *</label>
                   </div>
-                </div>
 
-                <span class="badge rounded-pill px-3 py-2 fw-medium bg-sky-blue text-primary-emphasis fw-semibold px-3 py-2">
-                  {{admin.user?.role.name | titlecase}}
-                </span>
+                  <!-- Role -->
+
+                  <mat-form-field appearance="outline" class="w-100 compact-select mb-3">
+                    <mat-label> Role </mat-label>
+
+                    <mat-select formControlName="rolename">
+                      <mat-option value="ADMIN"> Admin </mat-option>
+
+                      <mat-option value="HR"> HR </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <button class="btn btn-primary w-100 py-2">
+                    <i class="fa-solid fa-paper-plane me-2"></i>
+
+                    Assign Role
+                  </button>
+
+                </form>
               </div>
             </div>
-            }
+          </div>
+
+          <!-- Right Card -->
+
+          <div class="col-lg-7">
+            <div class="card shadow-sm border-0 rounded-4">
+              <div class="card-header bg-white py-3">
+                <h5 class="fw-semibold mb-0">Current Admins</h5>
+              </div>
+
+              <div class="list-group list-group-flush">
+                <!-- Admin -->
+                @for (admin of admins(); track admin.id) {
+                <div class="list-group-item py-3">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                      <div class="avatar rounded-circle bg-sky-blue text-primary-emphasis fw-bold">{{admin.firstName[0]}}{{admin.lastName[0]}}</div>
+
+                      <div class="ms-3">
+                        <h6 class="mb-1 fw-semibold">{{admin.firstName}} {{admin.lastName}}</h6>
+
+                        <small class="text-secondary d-block"> {{admin.designation?.title | titlecase }} </small>
+
+                        <small class="text-muted"> {{admin.email}} </small>
+                      </div>
+                    </div>
+
+                    <span class="badge rounded-pill px-3 py-2 fw-medium bg-sky-blue text-primary-emphasis fw-semibold px-3 py-2">
+                      {{admin.user?.role.name | titlecase}}
+                    </span>
+                  </div>
+                </div>
+                }
+              </div>
+            </div>
           </div>
         </div>
+
       </div>
+
     </div>
   </div>
 </div>

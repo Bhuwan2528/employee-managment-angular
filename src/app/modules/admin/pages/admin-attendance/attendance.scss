@@ -34,12 +34,6 @@
     overflow-y: auto;
 }
 
-.time-selctor{
-    width: 220px;
-    flex-shrink: shrink;
-    flex-wrap: nowrap;
-}
-
 .filter-box {
   max-height: 0;
   opacity: 0;
@@ -56,19 +50,23 @@
 
 :host ::ng-deep {
 
+    .mat-mdc-form-field{
+        background: #fcfcfc !important;
+    }
+
     .mdc-text-field--filled:not(.mdc-text-field--disabled){
         background: white;
         border: 1px solid #ccc;
     }
 
     div.mat-mdc-select-panel {
-        max-height: 450px !important;
+        max-height: 405px !important;
         background-color: white ;
         padding: 0;
     }
 
     .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--outlined{
-        height: 40px;
+        height: 45px;
     }
     
     .mdc-text-field--outlined .mat-mdc-form-field-infix{
@@ -116,10 +114,16 @@
     }
     
     .mat-mdc-option.mdc-list-item{
-        border: 0.5px dashed #d1d0d0;
+        border-bottom: 0.5px dashed #d1d0d0;
         &:hover{
             background: rgb(239, 244, 255);
         }
+    }
+
+        
+    .mat-mdc-option{
+        min-height: 45px;
+        padding: 0 10px;
     }
 
     

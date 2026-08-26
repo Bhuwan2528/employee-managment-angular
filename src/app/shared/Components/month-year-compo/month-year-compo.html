@@ -1,1 +1,20 @@
-<p>month-year-compo works!</p>
+                    <div class=" time-selctor d-flex justify-content-between align-items-center">
+
+                        <mat-form-field appearance="outline" class="month-selector" style="width: 120px;">
+                            <mat-select (selectionChange)="filterChange()" [(ngModel)]="month">
+                                @for (month of months; track $index) {
+                                    <mat-option [value]="month">{{getMonthName(month)}}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+
+                        
+                        <mat-form-field appearance="outline" class="month-selector" style="width: 100px;">                           
+                            <mat-select (selectionChange)="filterChange()" [(ngModel)]="year">
+                                @for (year of years; track $index) {
+                                    <mat-option [value]="year">{{year}}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+
+                    </div>

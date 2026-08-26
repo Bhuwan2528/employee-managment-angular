@@ -34,7 +34,7 @@ export class AuthService {
                 localStorage.setItem('accessToken', response.accessToken);
                 console.log("TOKEN REFRESHED", response );
             })
-        }, 10000)
+        }, 50000)
     }
 
     stopTokenRefresh(){

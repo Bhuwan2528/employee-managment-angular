@@ -9,10 +9,11 @@ import { AsyncPipe, DatePipe, TitleCasePipe } from '@angular/common';
 import { selectedSelectedUserList } from '../../../../store/selectors/attendance.selector';
 import { Actions, ofType } from '@ngrx/effects';
 import { FormsModule } from "@angular/forms";
+import { MonthYearCompo } from "../../../../shared/Components/month-year-compo/month-year-compo";
 
 @Component({
   selector: 'app-attendance',
-  imports: [MatSelect, MatOption, MatFormField, MatIconModule, MatLabel, AsyncPipe, DatePipe, TitleCasePipe, FormsModule],
+  imports: [MatSelect, MatOption, MatFormField, MatIconModule, MatLabel, AsyncPipe, DatePipe, TitleCasePipe, FormsModule, MonthYearCompo],
   templateUrl: './attendance.html',
   styleUrl: './attendance.scss',
 })
@@ -25,17 +26,9 @@ export class AdminAttendance {
   selectedEmployeeId = signal<string>('');
   toggleFilterBoxValue = signal<boolean>(false)
 
-  months = [ 1,2,3,4,5,6,7,8,9,10,11,12 ];
-  years = [ 2020, 2021, 2022, 2023, 2024, 2025, 2026 ];
 
   ngOnInit() {
     this.store.dispatch(loadEmployees({}));
-  }
-
-  getMonthName(month: number): string {
-    return new Date(2000, month - 1).toLocaleString('en-US', {
-      month: 'long'
-    });
   }
   
   employees = this.store.select(selectEmployees);
