@@ -1,6 +1,12 @@
 export interface LoginServerResponseDTO {
   accessToken: string;
+  refreshToken: string;
   user: UserDTO;
+}
+
+export interface RefreshTokenResponseDTO {
+  accessToken: string;
+  refreshToken: string;
 }
 
 export interface UserDTO {

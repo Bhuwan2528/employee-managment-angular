@@ -24,6 +24,7 @@ export class AuthEffects{
 
                     tap((userDetail)=>{
                         localStorage.setItem('accessToken',  userDetail.accessToken );
+                        localStorage.setItem('refreshToken',  userDetail.refreshToken );
                         localStorage.setItem('user', JSON.stringify(userDetail.user));
                     }),
 
