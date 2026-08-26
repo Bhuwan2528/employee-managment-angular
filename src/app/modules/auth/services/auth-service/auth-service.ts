@@ -15,27 +15,26 @@ export class AuthService {
     private readonly baseURL = environment.apiUrl;
 
     login(request : LoginRequest): Observable<LoginServerResponseDTO> {
-        return this.http.post<LoginServerResponseDTO>( `${this.baseURL}${ApiConstants.LOGIN}`, request );
+        return this.http.post<LoginServerResponseDTO>( `${this.baseURL}${ApiConstants.LOGIN}`, request, { withCredentials: true } );
     }
 
+    // The refresh token now lives only in an httpOnly cookie set by the backend
+    // on /auth -- the browser attaches it automatically, so nothing to read/send here.
     refreshToken(): Observable<RefreshTokenResponseDTO>{
-        const refreshToken = localStorage.getItem('refreshToken');
-        return this.http.post<RefreshTokenResponseDTO>(`${this.baseURL}${ApiConstants.REFRESH_TOKEN}`, { refreshToken })
+        return this.http.post<RefreshTokenResponseDTO>(`${this.baseURL}${ApiConstants.REFRESH_TOKEN}`, {}, { withCredentials: true })
     }
 
     setTokenRefresh(){
         setInterval(()=>{
             this.refreshToken().subscribe( response => {
                 localStorage.setItem('accessToken', response.accessToken);
-                localStorage.setItem('refreshToken', response.refreshToken);
                 console.log("TOKEN REFRESHED", response );
             })
         }, 10000)
     }
 
     logout(){
-        const refreshToken = localStorage.getItem('refreshToken');
-        return this.http.post(`${this.baseURL}${ApiConstants.LOGOUT}`, { refreshToken })
+        return this.http.post(`${this.baseURL}${ApiConstants.LOGOUT}`, {}, { withCredentials: true })
     }
 }
 
