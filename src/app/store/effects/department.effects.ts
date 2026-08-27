@@ -4,7 +4,6 @@ import { catchError, map, mergeMap, of } from 'rxjs';
 
 import * as DepartmentActions from '../actions/deapartment.actions';
 import { DepartmentService } from '../../core/services/department.service';
-import { tap } from 'rxjs';
 import { ToastService } from '../../core/services/toast.service';
 
 
@@ -44,7 +43,7 @@ addDepartment$ = createEffect(() =>
     mergeMap(({ request }) =>
       this.departmentService.addDepartment(request).pipe(
         map((department) =>{
-          this.toast.success('Department Added Succesfully')
+          this.toast.success('Department Added Successfully')
           return DepartmentActions.addDepartmentSuccess({ department })
         }),
         catchError((error) =>
@@ -77,10 +76,7 @@ updateDepartment$ = createEffect(() =>
           )
         )
       )
-    ),
-    tap(()=>{
-      this.toast.success('Designation Updated Succesfully')
-    })
+    )
   )
 );
 
@@ -91,7 +87,7 @@ deleteDepartment$ = createEffect(() =>
     mergeMap(({ id }) =>
       this.departmentService.deleteDepartment(id).pipe(
         map((department) =>{
-          this.toast.success('Department Deleted Succesfully')
+          this.toast.success('Department Deleted Successfully')
           return DepartmentActions.deleteDepartmentSuccess({ id })
         }),
         catchError((error) =>

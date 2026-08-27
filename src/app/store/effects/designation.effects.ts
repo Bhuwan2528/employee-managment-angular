@@ -38,7 +38,7 @@ export class DesignationEffects{
                 )
             ),
             tap(()=>{
-                this.toast.success('Designation Added Succesfully')
+                this.toast.success('Designation Added Successfully')
             })
         )
 
@@ -51,7 +51,7 @@ export class DesignationEffects{
             this.designationService.updateDesignation(id, request).pipe(
                 map((designation)=> DesignationActions.updateDesignationSuccesful({designation})),
                 catchError((error)=>
-                of(DesignationActions.updateDesignationFaliure({error : error.message ?? 'somethingwent wrong'})
+                of(DesignationActions.updateDesignationFaliure({error : error.error?.message ?? 'something went wrong'})
             )
             )
             )
@@ -66,7 +66,7 @@ export class DesignationEffects{
             this.designationService.deleteDesignation(id).pipe(
             map((designation)=> DesignationActions.deleteDesignationSuccesful({id})),
             catchError((error)=> 
-            of(DesignationActions.deleteDesignationFaliure({error: error.error?.message ?? 'something went wromg'})))
+            of(DesignationActions.deleteDesignationFaliure({error: error.error?.message ?? 'something went wrong'})))
             )
         )
         )

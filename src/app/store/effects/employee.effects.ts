@@ -37,10 +37,10 @@ addEmployee$ = createEffect(()=>
             this.employeeService.addEmployee(request).pipe(
                 map((employee)=> EmployeeActions.addEmployeeSuccesfully({employee})),
                 tap(()=>{
-                    this.toast.success('Employee Added Succesfully')
+                    this.toast.success('Employee Added Successfully')
                 }),
                 catchError((error)=>
-                    of (EmployeeActions.addEmployeefaliure({error: error.error?.message ?? 'something went worng'}))
+                    of (EmployeeActions.addEmployeefaliure({error: error.error?.message ?? 'something went wrong'}))
                 ),
             )
         )
@@ -55,6 +55,9 @@ updateEmployee$ = createEffect(()=>
                 map((employee)=>
                     EmployeeActions.updateEmployeeSuccesfully({employee})
                 ),
+                tap(()=>{
+                    this.toast.success('Employee Updated Successfully')
+                }),
                 catchError((error)=>
                     of(EmployeeActions.updateEmployeeFaliure({error: error.error?.message ?? 'something went wrong'}))
                 )
@@ -101,7 +104,7 @@ toastSuccessRole$ = createEffect(()=>
     this.action$.pipe(
         ofType(EmployeeActions.updateRoleEmployeeSuccesfully),
         tap(()=>
-            this.toast.success('Emplyee Role Updated')
+            this.toast.success('Employee Role Updated')
         )
     )
 )

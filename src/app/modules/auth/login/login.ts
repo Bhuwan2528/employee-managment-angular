@@ -40,7 +40,7 @@ export class Login {
   constructor(){
     this.action$.pipe(ofType(AuthActions.loginSuccess)).subscribe(login =>{
       
-      this.toast.success('Login Sucessfully')
+      this.toast.success('Login Successful')
       const role = login.userDetail.user.role.name
 
       if(role == 'ADMIN' || role == 'HR' || role == 'SUPER_ADMIN'){
@@ -57,7 +57,7 @@ export class Login {
 
   resError = this.store.select(selectAuthError).subscribe(error =>{
     if(error){
-      this.toast.error(JSON.parse(JSON.stringify(error)))
+      this.toast.error(error)
     }
   })
   
