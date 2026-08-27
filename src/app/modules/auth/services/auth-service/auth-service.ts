@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from '../../../../../Enviorment/enviorment';
 import { Observable } from 'rxjs';
 import { LoginRequest, LoginServerResponseDTO, RefreshTokenResponseDTO } from '../../model/auth.model';
@@ -12,6 +13,7 @@ import { ApiConstants } from '../../../../core/API_Constants';
 export class AuthService {
 
     private readonly http = inject(HttpClient);
+    private readonly router = inject(Router);
     private readonly baseURL = environment.apiUrl;
     private refreshIntervalId: ReturnType<typeof setInterval> | null = null;
 
@@ -30,9 +32,18 @@ export class AuthService {
     setTokenRefresh(){
         this.stopTokenRefresh();
         this.refreshIntervalId = setInterval(()=>{
-            this.refreshToken().subscribe( response => {
-                localStorage.setItem('accessToken', response.accessToken);
-                console.log("TOKEN REFRESHED", response );
+            this.refreshToken().subscribe({
+                next: (response) => {
+                    localStorage.setItem('accessToken', response.accessToken);
+                    console.log("TOKEN REFRESHED", response );
+                },
+                // The refresh token is dead (expired/revoked) -- without this the
+                // interval kept retrying every 10s forever, each failure leaking
+                // an "Invalid or expired refresh token" toast on a loop instead of
+                // ever actually ending the session.
+                error: () => {
+                    this.forceLogout();
+                },
             })
         }, 10000)
     }
@@ -42,6 +53,14 @@ export class AuthService {
             clearInterval(this.refreshIntervalId);
             this.refreshIntervalId = null;
         }
+    }
+
+    // Ends a session the server has already invalidated -- used here and by
+    // tokenRefreshInterceptor when a reactive refresh attempt also fails.
+    forceLogout(){
+        this.stopTokenRefresh();
+        localStorage.clear();
+        this.router.navigate(['/login']);
     }
 
     logout(){

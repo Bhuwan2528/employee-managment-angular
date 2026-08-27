@@ -1,6 +1,5 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, filter, switchMap, take, throwError } from 'rxjs';
 import { AuthService } from '../../modules/auth/services/auth-service/auth-service';
 
@@ -18,7 +17,6 @@ const refreshedAccessToken$ = new BehaviorSubject<string | null>(null);
 
 export const tokenRefreshInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
-  const router = inject(Router);
 
   return next(req).pipe(
     catchError((error: unknown) => {
@@ -43,9 +41,7 @@ export const tokenRefreshInterceptor: HttpInterceptorFn = (req, next) => {
           }),
           catchError((refreshError) => {
             isRefreshing = false;
-            authService.stopTokenRefresh();
-            localStorage.clear();
-            router.navigate(['/login']);
+            authService.forceLogout();
             return throwError(() => refreshError);
           }),
         );
