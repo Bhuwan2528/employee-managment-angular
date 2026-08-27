@@ -1,6 +1,6 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { BehaviorSubject, catchError, filter, switchMap, take, throwError } from 'rxjs';
+import { catchError, switchMap, throwError } from 'rxjs';
 import { AuthService } from '../../modules/auth/services/auth-service/auth-service';
 
 // The proactive 10s refresh loop (AuthService.setTokenRefresh) can miss its
@@ -10,10 +10,12 @@ import { AuthService } from '../../modules/auth/services/auth-service/auth-servi
 // fallback: on any 401 it silently refreshes once and retries the original
 // request, so a session only actually dies when the refresh token itself is
 // no longer valid.
+//
+// No dedup logic needed here for concurrent 401s -- AuthService.refreshToken
+// is itself single-flight (shareReplay), so every caller within the same
+// window (including the proactive interval) shares one real HTTP call and
+// sees the same result, rather than racing on the single-use refresh token.
 const AUTH_ENDPOINTS = ['/auth/login', '/auth/refresh', '/auth/logout'];
-
-let isRefreshing = false;
-const refreshedAccessToken$ = new BehaviorSubject<string | null>(null);
 
 export const tokenRefreshInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
@@ -26,36 +28,17 @@ export const tokenRefreshInterceptor: HttpInterceptorFn = (req, next) => {
         return throwError(() => error);
       }
 
-      if (!isRefreshing) {
-        isRefreshing = true;
-        refreshedAccessToken$.next(null);
-
-        return authService.refreshToken().pipe(
-          switchMap((response) => {
-            isRefreshing = false;
-            localStorage.setItem('accessToken', response.accessToken);
-            refreshedAccessToken$.next(response.accessToken);
-            return next(
-              req.clone({ setHeaders: { Authorization: `Bearer ${response.accessToken}` } }),
-            );
-          }),
-          catchError((refreshError) => {
-            isRefreshing = false;
-            authService.forceLogout();
-            return throwError(() => refreshError);
-          }),
-        );
-      }
-
-      // A refresh triggered by another request is already in flight -- wait
-      // for it instead of firing a second concurrent refresh (the refresh
-      // token is single-use, so a second call would just invalidate the first).
-      return refreshedAccessToken$.pipe(
-        filter((token): token is string => token !== null),
-        take(1),
-        switchMap((token) =>
-          next(req.clone({ setHeaders: { Authorization: `Bearer ${token}` } })),
-        ),
+      return authService.refreshToken().pipe(
+        switchMap((response) => {
+          localStorage.setItem('accessToken', response.accessToken);
+          return next(
+            req.clone({ setHeaders: { Authorization: `Bearer ${response.accessToken}` } }),
+          );
+        }),
+        catchError((refreshError) => {
+          authService.forceLogout();
+          return throwError(() => refreshError);
+        }),
       );
     }),
   );
