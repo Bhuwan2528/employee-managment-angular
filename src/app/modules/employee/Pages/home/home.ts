@@ -3,7 +3,7 @@ import { Component, computed, inject, OnDestroy, OnInit, signal } from '@angular
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 import { checkin, checkout, loadUserAttendance } from '../../../../store/actions/attendance.actions';
-import { selectUserAttendanceList } from '../../../../store/selectors/attendance.selector';
+import { selectAttendanceLoading, selectUserAttendanceList } from '../../../../store/selectors/attendance.selector';
 import { AttendanceServerResponse } from '../../../../core/models/attendance.model';
 
 export type TodayAttendanceStatus = 'NOT_CHECKED_IN' | 'CHECKED_IN' | 'CHECKED_OUT';
@@ -26,6 +26,16 @@ export class Home implements OnInit, OnDestroy {
   userList = toSignal(this.store.select(selectUserAttendanceList), {
     initialValue: [] as AttendanceServerResponse[],
   });
+
+  // True from before the very first dispatch until the initial fetch (or any
+  // checkin/checkout/reload) settles. Without this, canCheckIn/canCheckOut
+  // derive from an empty userList for the ~1s+ (longer on a cold backend)
+  // between mount and the real response landing, rendering a false
+  // NOT_CHECKED_IN/"Check In enabled" flash even when today is actually
+  // already checked out -- confirmed by tracing real response timing against
+  // the deployed site: the button showed enabled for ~800ms before the
+  // attendance/user response (which flips it correctly) arrived.
+  loading = toSignal(this.store.select(selectAttendanceLoading), { initialValue: true });
 
   // Drives the live "current time" clock and the live working-duration tick
   // while checked in.
@@ -54,8 +64,8 @@ export class Home implements OnInit, OnDestroy {
   checkinTime = computed(() => this.todayAttendance()?.checkIn ?? null);
   checkoutTime = computed(() => this.todayAttendance()?.checkOut ?? null);
 
-  canCheckIn = computed(() => this.status() === 'NOT_CHECKED_IN');
-  canCheckOut = computed(() => this.status() === 'CHECKED_IN');
+  canCheckIn = computed(() => !this.loading() && this.status() === 'NOT_CHECKED_IN');
+  canCheckOut = computed(() => !this.loading() && this.status() === 'CHECKED_IN');
 
   // The backend never populates workingDuration (verified against the live
   // API: it's null on every record, checked-out or not) -- duration is
