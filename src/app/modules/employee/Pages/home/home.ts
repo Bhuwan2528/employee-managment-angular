@@ -28,14 +28,14 @@ export class Home {
   constructor(){
     this.attendance.subscribe(attendance =>{
 
-      if(attendance?.checkIn){
-        localStorage.setItem('checkinTime', JSON.stringify(attendance?.checkIn ?? null));
+      if(attendance?.data[0].checkIn){
+        localStorage.setItem('checkinTime', JSON.stringify(attendance?.data[0].checkIn ?? null));
         const localcheckin = localStorage.getItem('checkinTime')
         this.checkinTime.set(localcheckin ? new Date(JSON.parse(localcheckin)) : null)
       }
       
-      if(attendance?.checkOut){
-        localStorage.setItem('checkoutTime', JSON.stringify(attendance?.checkOut ?? null));
+      if(attendance?.data[0].checkOut){
+        localStorage.setItem('checkoutTime', JSON.stringify(attendance?.data[0].checkOut ?? null));
         const localcheckout = localStorage.getItem('checkoutTime')
         this.checkoutTime.set(localcheckout ? new Date(JSON.parse(localcheckout)) : null)
       }

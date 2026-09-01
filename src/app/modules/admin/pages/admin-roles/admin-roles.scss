@@ -1,6 +1,6 @@
 .admin-roles-page {
-  min-height: 100vh;
-  background: #f8fafc;
+  min-height: 88vh;
+  overflow-y: hidden;
 
   .card {
     border: 1px solid #edf1f7;
@@ -33,10 +33,18 @@
     box-shadow: none;
 }
 
+.parent-card{
+  height: 80vh;
+}
+
 :host ::ng-deep {
 
     .mat-mdc-select-panel-above div.mat-mdc-select-panel,  div.mat-mdc-select-panel{
         background: white;
+    }
+    
+    .mat-mdc-form-field-subscript-wrapper{
+      display: none;
     }
     
 }

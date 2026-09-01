@@ -17,7 +17,7 @@ export class App {
 
   router = inject(Router)
   isLoginPge(){
-    if(this.router.url === '/login'){
+    if(this.router.url === '/login' || this.router.url === '/signup' || this.router.url === '/reset-password' ){
       return false
     }
     return true

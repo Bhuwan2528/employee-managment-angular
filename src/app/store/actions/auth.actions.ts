@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { LoginRequest, LoginServerResponseDTO } from '../../modules/auth/model/auth.model';
+import { LoginRequest, LoginServerResponseDTO, ResetPasswordRequest, SignupRequest } from '../../modules/auth/model/auth.model';
+import { ResetPassword } from '../../modules/auth/components/reset-password/reset-password';
 
 
 export const loginLoaded = createAction(
@@ -32,4 +33,44 @@ export const logoutSuccess = createAction(
 
 export const logoutError = createAction(
   '[logout] logout faliure'
+)
+
+
+
+// =======================SIGNUP==========================
+
+
+
+export const signupLoaded = createAction(
+  '[signup] signup loaded',
+  props<{request: SignupRequest}>()
+)
+
+export const signupSuccess = createAction(
+  '[signup] signup succesfull'
+)
+
+export const signupError = createAction(
+  '[signup] signup faliure',
+  props<{error: String}>()
+)
+
+
+
+// =======================RESET PASSWORD==========================
+
+
+
+export const resetPasswordLoaded = createAction(
+  '[resetPassword] resetPassword loaded',
+  props<{request: ResetPasswordRequest}>()
+)
+
+export const resetPasswordSuccess = createAction(
+  '[resetPassword] resetPassword succesfull'
+)
+
+export const resetPasswordError = createAction(
+  '[resetPassword] resetPassword faliure',
+  props<{error: String}>()
 )

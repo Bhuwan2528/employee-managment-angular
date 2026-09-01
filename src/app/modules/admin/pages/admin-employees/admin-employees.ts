@@ -2,7 +2,7 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEmployeeDialog } from './component/add-employee-dialog/add-employee-dialog';
 import { select, Store } from '@ngrx/store';
-import { loadEmployees } from '../../../../store/actions/employee.action';
+import { addBulkEmployee, loadEmployees } from '../../../../store/actions/employee.action';
 import { selectEmployeePagination, selectEmployees } from '../../../../store/selectors/employeeSelector';
 import { AsyncPipe, TitleCasePipe } from '@angular/common';
 import { EmployeeDetailDialog } from './component/employee-detail-dialog/employee-detail-dialog';
@@ -11,11 +11,14 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from "@angular/forms";
 import { RoleClassPipe } from '../../../../shared/pipes/role-class-pipe';
 import { EmployeeFilterOffcanvas, EmployeeFilters } from "./component/employee-filter-offcanvas/employee-filter-offcanvas";
+import * as XLSX from 'xlsx'
+import { ToastService } from '../../../../core/services/toast.service';
+import { MatFormField, MatOption, MatSelect } from '@angular/material/select';
 
 
 @Component({
   selector: 'app-admin-employees',
-  imports: [TitleCasePipe, FormsModule, RoleClassPipe, EmployeeFilterOffcanvas],
+  imports: [TitleCasePipe, FormsModule, RoleClassPipe, EmployeeFilterOffcanvas, MatFormField, MatSelect, MatOption],
   templateUrl: './admin-employees.html',
   styleUrl: './admin-employees.scss',
 })
@@ -23,6 +26,7 @@ export class AdminEmployees {
 
   dialog = inject(MatDialog)
   store = inject(Store)
+  toast = inject(ToastService)
   addEmployeeData : EmployeeRequest | null = null
   pageSize = signal(10)
   currentPage = signal(1)
@@ -177,5 +181,56 @@ export class AdminEmployees {
       return nameMatches && idMatches && roleMatches && departmentMatches &&  designationMatches &&  statusMatches ;
     });
   });
+
+  onFileSelected(event: Event){
+    const input = event.target as HTMLInputElement;
+
+    if(!input.files || input.files.length === 0){
+      return;
+    }
+    
+    const file = input.files[0]
+
+    file.arrayBuffer().then(buffer =>{
+
+    const workbook = XLSX.read(buffer)
+    const sheetName = workbook.SheetNames[0]
+    const worksheet  = workbook.Sheets[sheetName]
+
+    const request = XLSX.utils.sheet_to_json<EmployeeRequest>(worksheet)
+
+    request.forEach(employee => {
+      employee.dateOfJoining = new Date(employee.dateOfJoining).toISOString();
+    });
+
+    // fields checking
+
+    const fields :(keyof EmployeeRequest)[] =[
+      'firstName',
+      'lastName',
+      'email',
+      'phone',
+      'dateOfJoining',
+      'departmentId',
+      'designationId',
+      'password',
+      'basic',
+    ]
+
+    const excelFields = Object.keys(request[0] || {})
+
+    if(fields.length !== excelFields.length || !fields.every(field => excelFields.includes(field))){
+      this.toast.error('Invalid Excel Format')
+      return
+    }
+
+    this.store.dispatch(addBulkEmployee({request}))
+    
+    this.loadEmployees()
+
+    })
+
+
+  }
   
 }

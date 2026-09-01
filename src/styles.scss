@@ -163,11 +163,29 @@ body {
 }
 
 .bg-light-blue{
-  background: #f4f8ff;
+  background: #f3f8ff;
+}
+
+.bg-light-light-blue{
+  background: #fbfdff;
 }
 
 .fs-17{
   font-size: 17px;
+}
+.fs-14{
+  font-size: 14px;
+}
+
+.fs-20{
+  font-size: 19px;
+}
+
+.p-10{
+  padding: 5px;
+}
+.p-15{
+  padding: 14px;
 }
 
 .circle-35{
@@ -198,4 +216,8 @@ body {
 
 .gap-10{
   gap: 10px;
+}
+
+.p-10-15{
+  padding: 10px 15px;
 }

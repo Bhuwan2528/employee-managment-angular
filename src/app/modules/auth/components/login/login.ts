@@ -1,17 +1,18 @@
 import { Component, inject, signal } from '@angular/core';
-import { ToastService } from '../../../core/services/toast.service';
+import { ToastService } from '../../../../core/services/toast.service';
 import { FormBuilder, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from '../services/auth-service/auth-service';
-import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth-service/auth-service';
+import { Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
-import * as AuthActions from '../../../store/actions/auth.actions'
-import { selectAuthError } from '../../../store/selectors/auth.selectors';
-import { UserDTO } from '../model/auth.model';
+import * as AuthActions from '../../../../store/actions/auth.actions'
+import { selectAuthError } from '../../../../store/selectors/auth.selectors';
+import { UserDTO } from '../../model/auth.model';
 import { Actions, ofType } from '@ngrx/effects';
+import { PrintError } from '../../../../shared/utils/prinitingError';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })
@@ -24,6 +25,7 @@ export class Login {
   user = signal<UserDTO | null>(this.localUser ? JSON.parse(this.localUser) : null)
   router = inject(Router)
   showPassword = false;
+  printError = inject(PrintError)
 
   action$ = inject(Actions)
 
@@ -55,10 +57,5 @@ export class Login {
     })
   }
 
-  resError = this.store.select(selectAuthError).subscribe(error =>{
-    if(error){
-      this.toast.error(JSON.parse(JSON.stringify(error)))
-    }
-  })
   
 }

@@ -1,11 +1,11 @@
 <div class="admin-roles-page">
   <div class="container py-4">
 
-    <div class="card">
+    <div class="card parent-card">
     <!-- Heading -->
 
       <div class="card-header py-2 bg-sky-blue">
-        <h6 class="fw-medium mb-0 text-primary-emphasis">Manage Roles & Admins</h6>
+        <h6 class="fw-medium p-10 mb-0 text-primary-emphasis">Manage Roles & Admins</h6>
       </div>
 
       <div class="card-body p-3 bg-transparent">
@@ -14,9 +14,9 @@
           <!-- Left Card -->
 
           <div class="col-lg-5">
-            <div class="card shadow-sm border-0 rounded-4 h-100">
-              <div class="card-header bg-white py-3">
-                <h5 class="fw-semibold mb-0">Create New Admin</h5>
+            <div class="card shadow-sm border rounded-3 h-100">
+              <div class="card-header bg-light border border-bottom py-3">
+                <h6 class="mb-0">Create New Admin</h6>
               </div>
 
               <div class="card-body">
@@ -24,14 +24,14 @@
                 <form [formGroup]="roleForm" (ngSubmit)="addRole()">
                   <!-- Email -->
 
-                  <div class="form-floating mb-3 mt-3">
+                  <div class=" mb-4 mt-2">
                       <input type="text" class="form-control" id="email" placeholder="Enter email" name="email" formControlName="email">
-                      <label for="email" class="fw-semibold text-muted">Email *</label>
+                     
                   </div>
 
                   <!-- Role -->
 
-                  <mat-form-field appearance="outline" class="w-100 compact-select mb-3">
+                  <mat-form-field appearance="outline" class="w-100 compact-select mb-4">
                     <mat-label> Role </mat-label>
 
                     <mat-select formControlName="rolename">
@@ -55,9 +55,9 @@
           <!-- Right Card -->
 
           <div class="col-lg-7">
-            <div class="card shadow-sm border-0 rounded-4">
-              <div class="card-header bg-white py-3">
-                <h5 class="fw-semibold mb-0">Current Admins</h5>
+            <div class="card shadow-sm rounded-3 border">
+              <div class="card-header bg-light border-bottom-1 py-3">
+                <h6 class="mb-0">Current Admins</h6>
               </div>
 
               <div class="list-group list-group-flush">

@@ -28,9 +28,6 @@ export const EmployeeReducer = createReducer(
     })),
 
 
-
-
-
     //=======================addEmployee==============================
 
     on(EmployeeActions.addEmployee, (state)=>({
@@ -116,6 +113,27 @@ export const EmployeeReducer = createReducer(
     on(EmployeeActions.updateRoleEmployeeFaliure, (state, {error})=>({
         ...state,
         loading: false,
+        error
+    })),
+
+
+    //=======================addBulkEmployee==============================
+
+    on(EmployeeActions.addBulkEmployee, (state)=>({
+        ...state,
+        loading: true,
+        error: null
+    })),
+
+    on(EmployeeActions.addBulkEmployeeSuccesfully, (state, {employees})=>({
+        ...state,
+        loading: false,
+        error: null,
+        employees : [...state.employees, ...employees]
+    })),
+
+    on(EmployeeActions.addBulkEmployeefaliure, (state, {error})=>({
+        ...state,
         error
     })),
 

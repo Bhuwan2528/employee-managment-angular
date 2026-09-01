@@ -1,25 +1,24 @@
 import { Routes } from '@angular/router';
-import { Login } from './modules/auth/login/login';
-import { Home } from './modules/employee/Pages/home/home';
-import { AdminAttendance } from './modules/admin/pages/admin-attendance/attendance';
-import { Leaves } from './modules/employee/Pages/leaves/leaves';
-import { Salary } from './modules/employee/Pages/salary/salary';
-import { Profile } from './modules/employee/Pages/profile/profile';
-import { AdminHome } from './modules/admin/pages/admin-home/admin-home';
-import { AdminEmployees } from './modules/admin/pages/admin-employees/admin-employees';
-import { AdminDepartment } from './modules/admin/pages/admin-department/admin-department';
-import { AdminLeaves } from './modules/admin/pages/admin-leaves/admin-leaves';
-import { AdminRoles } from './modules/admin/pages/admin-roles/admin-roles';
-import { AdminPayroll } from './modules/admin/pages/admin-payroll/admin-payroll';
+import { Login } from './modules/auth/components/login/login';
 import { authGuard } from './core/gaurds/auth-gaurd/auth-guard';
 import { roleGuard } from './core/gaurds/role-gaurd/role-gaurd';
 import { ADMIN_ROUTES } from './modules/admin/admin.routes';
 import { EMPLOYEE_ROUTES } from './modules/employee/employee.routes';
+import { Signup } from './modules/auth/components/signup/signup';
+import { ResetPassword } from './modules/auth/components/reset-password/reset-password';
 
 export const routes: Routes = [
   {
     path: 'login',
     component: Login,
+  },
+  {
+    path: 'signup',
+    component: Signup,
+  },
+  {
+    path: 'reset-password',
+    component: ResetPassword,
   },
   {
     path: '',

@@ -9,7 +9,7 @@ import { AsyncPipe, DatePipe, TitleCasePipe } from '@angular/common';
 import { selectedSelectedUserList } from '../../../../store/selectors/attendance.selector';
 import { Actions, ofType } from '@ngrx/effects';
 import { FormsModule } from "@angular/forms";
-import { MonthYearCompo } from "../../../../shared/Components/month-year-compo/month-year-compo";
+import { MonthYearCompo, monthYearInterface } from "../../../../shared/Components/month-year-compo/month-year-compo";
 
 @Component({
   selector: 'app-attendance',
@@ -40,6 +40,11 @@ export class AdminAttendance {
     this.store.dispatch(selectedUserAttendance({month, year, id }));
   }
 
+  getMonthYear(data: monthYearInterface){
+    this.month.set(data.month)
+    this.year.set(data.year)
+  }
+
   onFilterChange(){
     const month = this.month();
     const year = this.year()
@@ -48,7 +53,10 @@ export class AdminAttendance {
   }
 
 
-  employeeAttendance = this.store.select(selectedSelectedUserList);
+employeeAttendance = this.store.select(
+  (state: any) => state.attendance.selectedUserList
+);
+  
 
   downloadFile(){
     const empId = this.selectedEmployeeId()
@@ -63,6 +71,12 @@ export class AdminAttendance {
       link.download = 'Attendance Report.xlsx';
       link.click()
       window.URL.revokeObjectURL(url)
+
+
+
+  this.employeeAttendance.subscribe(value => {
+    console.log('STORE VALUE >>>', value);
+  });
     })
   }
 

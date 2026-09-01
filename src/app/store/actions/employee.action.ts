@@ -16,7 +16,7 @@ export const loadEmployeesFaliure = createAction(
     props<{error: string}>()
 )
 
-//   ---------------------addDesignation----------------------
+//   ---------------------addEployee----------------------
 
 export const addEmployee = createAction(
     '[Employees] Employe Added',
@@ -88,3 +88,22 @@ export const updateRoleEmployeeFaliure = createAction(
     '[employee] employee role update faliure',
     props<{error: string}>()
 )
+
+
+// ----------------------------bulk add users--------------------------------
+
+export const addBulkEmployee = createAction(
+    '[Bulk Employees] Employe Added',
+    props<{request: EmployeeRequest[]}>()
+)
+
+export const addBulkEmployeeSuccesfully = createAction(
+    '[Bulk employee] employee added succesfully',
+    props<{employees: EmployeeServerResponse[]}>()
+)
+
+export const addBulkEmployeefaliure = createAction(
+    '[Bulk employees] employee added succesfully',
+    props<{error: string}>()
+)
+

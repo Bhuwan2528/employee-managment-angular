@@ -47,7 +47,36 @@ export class AuthEffects{
                     map(()=>{
                         this.authService.stopTokenRefresh();
                         localStorage.clear();
+                        this.router.navigate(['/login'])
                         return AuthActions.logoutSuccess()
+                    })
+                )
+            )
+        )
+    )
+
+    loadSignup$ = createEffect(()=>
+        this.action$.pipe(
+            ofType(AuthActions.signupLoaded),
+            mergeMap(({request})=>
+                this.authService.signup(request).pipe(
+                    map(()=>{
+                        this.router.navigate(['/login'])
+                        return AuthActions.signupSuccess()
+                    })
+                )
+            )
+        )
+    )
+
+    loadResetPassword$ = createEffect(()=>
+        this.action$.pipe(
+            ofType(AuthActions.resetPasswordLoaded),
+            mergeMap(({request})=>
+                this.authService.resetPassword(request).pipe(
+                    map(()=>{
+                        this.router.navigate(['/login'])
+                        return AuthActions.resetPasswordSuccess()
                     })
                 )
             )

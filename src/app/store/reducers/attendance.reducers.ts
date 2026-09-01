@@ -13,7 +13,14 @@ export const AttendanceReducer = createReducer(
     on(AttendanceActions.checkinSuccesfully, (state, {attendance})=>({
         ...state,
         loading: false,
-        attendance
+        attendance: state.attendance 
+        ?{
+            ...state.attendance,
+            data: [attendance]
+        }
+        :{
+            data: [attendance]
+        }
     })),
 
     on(AttendanceActions.checkinFaliure, (state, {error})=>({
@@ -34,7 +41,14 @@ export const AttendanceReducer = createReducer(
     on(AttendanceActions.checkoutSuccesfully, (state, {attendance})=>({
         ...state,
         loading: false,
-        attendance
+        attendance: state.attendance 
+        ?{
+            ...state.attendance,
+            data: [attendance]
+        }
+        :{
+            data: [attendance]
+        }
     })),
 
     on(AttendanceActions.checkoutFaliure, (state, {error})=>({

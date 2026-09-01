@@ -42,7 +42,7 @@
             </div>
 
             <div class="mb-4">
-              <h1 class="fw-bold text-dark mb-2">Welcome Back</h1>
+              <h2 class="fw-bold text-dark mb-2">Welcome Back</h2>
 
               <p class="text-body-secondary lh-lg mb-0">
                 You have to Login first to access your account and employee services.
@@ -52,7 +52,7 @@
             <!-- FORM -->
             <form [formGroup]="loginForm" (ngSubmit)="login()">
               <!-- EMAIL -->
-              <div class="mb-4">
+              <div class="mb-3">
                 <label for="email" class="form-label fw-semibold"> Email </label>
 
                 <div class="input-group">
@@ -65,7 +65,7 @@
               </div>
 
               <!-- PASSWORD -->
-              <div class="mb-4">
+              <div class="mb-5">
                 <label for="password" class="form-label fw-semibold"> Password </label>
 
                 <div class="input-group">
@@ -84,11 +84,9 @@
                 </div>
               </div>
 
-              <!-- REMEMBER -->
-              <div class="form-check mb-4">
-                <input id="remember" class="form-check-input" type="checkbox" />
-                <label for="remember" class="form-check-label text-body-secondary">Remember me</label>
-              </div>
+              <p class="text-muted mt-0 mb-4 ">Don't have an Account 
+                <span class="text-primary-emphasis pointer-cursor " routerLink="/signup">SignUp</span>
+              </p>
 
               <!-- LOGIN BUTTON -->
               <button class="btn btn-primary w-100 py-2 rounded-3 fw-semibold shadow-sm" 

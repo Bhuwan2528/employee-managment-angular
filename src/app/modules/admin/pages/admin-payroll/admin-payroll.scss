@@ -6,13 +6,20 @@
   justify-content: center;
   border-radius: 10px;
   background: #eaf2ff;
-    color: #0d4fa3;
+  color: #0d4fa3;
   font-size: 13px;
   font-weight: 600;
 }
 
 th, td{
     padding: 10px 20px;
+}
+
+th{
+  padding: 15px 20px;
+  font-size: 15px;
+  font-weight: 500;
+  background: #e6f1ff;
 }
 
 .btn-primary{

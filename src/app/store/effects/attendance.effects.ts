@@ -70,9 +70,11 @@ export class AttendanceEffects{
             ofType(AttendanceActions.selectedUserAttendance),
             mergeMap(({month, year, id})=>
                 this.attendanceService.selectedUserAttendance(month, year, id).pipe(
-                    map((selectedUserList)=>
-                        AttendanceActions.selectedUserAttendanceSuccesfull({selectedUserList})
-                    ),
+                    map((selectedUserList)=>{
+
+                        console.log('EFFECT RESPONSE >>>', selectedUserList);
+                        return AttendanceActions.selectedUserAttendanceSuccesfull({selectedUserList})
+                    }),
                     catchError((error)=>
                         of(AttendanceActions.selectedUserAttendanceFaliure({error: error.error?.message ?? 'something went wrong '}))
                     )

@@ -1,0 +1,213 @@
+<div class="container-fluid vh-100 bg-light p-4">
+  <div class="container-fluid h-100 bg-white border rounded-5 shadow-sm overflow-hidden pe-3">
+    <div class="row h-100">
+
+      <!-- ================= LEFT IMAGE ================= -->
+
+      <div class="col-lg-8 d-none d-lg-block p-0 pe-3">
+        <div class="position-relative h-100 overflow-hidden rounded-5 rounded-end-0">
+          <img
+            src="https://www.rithwik.co.in/wp-content/uploads/2026/06/office-fitting-scaled.jpg"
+            class="w-100 h-100 object-fit-cover"
+            alt="EMS Office"
+          />
+
+          <div class="image-overlay"></div>
+
+          <!-- Image Content -->
+          <div class="position-absolute bottom-0 start-0 text-white p-5">
+            <div
+              class="d-flex align-items-center justify-content-center bg-white bg-opacity-25 rounded-4 mb-4"
+              style="width: 55px; height: 55px"
+            >
+              <i class="fa-solid fa-users fs-4"></i>
+            </div>
+
+            <h2 class="fw-bold mb-3">Empowering Teams,<br /> Driving Excellence </h2>
+            <p class="mb-0 opacity-75">Streamline operations, enhance productivity,<br /> and achieve more together.</p>
+
+          </div>
+        </div>
+      </div>
+
+<!-- ================= RIGHT FORM ================= -->
+
+      <div class="col-12 col-lg-4 pe-4">
+        <div class="h-100 d-flex align-items-center">
+          <div class=" h-100 mt-5 w-100 px-3 py-4 pb-0 signup-content">
+
+            <!-- Brand -->
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <span class="blue-circle rounded-circle"></span>
+              <span class="fw-bold fs-5 text-primary-emphasis">EMS</span>
+            </div>
+
+            <!-- Heading -->
+            <div class="mb-4">
+              <h4 class="fw-semibold text-dark mb-2">Create Your Account</h4>
+<!-- 
+              <p class="text-body-secondary lh-lg mb-0">
+                You have to Login first to access your account and employee services.
+              </p> -->
+            </div>
+
+            <!-- FORM -->
+            <form [formGroup]="signupForm" (ngSubmit)="signup()">
+
+              <div class="row g-3">
+
+                <!-- FIRST NAME -->
+                <div class="col-lg-6">
+                  <label for="firstName" class="form-label fw-semibold">
+                    First Name
+                  </label>
+
+                  <div class="input-group">
+                    <span class="input-group-text bg-light border-end-0">
+                      <i class="fa-solid fa-user text-secondary"></i>
+                    </span>
+
+                    <input
+                      id="firstName"
+                      type="text"
+                      class="form-control border-start-0"
+                      placeholder="Enter first name"
+                      formControlName="firstName"
+                    />
+                  </div>
+                </div>
+
+                <!-- LAST NAME -->
+                <div class="col-lg-6">
+                  <label for="lastName" class="form-label fw-semibold">
+                    Last Name
+                  </label>
+
+                  <div class="input-group">
+                    <span class="input-group-text bg-light border-end-0">
+                      <i class="fa-solid fa-user text-secondary"></i>
+                    </span>
+
+                    <input
+                      id="lastName"
+                      type="text"
+                      class="form-control border-start-0"
+                      placeholder="Enter last name"
+                      formControlName="lastName"
+                    />
+                  </div>
+                </div>
+
+                <!-- EMAIL -->
+                <div class="col-12">
+                  <label for="email" class="form-label fw-semibold">
+                    Email
+                  </label>
+
+                  <div class="input-group">
+                    <span class="input-group-text bg-light border-end-0">
+                      <i class="fa-solid fa-envelope text-secondary"></i>
+                    </span>
+
+                    <input
+                      id="email"
+                      type="email"
+                      class="form-control border-start-0"
+                      placeholder="Enter your email"
+                      formControlName="email"
+                    />
+                  </div>
+                </div>
+
+                <!-- PASSWORD -->
+                <div class="col-lg-12">
+                  <label for="password" class="form-label fw-semibold">
+                    Password
+                  </label>
+
+                  <div class="input-group">
+                    <span class="input-group-text bg-light border-end-0">
+                      <i class="fa-solid fa-lock text-secondary"></i>
+                    </span>
+
+                    <input
+                      id="password"
+                      class="form-control border-start-0 border-end-0"
+                      placeholder="Enter your password"
+                      formControlName="password"
+                      [type]="showPassword ? 'text' : 'password'"
+                    />
+
+                    <button
+                      type="button"
+                      class="btn border border-start-0 bg-white text-secondary"
+                      (click)="showPassword = !showPassword"
+                    >
+                      <i
+                        class="fa-solid"
+                        [class.fa-eye]="!showPassword"
+                        [class.fa-eye-slash]="showPassword"
+                      ></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- CONFIRM PASSWORD -->
+                <div class="col-lg-12 mb-3">
+                  <label for="confirmPassword" class="form-label fw-semibold">
+                    Confirm Password
+                  </label>
+
+                  <div class="input-group">
+                    <span class="input-group-text bg-light border-end-0">
+                      <i class="fa-solid fa-lock text-secondary"></i>
+                    </span>
+
+                    <input
+                      id="confirmPassword"
+                      class="form-control border-start-0 border-end-0"
+                      placeholder="Confirm your password"
+                      formControlName="confirmPassword"
+                      [type]="showConfirmPassword ? 'text' : 'password'"
+                    />
+
+                    <button
+                      type="button"
+                      class="btn border border-start-0 bg-white text-secondary"
+                      (click)="showConfirmPassword = !showConfirmPassword"
+                    >
+                      <i
+                        class="fa-solid"
+                        [class.fa-eye]="!showConfirmPassword"
+                        [class.fa-eye-slash]="showConfirmPassword"
+                      ></i>
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- SIGN UP BUTTON -->
+              <button
+                class="btn btn-primary w-100 py-2 rounded-3 fw-semibold shadow-sm mt-4"
+                [disabled]="signupForm.invalid"
+              >
+                Sign Up
+              </button>
+
+              <!-- LOGIN LINK -->
+              <p class="text-muted mt-3 mb-3">
+                Already have an Account
+                <span class="text-primary-emphasis pointer-cursor ms-1" routerLink="/login">
+                  Login
+                </span>
+              </p>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

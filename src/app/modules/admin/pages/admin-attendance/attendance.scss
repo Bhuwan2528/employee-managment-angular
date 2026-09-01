@@ -1,16 +1,16 @@
-.card{
-    span{
-        height: 50px;
-        width: 50px;
-        background: #0d3c84;
-    }
-    .employee-selector{
-        :host ::ng-deep{
-            .mat-mdc-text-field-wrapper{
-                width: auto;
-            }
-        }
-    }
+.table-responsive{
+    max-height: 275px;
+    overflow-y: auto;
+}
+
+.table-responsive::-webkit-scrollbar {
+    display: none; /* Chrome, Edge, Safari */
+}
+
+thead{
+    position: sticky;
+    top: 0;
+    z-index: 5;
 }
 
 .green-bg{
@@ -22,36 +22,45 @@
         padding-left: 12px;
         color: #111;
         font-weight: 500;
-        font-size: 15px;
+        font-size: 14px;
+        background: #e6f1ff;
     }
     td{
         padding-left: 12px;
     }
 
-.table-container, .card-body{
-    height: 63vh;
+.card-body{
+    height: 75vh;
     background: white;
-    overflow-y: auto;
+    overflow-y: hidden;
 }
 
-.filter-box {
-  max-height: 0;
-  opacity: 0;
-  overflow: hidden;
-  transition: opacity 0.3s ease,
+.card-height{
+    height: 58vh;
+}
+.dashboard-card{
+    border-left: 4px solid rgb(29, 76, 147) !important;
+
+    &.green-card{
+        border-left: 4px solid rgb(13, 126, 51) !important;
+    }
+
+    &.red-card{
+        border-left: 4px solid rgb(221, 59, 23) !important;
+    }
+
+    &.yellow-card{
+        border-left: 4px solid #664d03 !important;
+    }
 }
 
-.filter-box-open {
-  max-height: 300px;
-  opacity: 1;
-  display: flex;
-}
+
 
 
 :host ::ng-deep {
 
     .mat-mdc-form-field{
-        background: #fcfcfc !important;
+        background: #fff !important;
     }
 
     .mdc-text-field--filled:not(.mdc-text-field--disabled){
@@ -66,16 +75,16 @@
     }
 
     .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--outlined{
-        height: 45px;
+        height: 40px;
     }
     
     .mdc-text-field--outlined .mat-mdc-form-field-infix{
         padding-bottom: 0;
-        padding-top: 10px;
+        padding-top: 8px;
     }
 
     .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label{
-        top: 22px;
+        top: 18px;
     }
 
   .mat-mdc-select-panel {
@@ -103,7 +112,7 @@
     }
   }
 
-  .mat-mdc-form-field-subscript-wrapper{
+  .mat-mdc-form-field-subscript-wrapper, .mat-mdc-form-field .mdc-text-field--outlined .mdc-notched-outline--upgraded .mdc-floating-label--float-above{
     display: none !important;
   }
 
@@ -122,7 +131,7 @@
 
         
     .mat-mdc-option{
-        min-height: 45px;
+        min-height: 42px;
         padding: 0 10px;
     }
 

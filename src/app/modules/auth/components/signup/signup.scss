@@ -1,0 +1,28 @@
+.login-page {
+  max-height: 100vh;
+}
+
+.image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(13, 36, 85, 0.781),
+    rgba(13, 36, 85, 0.1)
+  );
+}
+
+.blue-circle {
+  width: 14px;
+  height: 14px;
+  background: rgb(16, 101, 175);
+}
+
+.input-group-text {
+  padding: 8px;
+}
+
+input {
+  font-size: 14px;
+  padding: 8px;
+}

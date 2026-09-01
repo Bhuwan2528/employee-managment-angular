@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { AttendanceServerResponse } from "../../core/models/attendance.model";
+import { AttendanceServerResponse, data } from "../../core/models/attendance.model";
 
 export const checkin = createAction(
     '[checkin] checkin Loaded'
@@ -7,7 +7,7 @@ export const checkin = createAction(
 
 export const checkinSuccesfully = createAction(
     '[checkin] checkin sucsfull',
-    props<{attendance: AttendanceServerResponse}>()
+    props<{attendance: data}>()
 )
 
 export const checkinFaliure = createAction(
@@ -25,7 +25,7 @@ export const checkout = createAction(
 
 export const checkoutSuccesfully = createAction(
     '[checkout] checkout sucsfull',
-    props<{attendance: AttendanceServerResponse}>()
+    props<{attendance: data}>()
 )
 
 export const checkoutFaliure = createAction(
@@ -42,7 +42,7 @@ export const loadUserAttendance = createAction(
 
 export const loadUserAttendanceSucccesful = createAction(
     '[user attendance list] user list succesful',
-    props<{userList: AttendanceServerResponse[]}>()
+    props<{userList: data[]}>()
 )
 
 export const loadUserAttendanceFaliure = createAction(
@@ -61,7 +61,7 @@ export const selectedUserAttendance = createAction(
 
 export const selectedUserAttendanceSuccesfull = createAction(
     '[selcetd user] selected user attendance succesful',
-    props<{selectedUserList: AttendanceServerResponse[]}>()
+    props<{selectedUserList: AttendanceServerResponse}>()
 )
 
 export const selectedUserAttendanceFaliure = createAction(

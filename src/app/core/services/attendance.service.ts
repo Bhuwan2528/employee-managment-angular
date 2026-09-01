@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { AttendanceServerResponse } from "../models/attendance.model";
+import { AttendanceServerResponse, data } from "../models/attendance.model";
 import { environment } from "../../../Enviorment/enviorment";
 import { ApiConstants } from "../API_Constants";
 import { Store } from "@ngrx/store";
@@ -18,20 +18,20 @@ export class AttendanceService{
     userAttendanceUrl = `${this.baseUrl}${ApiConstants.Attendance.ATTENDANCE_USER}`
     AdminuserAttendanceUrl = `${this.baseUrl}attendance`
 
-    checkin(): Observable<AttendanceServerResponse>{
-        return this.http.post<AttendanceServerResponse>(this.checkinUrl, {})
+    checkin(): Observable<data>{
+        return this.http.post<data>(this.checkinUrl, {})
     }
 
-    checkout(): Observable<AttendanceServerResponse>{
-        return this.http.post<AttendanceServerResponse>(this.checkOutUrl, {})
+    checkout(): Observable<data>{
+        return this.http.post<data>(this.checkOutUrl, {})
     }
 
-    userAttendance(): Observable<AttendanceServerResponse[]>{
-        return this.http.get<AttendanceServerResponse[]>(this.userAttendanceUrl)
+    userAttendance(): Observable<data[]>{
+        return this.http.get<data[]>(this.userAttendanceUrl)
     }
 
-    selectedUserAttendance(month: number, year: number, employeeId: string): Observable<AttendanceServerResponse[]>{
-        return this.http.get<AttendanceServerResponse[]>(`${this.AdminuserAttendanceUrl}`,{
+    selectedUserAttendance(month: number, year: number, employeeId: string): Observable<AttendanceServerResponse>{
+        return this.http.get<AttendanceServerResponse>(`${this.AdminuserAttendanceUrl}`,{
             params: {month, year, employeeId}
         })
     }

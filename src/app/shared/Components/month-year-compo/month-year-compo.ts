@@ -3,6 +3,11 @@ import { Component, EventEmitter, Output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatFormField, MatOption, MatSelect } from '@angular/material/select';
 
+export interface monthYearInterface{
+  month: number,
+  year: number
+}
+
 @Component({
   selector: 'app-month-year-compo',
   imports: [MatFormField, MatSelect, MatOption, CommonModule, FormsModule ],

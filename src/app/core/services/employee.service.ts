@@ -39,4 +39,8 @@ export class EmployeeServices{
     empoyeeRole(request: employeeRoleRequest){
         return this.http.patch<EmployeeServerResponse>(`${this.baseUrl}${ApiConstants.ASSIGN_ROLES}`, request,)
     }
+
+    bulkUserCreate(request: EmployeeRequest[]){
+        return this.http.post<EmployeeServerResponse[]>(`${this.baseUrl}${ApiConstants.BULK_USER_CREATE}`, {employees: request})
+    }
 }

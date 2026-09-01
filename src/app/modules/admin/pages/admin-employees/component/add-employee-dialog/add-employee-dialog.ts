@@ -38,13 +38,13 @@ export class AddEmployeeDialog {
   addEmployeeForm = this.fb.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
-    email: ['', Validators.required],
-    phone: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
     dateOfJoining: ['', Validators.required],
     departmentId: ['', Validators.required],
     designationId: ['', Validators.required],
-    password: ['', Validators.required],
-    status: [''],
+    password: ['', [Validators.required, Validators.minLength(8)]],
+    status: ['ACTIVE'],
     basic: [0, Validators.required]
   });
   
@@ -53,6 +53,10 @@ export class AddEmployeeDialog {
     this.store.dispatch(loadDepartments())
 
     if(this.data.mode === 'edit' && this.data.employee){
+
+      this.addEmployeeForm.get('password')?.clearValidators();
+      this.addEmployeeForm.get('password')?.updateValueAndValidity();
+
       this.addEmployeeForm.patchValue({
         firstName: this.data.employee.firstName,
         lastName: this.data.employee.lastName,
@@ -65,15 +69,30 @@ export class AddEmployeeDialog {
         basic: this.data.employee.basic
       })
     }
-
     
   }
 
   addEmployee(){
+    console.log('FORM VALUE:', this.addEmployeeForm.getRawValue());
+    console.log('FORM VALID:', this.addEmployeeForm.valid);
+    console.log('FORM ERRORS:', this.addEmployeeForm.errors);
     if(this.addEmployeeForm.invalid){
       return
     }
-    const request = this.addEmployeeForm.getRawValue();
+    const formVal = this.addEmployeeForm.getRawValue();
+
+    const request: EmployeeRequest = {
+      firstName: formVal.firstName,
+      lastName: formVal.lastName,
+      email: formVal.email,
+      phone: formVal.phone,
+      dateOfJoining: new Date(formVal.dateOfJoining).toISOString(),
+      departmentId: formVal.departmentId,
+      designationId: formVal.designationId,
+      password: formVal.password,
+      basic: formVal.basic
+    }
+
     this.store.dispatch(addEmployee({ request }))
     this.closeDialog();
     this.toast.success('Employee Added Succefully')
@@ -88,7 +107,7 @@ export class AddEmployeeDialog {
       firstName: formValue.firstName,
       lastName: formValue.lastName,
       phone: formValue.phone,
-      dateOfJoining: formValue.dateOfJoining,
+      dateOfJoining: new Date(formValue.dateOfJoining).toISOString(),
       departmentId: formValue.departmentId,
       designationId: formValue.designationId,
       status: formValue.status,

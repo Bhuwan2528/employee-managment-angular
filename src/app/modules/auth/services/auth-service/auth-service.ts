@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../../../Enviorment/enviorment';
 import { Observable } from 'rxjs';
-import { LoginRequest, LoginServerResponseDTO, RefreshTokenResponseDTO } from '../../model/auth.model';
+import { LoginRequest, LoginServerResponseDTO, RefreshTokenResponseDTO, ResetPasswordRequest, SignupRequest } from '../../model/auth.model';
 import { ApiConstants } from '../../../../core/API_Constants';
 
 @Injectable({
@@ -16,13 +16,13 @@ export class AuthService {
     private refreshIntervalId: ReturnType<typeof setInterval> | null = null;
 
     login(request : LoginRequest): Observable<LoginServerResponseDTO> {
-        return this.http.post<LoginServerResponseDTO>( `${this.baseURL}${ApiConstants.LOGIN}`, request, { withCredentials: true } );
+        return this.http.post<LoginServerResponseDTO>( `${this.baseURL}${ApiConstants.AUTH.LOGIN}`, request, { withCredentials: true } );
     }
 
     // The refresh token now lives only in an httpOnly cookie set by the backend
     // on /auth -- the browser attaches it automatically, so nothing to read/send here.
     refreshToken(): Observable<RefreshTokenResponseDTO>{
-        return this.http.post<RefreshTokenResponseDTO>(`${this.baseURL}${ApiConstants.REFRESH_TOKEN}`, {}, { withCredentials: true })
+        return this.http.post<RefreshTokenResponseDTO>(`${this.baseURL}${ApiConstants.AUTH.REFRESH_TOKEN}`, {}, { withCredentials: true })
     }
 
     // Guards against stacking intervals -- called both right after login and,
@@ -45,7 +45,15 @@ export class AuthService {
     }
 
     logout(){
-        return this.http.post(`${this.baseURL}${ApiConstants.LOGOUT}`, {}, { withCredentials: true })
+        return this.http.post(`${this.baseURL}${ApiConstants.AUTH.LOGOUT}`, {}, { withCredentials: true })
+    }
+
+    signup(request: SignupRequest){
+        return this.http.post(`${this.baseURL}${ApiConstants.AUTH.SIGNUP}`, request)
+    }
+
+    resetPassword(request: ResetPasswordRequest){
+        return this.http.post(`${this.baseURL}${ApiConstants.AUTH.RESET_PASSWORD}`, request)
     }
 }
 

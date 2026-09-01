@@ -106,5 +106,22 @@ toastSuccessRole$ = createEffect(()=>
     )
 )
 
+bulkAddEmployees$ = createEffect(()=>
+    this.action$.pipe(
+        ofType(EmployeeActions.addBulkEmployee),
+        mergeMap(({request})=>
+            this.employeeService.bulkUserCreate(request).pipe(
+                map((employees)=>{
+                    this.toast.success('Employees Added From File')
+                    return EmployeeActions.addBulkEmployeeSuccesfully({employees})
+                }),
+                catchError((error)=>
+                    of(EmployeeActions.addBulkEmployeefaliure({error: error && 'Something Went Wrong'}))
+                )
+            )
+        )
+    )
+)
+
 }
 

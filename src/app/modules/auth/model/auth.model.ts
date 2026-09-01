@@ -29,3 +29,17 @@ export interface LoginRequest{
     email: string;
     password: string;
 }
+
+export interface ResetPasswordRequest{
+    oldPassword: string;
+    newPassword: string;
+    confirmPassword: string;
+}
+
+export interface SignupRequest{
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+}

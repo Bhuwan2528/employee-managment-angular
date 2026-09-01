@@ -1,120 +1,214 @@
-<div class="attendance ">
-    <div class="conatiner p-3 py-2">
+<div class="attendance">
+  <div class="conatiner p-3 py-3">
+    <div class="card">
+      <div class="card-header p-10-15 bg-light-blue">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h5 class="mb-1 text-primary-emphasis">Monthly Attendance</h5>
+          </div>
 
-        <div class="card border-0 p-4 shadow-sm rounded-4 mb-4 mt-3 bg-light border border-light">
-
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h5 class="mb-0">Monthly Attendance Report</h5>
-                    <small class="text-muted m-0">Comprehensive monthly attendance tracking and analysis</small>
-                </div>
-
-                <mat-form-field appearance="outline" style="width: 300px;">
-                    <mat-label>Select Employee</mat-label>
-                    <mat-select (selectionChange)="onEmployeeChange($event.value)">
-                        @for (employee of employees| async; track employee.id) {
-                            <mat-option [value]="employee.id">{{employee.firstName}} {{employee.lastName}}</mat-option>
-                        }
-                    </mat-select>
-                </mat-form-field>
-
-                <div class=" d-flex align-items-center justify-content-center gap-3">
-
-                    <app-month-year-compo></app-month-year-compo>
-                        
-                        <button class=" btn btn-light rounded-end-3 border circle-35"
-                        (click)="downloadFile()">
-                            <i class="fa-solid fa-download text-muted fs-6"></i>
-                        </button>
-                </div>                
+          <div class="d-flex align-items-center justify-content-center gap-3">
+            <div class="month-year-wrapper">
+              <app-month-year-compo (monthYearFilter)="getMonthYear($event); onFilterChange()">
+              </app-month-year-compo>
             </div>
+          </div>
+        </div>
+      </div>
 
-            <div class="filter-box justify-content-between align-items-end mt-4"
-            [class.filter-box-open]="toggleFilterBoxValue()"
-            [class.d-none]="!toggleFilterBoxValue()">
+      <div class="card-body">
 
+        <div class="p-10-15 border rounded-3 bg-light-light-blue mb-3 d-flex justify-content-between align-items-center">
 
+            <mat-form-field appearance="outline" style="width: 260px">
+                <mat-label>Select Employee</mat-label>
+                <mat-select (selectionChange)="onEmployeeChange($event.value)">
+                @for (employee of employees | async; track employee.id) {
+                  <mat-option [value]="employee.id"
+                   >{{ employee.firstName }} {{ employee.lastName }}</mat-option
+                   >
+                  }
+                </mat-select>
+            </mat-form-field>
 
-                <div>
-                    <button class="btn btn-outline-primary py-2" (click)="downloadFile()"> <i class="fa-solid fa-download me-2"></i> Export Attendance Report</button>
-                </div>
+          
+            <div class="btn-group">
+              <button class="btn btn-sm btn-light border text-muted"><i class="fa-solid fa-maximize"></i></button>
+              <button class="btn btn-sm btn-light border text-muted"
+              (click)="downloadFile()">
+                <i class="fa-solid fa-download"></i>
+              </button>
+              <button class="btn btn-sm btn-light border text-muted"><i class="fa-solid fa-filter"></i></button>
             </div>
 
         </div>
 
-        <div class="">
-            <div class="card-body rounded-4 shadow-sm ">
-                @if (employeeAttendance | async; as AttendanceList) {
-                    @if (AttendanceList.length>0) {
-                    <div class=" table-responsive rounded-3 shadow-sm table-container">
-                    <table class="table table-bordered align-middle mb-0">
+        @if (employeeAttendance | async; as AttendanceList) {
+          <div class="row g-4 mb-4">
+            <div class="col-xl-3 col-md-6">
+              <div class="card border-0 shadow-sm h-100 p-3 dashboard-card card-blue">
+                <div class="d-flex justify-content-between align-items-start h-100">
+                  <div>
+                    <p class="text-secondary mb-2">Working Days</p>
 
-                        <thead class="table-light">
+                    <h4 class="fw-semibold text-dark mb-0">
+                      {{ AttendanceList?.summary.workingDays }}
+                    </h4>
+
+                    <small class="text-muted"> </small>
+                  </div>
+
+                  <div class="bg-sky-blue text-primary-emphasis rounded-3 p-15 align-self-end">
+                    <i class="fa-solid fa-calendar-days fs-6"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+              <div class="card border-0 shadow-sm h-100 p-3 dashboard-card green-card">
+                <div class="d-flex justify-content-between align-items-start h-100">
+                  <div>
+                    <h6 class="text-secondary mb-2">Present</h6>
+
+                    <h4 class="fw-semibold text-dark mb-0">
+                      {{ AttendanceList.summary.present }}
+                    </h4>
+                  </div>
+
+                  <div
+                    class="bg-success-subtle text-success-emphasis fw-light rounded-3 p-15 align-self-end"
+                  >
+                    <i class="fa-solid fa-user-check fs-6"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+              <div class="card border-0 shadow-sm h-100 p-3 dashboard-card red-card">
+                <div class="d-flex justify-content-between align-items-start h-100">
+                  <div>
+                    <p class="text-secondary mb-2">Absent</p>
+
+                    <h4 class="fw-semibold text-dark mb-0">
+                      {{ AttendanceList.summary.absent }}
+                    </h4>
+                  </div>
+
+                  <div class="bg-danger-subtle text-danger fw-light rounded-3 p-15 align-self-end">
+                    <i class="fa-solid fa-user-xmark fs-6"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+              <div class="card border-0 shadow-sm h-100 p-3 dashboard-card yellow-card">
+                <div class="d-flex justify-content-between align-items-start h-100">
+                  <div>
+                    <p class="text-secondary mb-2">Leaves</p>
+
+                    <h4 class="fw-semibold text-dark mb-0">
+                      {{ AttendanceList.summary.leave }}
+                    </h4>
+                  </div>
+
+                  <div
+                    class="bg-warning-subtle text-warning-emphasis fw-light rounded-3 p-3 align-self-end"
+                  >
+                    <i class="fa-solid fa-paper-plane fs-6"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+
+          <div class="border rounded-3">
+            @if (employeeAttendance | async; as AttendanceList) {
+              @if (AttendanceList.data.length) {
+                <div class="table-responsive rounded-0 shadow-sm table-container">
+                  <table class="table align-middle mb-0">
+                    <thead class="table-light">
+                      <tr>
+                        <th>Employee</th>
+                        <th>Designation</th>
+                        <th>Date</th>
+                        <th>Check In</th>
+                        <th>Check Out</th>
+                        <th>Working Duration</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      @for (attendance of AttendanceList.data; track $index) {
                         <tr>
-                            <th>Employee</th>
-                            <th>Designation</th>
-                            <th>Date</th>
-                            <th>Check In</th>
-                            <th>Check Out</th>
-                            <th>Working Duration</th>
-                            <th>Status</th>
+                          <td>
+                            {{ attendance.employee.firstName }} {{ attendance.employee.lastName }}
+                          </td>
+                          <td>{{ attendance.employee.designation?.title | titlecase }}</td>
+                          <td>{{ attendance.date | date: 'EEE, dd MMM' }}</td>
+                          <td>{{ attendance.checkIn | date: 'hh:mm a' }}</td>
+                          <td>{{ attendance.checkOut | date: 'hh:mm a' }}</td>
+                          <td>
+                            {{ attendance.workingDuration * 60 * 1000 | date: 'H' : 'UTC' }}h
+                            {{ attendance.workingDuration * 60 * 1000 | date: 'mm' : 'UTC' }}min
+                          </td>
+                          <td>
+                            <span
+                              class="badge rounded-pill status-present bg-success-subtle text-success-emphasis px-3 py-2 shadow-sm"
+                            >
+                              <span
+                                class="rounded-circle d-inline-block green-bg me-2"
+                                style="width: 5px; height: 5px"
+                              ></span
+                              >Present
+                            </span>
+                          </td>
                         </tr>
-                        </thead>
-
-                        <tbody>
-
-                            @for (attendance of employeeAttendance | async; track $index) {
-
-                                <tr>
-                                    <td> {{attendance.employee.firstName}} {{attendance.employee.lastName}} </td>
-                                    <td> {{attendance.employee.designation?.title | titlecase}} </td>
-                                    <td> {{attendance.date | date:'EEE, dd MMM'}} </td>
-                                    <td> {{attendance.checkIn| date:'hh:mm a'}} </td>
-                                    <td> {{attendance.checkOut| date:'hh:mm a'}} </td>
-                                    <td> 
-                                        {{ (attendance.workingDuration * 60 * 1000) | date:'H':'UTC' }}h 
-                                        {{ (attendance.workingDuration * 60 * 1000) | date:'mm':'UTC' }}min
-                                    </td>
-                                    <td>
-                                        <span class="badge rounded-pill status-present bg-success-subtle text-success-emphasis px-3 py-2 shadow-sm">
-                                            <span class="rounded-circle d-inline-block green-bg me-2" style="width: 5px; height: 5px;"></span>Present
-                                        </span>
-                                    </td>
-                                </tr>
-
-                            }
-
-                        </tbody>
-
-                    </table>
-                    </div>
-                    }
-                    @else {
-                        <div class="d-flex flex-column justify-content-center align-items-center text-center py-5 px-3 h-100">
-
-                            <div class="d-flex justify-content-center align-items-center rounded-circle bg-sky-blue text-primary-emphasis mb-3"
-                                style="width: 64px; height: 64px;" >
-                                <i class="fa-solid fa-exclamation fs-3"></i>
-                            </div>
-                            <h4 class="fw-semibold text-dark mb-2"> Data is Not Avaialbale  </h4>
-                            <p class="text-secondary mb-0">Choose an different employee from the dropdown above or filters<br> to view their attendance records.</p>
-
-                        </div>
-                    }
-                }
-                @else {
-                    <div class="d-flex flex-column justify-content-center align-items-center text-center py-5 px-3 h-100">
-
-                        <div class="d-flex justify-content-center align-items-center rounded-circle bg-sky-blue text-primary-emphasis mb-3"
-                            style="width: 64px; height: 64px;" >
-                            <i class="fa-solid fa-user-check fs-4"></i>
-                        </div>
-                        <h4 class="fw-semibold text-dark mb-2"> Select an Employee </h4>
-                        <p class="text-secondary mb-0">Choose an employee from the dropdown above<br> to view their attendance records.</p>
-
-                    </div>
-                }
-            </div>
-        </div>
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              } @else {
+                <div
+                  class="d-flex flex-column justify-content-center align-items-center text-center py-5 px-3 card-height"
+                >
+                  <div
+                    class="d-flex justify-content-center align-items-center rounded-circle bg-sky-blue text-primary-emphasis mb-3"
+                    style="width: 64px; height: 64px"
+                  >
+                    <i class="fa-solid fa-exclamation fs-3"></i>
+                  </div>
+                  <h4 class="fw-semibold text-dark mb-2">Data is Not Avaialbale</h4>
+                  <p class="text-secondary mb-0">
+                    Choose an different employee from the dropdown above or filters<br />
+                    to view their attendance records.
+                  </p>
+                </div>
+              }
+            } @else {
+              <div
+                class="d-flex flex-column justify-content-center align-items-center text-center py-5 px-3 card-height"
+              >
+                <div
+                  class="d-flex justify-content-center align-items-center rounded-circle bg-sky-blue text-primary-emphasis mb-3"
+                  style="width: 64px; height: 64px"
+                >
+                  <i class="fa-solid fa-user-check fs-4"></i>
+                </div>
+                <h4 class="fw-semibold text-dark mb-2">Select an Employee</h4>
+                <p class="text-secondary mb-0">
+                  Choose an employee from the dropdown above<br />
+                  to view their attendance records.
+                </p>
+              </div>
+            }
+          </div>
+          
+      </div>
     </div>
+  </div>
 </div>
