@@ -4,7 +4,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 import { checkin, checkout, loadUserAttendance } from '../../../../store/actions/attendance.actions';
 import { selectAttendanceLoading, selectUserAttendanceList } from '../../../../store/selectors/attendance.selector';
-import { AttendanceServerResponse } from '../../../../core/models/attendance.model';
+import { AttendanceRecord } from '../../../../core/models/attendance.model';
 
 export type TodayAttendanceStatus = 'NOT_CHECKED_IN' | 'CHECKED_IN' | 'CHECKED_OUT';
 
@@ -24,7 +24,7 @@ export class Home implements OnInit, OnDestroy {
   // the mutation itself succeeds), so this stays correct across refreshes,
   // re-navigation, and re-login without any separate caching.
   userList = toSignal(this.store.select(selectUserAttendanceList), {
-    initialValue: [] as AttendanceServerResponse[],
+    initialValue: [] as AttendanceRecord[],
   });
 
   // True from before the very first dispatch until the initial fetch (or any
@@ -49,7 +49,7 @@ export class Home implements OnInit, OnDestroy {
   // apparently a backend behavior change between when they were created --
   // checkIn is a real, unambiguous instant, so comparing its local calendar
   // date against today's avoids depending on that inconsistent field).
-  todayAttendance = computed<AttendanceServerResponse | null>(() => {
+  todayAttendance = computed<AttendanceRecord | null>(() => {
     const todayStr = new Date().toDateString();
     return this.userList().find((item) => item.checkIn && new Date(item.checkIn).toDateString() === todayStr) ?? null;
   });
@@ -91,14 +91,14 @@ export class Home implements OnInit, OnDestroy {
     clearInterval(this.tickId);
   }
 
-  durationFor(record: AttendanceServerResponse): number {
+  durationFor(record: AttendanceRecord): number {
     if (!record.checkIn) return 0;
     const start = new Date(record.checkIn).getTime();
     const end = record.checkOut ? new Date(record.checkOut).getTime() : this.now().getTime();
     return Math.max(0, end - start);
   }
 
-  private isToday(record: AttendanceServerResponse): boolean {
+  private isToday(record: AttendanceRecord): boolean {
     if (!record.checkIn) return false;
     return new Date(record.checkIn).toDateString() === new Date().toDateString();
   }
@@ -106,7 +106,7 @@ export class Home implements OnInit, OnDestroy {
   // Backend status is passed through as-is unless it's the generic PRESENT
   // value, where "still working" (no checkout yet, today) is worth calling
   // out distinctly rather than always reading "Present".
-  rowStatusLabel(record: AttendanceServerResponse): string {
+  rowStatusLabel(record: AttendanceRecord): string {
     if (record.status !== 'PRESENT') return record.status;
     if (!record.checkOut && this.isToday(record)) return 'Still Working';
     return 'Present';
