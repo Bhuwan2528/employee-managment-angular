@@ -12,16 +12,16 @@
         <div class="col-lg-4">
           <div class="card p-4 px-4 text-center rounded-3 border">
             <h5>Today</h5>
-            <h3 class="fw-bold mb-4">{{currentTime| date: 'hh:mm a' }}</h3>
+            <h3 class="fw-bold mb-4">{{now()| date: 'hh:mm a' }}</h3>
 
             <div class="d-flex flex-column align-items-center gap-2">
               <button class="btn btn1 w-100 rounded-3 d-flex align-items-center justify-content-center gap-3"
-              (click)="checkin()" [disabled]="checkinTime()" >
+              (click)="checkin()" [disabled]="!canCheckIn()" >
                 <i class="bi bi-box-arrow-in-right fs-5"></i> Check In
               </button>
-              <button class="btn btn2 w-100 rounded-3 d-flex align-items-center justify-content-center gap-3" 
-              (click)="checkout()" [disabled]="checkoutTime()">
-                <i class="bi bi-box-arrow-left fs-5"></i> Check Out 
+              <button class="btn btn2 w-100 rounded-3 d-flex align-items-center justify-content-center gap-3"
+              (click)="checkout()" [disabled]="!canCheckOut()">
+                <i class="bi bi-box-arrow-left fs-5"></i> Check Out
               </button>
             </div>
           </div>
@@ -37,7 +37,7 @@
                   <i class="bi bi-box-arrow-in-right text-success fs-3"></i>
                   <h6 class="text-body-secondary mb-2 mt-4">Check In Time</h6>
                   <h4 class="fw-semibold mb-1  text-nowrap"> {{ checkinTime() ? (checkinTime() | date:'hh:mm a') : '-- : --' }} </h4>
-                  <small class="text-success"> On Time </small>
+                  <small class="text-success"> {{ checkinTime() ? 'On Time' : '' }} </small>
                 </div>
               </div>
 
@@ -48,10 +48,12 @@
                   <i class="bi bi-clock-history text-primary fs-3"></i>
                   <h6 class="text-body-secondary mb-2 mt-4">Working Duration</h6>
 
-                  <h4 class="fw-semibold mb-1  text-nowrap"> 
-                    {{(workingDuration()) | date:'H':'UTC' }}h {{(workingDuration()) | date:'mm':'UTC' }}min </h4>
+                  <h4 class="fw-semibold mb-1  text-nowrap">
+                    {{(workingDurationMs()) | date:'H':'UTC' }}h {{(workingDurationMs()) | date:'mm':'UTC' }}min </h4>
 
-                  <small class="text-primary"> Still Working </small>
+                  <small class="text-primary">
+                    {{ status() === 'CHECKED_IN' ? 'Still Working' : status() === 'CHECKED_OUT' ? 'Completed' : 'Not Started' }}
+                  </small>
                 </div>
               </div>
 
@@ -109,7 +111,7 @@
 
               <tbody>
 
-                @for (list of userList | async; track $index) {
+                @for (list of userList(); track list.id) {
                   <tr>
                     <td class="fw-medium">{{list.date | date: 'EEE, dd MMM'}}</td>
 
@@ -118,13 +120,13 @@
                     <td>{{list.checkOut? (list.checkOut | date: 'hh:mm a'): '--'}}</td>
 
                     <td>
-                      {{ (list.workingDuration * 60 * 1000) | date:'H':'UTC' }}h 
-                      {{ (list.workingDuration * 60 * 1000) | date:'mm':'UTC' }}min
+                      {{ durationFor(list) | date:'H':'UTC' }}h
+                      {{ durationFor(list) | date:'mm':'UTC' }}min
                     </td>
 
                     <td class="text-center">
                       <span class="badge rounded-pill status-present bg-success-subtle text-success-emphasis px-3 py-2 shadow-sm">
-                        <span class="rounded-circle d-inline-block green-bg me-2" style="width: 5px; height: 5px;"></span>Present
+                        <span class="rounded-circle d-inline-block green-bg me-2" style="width: 5px; height: 5px;"></span>{{ rowStatusLabel(list) }}
                       </span>
                     </td>
                   </tr>

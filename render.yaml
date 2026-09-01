@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: employee-managment-frontend
+    runtime: static
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist/employee-managment-system/browser
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN

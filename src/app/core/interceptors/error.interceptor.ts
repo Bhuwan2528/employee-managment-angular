@@ -8,6 +8,13 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
+      // A dead refresh token is reported by AuthService.forceLogout with its
+      // own clear "session expired" toast -- showing the raw backend message
+      // here too would mean two toasts for the same one event.
+      if (req.url.includes('/auth/refresh')) {
+        return throwError(() => error);
+      }
+
       let message = 'Something went wrong. Please try again.';
 
       if (error.status === 400) {

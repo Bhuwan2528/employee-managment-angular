@@ -2,7 +2,7 @@ import { inject, Injectable } from "@angular/core";
 import * as AttendanceActions from '../actions/attendance.actions'
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { AttendanceService } from "../../core/services/attendance.service";
-import { catchError, map, mergeMap, of } from "rxjs";
+import { catchError, map, mergeMap, of, switchMap } from "rxjs";
 import { ToastService } from "../../core/services/toast.service";
 
 @Injectable({
@@ -15,14 +15,20 @@ export class AttendanceEffects{
     attendanceService = inject(AttendanceService)
     toast = inject(ToastService)
 
+    // Refreshes the list only after the mutation genuinely succeeds -- dispatching
+    // loadUserAttendance separately (e.g. from the component, right after checkin())
+    // races the mutation itself and can load stale pre-checkin/checkout data.
     checkin$ = createEffect(()=>
         this.action$.pipe(
             ofType(AttendanceActions.checkin),
             mergeMap(()=>
                 this.attendanceService.checkin().pipe(
-                    map((attendance)=>{
+                    switchMap((attendance)=>{
                         this.toast.success('Checked In')
-                        return AttendanceActions.checkinSuccesfully({attendance})
+                        return [
+                            AttendanceActions.checkinSuccesfully({attendance}),
+                            AttendanceActions.loadUserAttendance(),
+                        ]
                     }),
                     catchError((error)=>
                         of(AttendanceActions.checkinFaliure({error: error.error?.message ?? 'something went wrong'}))
@@ -37,9 +43,12 @@ export class AttendanceEffects{
             ofType(AttendanceActions.checkout),
             mergeMap(()=>
                 this.attendanceService.checkout().pipe(
-                    map((attendance)=>{
+                    switchMap((attendance)=>{
                         this.toast.success('Checked Out')
-                       return AttendanceActions.checkoutSuccesfully({attendance})
+                        return [
+                            AttendanceActions.checkoutSuccesfully({attendance}),
+                            AttendanceActions.loadUserAttendance(),
+                        ]
                     }),
                     catchError((error)=>
                         of(AttendanceActions.checkoutFaliure({error: error.error?.message ?? 'something went wrong'}))

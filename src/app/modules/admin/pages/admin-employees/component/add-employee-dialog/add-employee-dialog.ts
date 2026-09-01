@@ -11,7 +11,6 @@ import { selectDepartments } from '../../../../../../store/selectors/department.
 import { AsyncPipe, TitleCasePipe } from '@angular/common';
 import { loadDesignation } from '../../../../../../store/actions/designation.actions';
 import { loadDepartments } from '../../../../../../store/actions/deapartment.actions';
-import { ToastService } from '../../../../../../core/services/toast.service';
 
 @Component({
   selector: 'app-add-employee-dialog',
@@ -26,7 +25,6 @@ export class AddEmployeeDialog {
   store = inject(Store)
   fb = inject(NonNullableFormBuilder)
   data = inject<EmployeeDialogData>(MAT_DIALOG_DATA)
-  toast = inject(ToastService)
 
   closeDialog(){
     this.dialogRef.close();
@@ -95,7 +93,6 @@ export class AddEmployeeDialog {
 
     this.store.dispatch(addEmployee({ request }))
     this.closeDialog();
-    this.toast.success('Employee Added Succefully')
   }
 
   updateEmployee(id: string | undefined){
@@ -116,7 +113,6 @@ export class AddEmployeeDialog {
 
     this.store.dispatch(updateEmployee({ request, id }))
     this.closeDialog();
-    this.toast.success('Employee Updated Succefully')
   }
 
 
