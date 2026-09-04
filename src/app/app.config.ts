@@ -27,6 +27,7 @@ import { EntityDataService, provideEntityData, withEffects } from '@ngrx/data';
 import { entityConfig } from './core/entity/entity-config';
 import { EmployeeDataService } from './modules/admin/pages/admin-employees/services/employee-data.service';
 import { EmployeePaginationReducer } from './store/reducers/employeeReducers';
+import { AttendanceDataService } from './modules/admin/pages/admin-attendance/services/attendance-data.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -54,6 +55,7 @@ export const appConfig: ApplicationConfig = {
     // A page reload/new tab re-bootstraps the app, which loses the in-memory
     // setInterval that keeps the access token refreshed -- without this, a
     // resumed session silently stops refreshing and 401s ~15 minutes later.
+    
     provideAppInitializer(() => {
       const authService = inject(AuthService);
       if (localStorage.getItem('accessToken') && localStorage.getItem('user')) {
@@ -62,11 +64,12 @@ export const appConfig: ApplicationConfig = {
 
       const entityDataService = inject(EntityDataService)       //from '@ngrx/data'
       const employeeDataService = inject(EmployeeDataService)   // which we had made defining the behaviour of calling API
+      const attendanceDataService = inject(AttendanceDataService)
 
-      entityDataService.registerService(
-        'Employee', employeeDataService
-      )
+      entityDataService.registerService( 'Employee', employeeDataService ),
+      entityDataService.registerService( 'Attendance', attendanceDataService )
 
+        
     })
   ]
 };

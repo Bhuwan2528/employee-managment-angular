@@ -17,7 +17,7 @@ import { StoreService } from "../../../../../core/services/storeService";
 export class EmployeeDataService extends DefaultDataService<EmployeeServerResponse>{
 
     baseUrl = environment.apiUrl
-    EmployeeApi = `${this.baseUrl}${ApiConstants.EMPLOYEE}`
+    EmployeeApi = `${this.baseUrl}${ApiConstants.EMPLOYEE}` 
     storeService = inject(StoreService)
 
     constructor(http: HttpClient, httpUrlGenerator: HttpUrlGenerator){

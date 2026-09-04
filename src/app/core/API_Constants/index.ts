@@ -24,7 +24,7 @@ Attendance: {
     CHECK_IN: 'attendance/user/checkin',
     CHECK_OUT: 'attendance/user/checkout',
     ATTENDANCE_USER: 'attendance/user',
-    ATTENDANCE_USER_ADMIN: 'attendance/employee', // ?month=8&year=2026&employeeId=
+    ATTENDANCE_USER_ADMIN: 'attendance', // ?month=8&year=2026&employeeId=
     DOWNLOAD_ATTENDANCE_OF_EMPLOYEE: 'attendance/reports' //?employeeId=kljhslxukgq3yrt2i6473o82uficq
 },
 

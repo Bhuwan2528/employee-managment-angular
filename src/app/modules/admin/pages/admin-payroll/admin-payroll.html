@@ -1,57 +1,150 @@
 <div class="payroll-page">
   <div class="container p-4 px-3">
 
-    <div class="card-body rounded-4 shadow-sm mt-2">
-      <div class="table-responsive rounded-3 shadow-sm table-container">
-        <table class="table align-middle mb-0">
-          <thead class="table-primary ">
-            <tr>
-              <th>Employee</th>
-              <th>Designation</th>
-              <th>Role</th>
-              <th>Pay Salary</th>
-              <th>Salary Records</th>
-            </tr>
-          </thead>
+    <div class="card">
 
-          <tbody>
-            @for (employee of employees | async; track $index) {
-              <tr>
-                <td>
-                    <div class="d-flex justify-content-start align-items-center gap-3">
-                        <div class="avatar">
-                            {{ employee.firstName[0] }}{{ employee.lastName[0] }}
-                        </div>
-                        <div>
-                            <h6 class="mb-1 text-dark">{{ employee.firstName }} {{ employee.lastName }}</h6>
-                            <small>{{ employee.employeeCode }}</small>
-                        </div>
-                    </div>
-                </td>
-                <td>{{ employee.designation?.title | titlecase}}</td>
-                @if(employee.status == 'ACTIVE'){
-                  <td> {{(employee.user?.role?.name) ?? '__' | titlecase}} </td>
+      <div class="card-header border p-10-15 bg-light-blue">
+        <div class="d-flex justify-content-between align-items-center gap-3">
+
+          <div>
+            <h5 class="text-primary-emphasis fw-semibold text-nowrap mb-0">
+              <i class="fa-solid fa-hand-holding-dollar me-1"></i>
+              Payroll 
+            </h5>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="card-body rounded-4 shadow-sm">
+        
+        <!-- Pagination  -->
+        <div class="border p-5-15 rounded-3 mb-3 bg-light-light-blue">
+          <div class="d-flex justify-content-between align-items-center">
+            <!-- Result info -->
+
+            <div class="d-flex justify-content-start align-items-center gap-2">
+
+              <mat-form-field appearance="outline" style="width: 100px; background: white;">
+                <mat-select [ngModel]="pageSize()" (selectionChange)="onPageSizeChange($event.value)">
+                  <mat-option value="10" selected>10</mat-option>
+                  <mat-option value="20">20</mat-option>
+                  <mat-option value="50">50</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <div>
+                <p class="fw-medium mb-0">{{currentPage()}} of {{pagination()?.totalPages}} pages</p>
+                <small class="text-muted">viewing 1 to {{pageSize()}} records out of {{pagination()?.total}}</small>
+              </div>
+
+            </div>
+
+            <!-- Pagination -->
+            <nav aria-label="Employee pagination">
+              <ul class="pagination mb-0 me-5">
+                <!-- Previous -->
+                <li class="page-item" [class.disabled]="!pagination()?.hasPreviousPage">
+                  <button
+                    class="page-link "
+                    (click)="prevPage()"
+                    [class.d-none]="!pagination()?.hasPreviousPage"
+                    aria-label="Previous"
+                  >
+                    <i class="bi bi-chevron-left"></i>
+                  </button>
+                </li>
+
+                <!-- Pages -->
+                @if (pages().length>1) {
+                  @for (page of pages(); track page) {
+                    <li class="page-item" [class.active]="currentPage() === page">
+                      <button class="page-link btn btn-light text-dark" (click)="goToPage(page)">
+                        {{ page }}
+                      </button>
+                    </li>
+                  }
                 }
-                @else {
-                  @if (employee.status == 'INACTIVE') {
-                    <td class="text-warning fw-medium"> {{employee.status | titlecase}} </td>
+
+                <!-- Next -->
+                <li class="page-item" [class.disabled]="!pagination()?.hasNextPage">
+                  <button
+                    class="page-link  btn btn-light"
+                    (click)="nextPage()"
+                    [class.d-none]="!pagination()?.hasNextPage"
+                    aria-label="Next"
+                  >
+                    <i class="bi bi-chevron-right"></i>
+                  </button>
+                </li>
+              </ul>
+            </nav>
+
+            <div class="btn-group">
+              <button class="btn btn-sm btn-light border text-muted"><i class="fa-solid fa-maximize"></i></button>
+              <button class="btn btn-sm btn-light border text-muted"><i class="fa-solid fa-download"></i></button>
+              <button class="btn btn-sm btn-light border text-muted"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#employeSearchFilters">
+                <i class="fa-solid fa-filter"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="table-responsive rounded-3 shadow-sm table-container">
+          <table class="table align-middle mb-0">
+            <thead class="table-primary ">
+              <tr>
+                <th>Employee</th>
+                <th>Designation</th>
+                <th>Role</th>
+                <th>Pay Salary</th>
+                <th>Salary Records</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              @for (employee of employees | async; track $index) {
+                <tr>
+                  <td>
+                      <div class="d-flex justify-content-start align-items-center gap-3">
+                          <div class="avatar">
+                              {{ employee.firstName[0] }}{{ employee.lastName[0] }}
+                          </div>
+                          <div>
+                              <h6 class="mb-1 text-dark">{{ employee.firstName }} {{ employee.lastName }}</h6>
+                              <small>{{ employee.employeeCode }}</small>
+                          </div>
+                      </div>
+                  </td>
+                  <td>{{ employee.designation?.title | titlecase}}</td>
+                  @if(employee.status == 'ACTIVE'){
+                    <td> {{(employee.user?.role?.name) ?? '__' | titlecase}} </td>
                   }
                   @else {
-                    <td class="text-danger fw-medium"> {{employee.status | titlecase}} </td>
+                    @if (employee.status == 'INACTIVE') {
+                      <td class="text-warning fw-medium"> {{employee.status | titlecase}} </td>
+                    }
+                    @else {
+                      <td class="text-danger fw-medium"> {{employee.status | titlecase}} </td>
+                    }
                   }
-                }
-                @if (employee.status == 'ACTIVE') {
-                  <td class="text-center"><button class="btn btn-sm btn-primary" (click)="openPaySalaryDialog(employee)"><i class="fa-solid fa-indian-rupee-sign me-2"></i>Pay Salary</button></td>
-                }
-                @else {
-                  <td class="text-center"><span class="cursor-not-allowed"><button class="btn btn-sm btn-primary" [class.disabled]="true"><i class="fa-solid fa-indian-rupee-sign me-2"></i>Pay Salary</button></span></td>
-                }
-                <td class="text-center"><button class="btn btn-sm btn-outline-primary" (click)="openSalaryHistoryDialog(employee.id, employee)"><i class="fa-solid fa-clock-rotate-left me-2"></i>Salary Records</button></td>
-              </tr>
-            }
-          </tbody>
-        </table>
+                  @if (employee.status == 'ACTIVE') {
+                    <td class="text-center"><button class="btn btn-sm btn-primary" (click)="openPaySalaryDialog(employee)"><i class="fa-solid fa-indian-rupee-sign me-2"></i>Pay Salary</button></td>
+                  }
+                  @else {
+                    <td class="text-center"><span class="cursor-not-allowed"><button class="btn btn-sm btn-primary" [class.disabled]="true"><i class="fa-solid fa-indian-rupee-sign me-2"></i>Pay Salary</button></span></td>
+                  }
+                  <td class="text-center"><button class="btn btn-sm btn-outline-primary" (click)="openSalaryHistoryDialog(employee.id, employee)"><i class="fa-solid fa-clock-rotate-left me-2"></i>Salary Records</button></td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
       </div>
+
     </div>
   </div>
 </div>

@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { AdminHome } from './pages/admin-home/admin-home';
 import { AdminEmployees } from './pages/admin-employees/admin-employees';
-import { AdminAttendance } from './pages/admin-attendance/attendance';
+import { AdminAttendance } from './pages/admin-attendance/admin-attendance/attendance';
 import { AdminDepartment } from './pages/admin-department/admin-department';
 import { AdminLeaves } from './pages/admin-leaves/admin-leaves';
 import { AdminRoles } from './pages/admin-roles/admin-roles';

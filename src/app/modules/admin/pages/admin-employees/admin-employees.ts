@@ -40,7 +40,7 @@ export class AdminEmployees {
     departmentId: '',
     designationId: '',
     status: ''
-  })
+  }) 
 
   employeeOperationService = inject(EmployeeOperationService)
 

@@ -1,16 +1,21 @@
-import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
+import { EntityCollectionServiceBase, EntityCollectionServiceElementsFactory } from "@ngrx/data";
+import { AttendanceServerResponse, data } from "../../../../../core/models/attendance.model";
+import { HttpClient } from "@angular/common/http";
+import { environment } from "../../../../../../Enviorment/enviorment";
+import { ApiConstants } from "../../../../../core/API_Constants";
 import { Observable } from "rxjs";
-import { AttendanceServerResponse, data } from "../models/attendance.model";
-import { environment } from "../../../Enviorment/enviorment";
-import { ApiConstants } from "../API_Constants";
-import { Store } from "@ngrx/store";
 
 @Injectable({
     providedIn: 'root'
 })
 
-export class AttendanceService{ 
+export class AttendanceService extends EntityCollectionServiceBase<data>{
+
+    constructor(serviceElementsFactory: EntityCollectionServiceElementsFactory){
+        super('Attendance', serviceElementsFactory)
+    }
+
     http = inject(HttpClient);
     baseUrl = environment.apiUrl;
     checkinUrl = `${this.baseUrl}${ApiConstants.Attendance.CHECK_IN}`
@@ -41,5 +46,6 @@ export class AttendanceService{
             params:{employeeId}, responseType: 'blob'
         })
     }
+    
 
 }

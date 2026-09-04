@@ -6,7 +6,8 @@ export const entityConfig: EntityDataModuleConfig = {
   entityMetadata,
 
   pluralNames: {
-    Employee: 'Employees'
+    Employee: 'Employees',
+    Attendance: 'Attendances'
   }
 
 };
