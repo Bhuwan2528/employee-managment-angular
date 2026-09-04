@@ -1,19 +1,18 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, DestroyRef, inject, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddEmployeeDialog } from './component/add-employee-dialog/add-employee-dialog';
-import { select, Store } from '@ngrx/store';
-import { addBulkEmployee, loadEmployees } from '../../../../store/actions/employee.action';
-import { selectEmployeePagination, selectEmployees } from '../../../../store/selectors/employeeSelector';
 import { AsyncPipe, TitleCasePipe } from '@angular/common';
 import { EmployeeDetailDialog } from './component/employee-detail-dialog/employee-detail-dialog';
-import { EmployeeRequest, EmployeeServerResponse } from '../../../../core/models/emloyee.model';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { EmployeePagination, EmployeeRequest, EmployeeServerResponse } from '../../../../core/models/emloyee.model';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from "@angular/forms";
 import { RoleClassPipe } from '../../../../shared/pipes/role-class-pipe';
 import { EmployeeFilterOffcanvas, EmployeeFilters } from "./component/employee-filter-offcanvas/employee-filter-offcanvas";
 import * as XLSX from 'xlsx'
 import { ToastService } from '../../../../core/services/toast.service';
 import { MatFormField, MatOption, MatSelect } from '@angular/material/select';
+import { EmployeeOperationService } from './services/employee.service';
+import { StoreService } from '../../../../core/services/storeService';
 
 
 @Component({
@@ -25,11 +24,14 @@ import { MatFormField, MatOption, MatSelect } from '@angular/material/select';
 export class AdminEmployees {
 
   dialog = inject(MatDialog)
-  store = inject(Store)
+  storeService = inject(StoreService)
   toast = inject(ToastService)
+  destroyRef = inject(DestroyRef)
   addEmployeeData : EmployeeRequest | null = null
-  pageSize = signal(10)
+  
+  pagination = signal<EmployeePagination | null>(null)
   currentPage = signal(1)
+  pageSize = signal(10)
 
   filters = signal<EmployeeFilters>({
     employeeName: '',
@@ -39,6 +41,21 @@ export class AdminEmployees {
     designationId: '',
     status: ''
   })
+
+  employeeOperationService = inject(EmployeeOperationService)
+
+  ngOnInit(){
+    this.loadEmployees()
+
+    this.storeService.getEmployeePagination$()
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe(data=> {
+      this.pagination.set(data)
+      this.currentPage.set(this.pagination()?.page ?? 1)
+      this.pageSize.set(this.pagination()?.limit ?? 10)
+      console.log(this.pagination())
+    })
+  }
 
   openAddEmployeeDialog(){
     this.dialog.open(AddEmployeeDialog, {
@@ -62,10 +79,6 @@ export class AdminEmployees {
       data: employee
     })
   } 
-
-  ngOnInit(){
-    this.loadEmployees()
-  }
 
   onFiltersApplied(filters: EmployeeFilters){
     console.log('PARENT RECEIVED:', filters);
@@ -93,30 +106,29 @@ export class AdminEmployees {
     const hasFilters = filters().employeeName || filters().employeeId || filters().employeeRole || filters().departmentId || filters().designationId || filters().status;
 
     if(!hasFilters){
-      this.store.dispatch(loadEmployees({
+      this.employeeOperationService.getWithQuery({
         page: this.currentPage(),
         limit: this.pageSize()
-      }))
+      })
     }
     else{
-      this.store.dispatch(loadEmployees({}))
+      this.employeeOperationService.getWithQuery({})
     }
   }
 
-  onPageSizeChange(){
-      this.store.dispatch(loadEmployees({
-        page: this.currentPage(),
-        limit: this.pageSize()
-      }))   
+  onPageSizeChange(value: number){
+    this.pageSize.set(value)
+    this.loadEmployees()
+    console.log('Page Size Changed : ',this.pageSize())
   }
   
   employees = toSignal(
-    this.store.select(selectEmployees), {initialValue: []}
+    this.employeeOperationService.entities$, {initialValue: []}
   )
 
-  pagination = toSignal(this.store.select(selectEmployeePagination), {initialValue: null})
 
   nextPage(){
+    this.employeeOperationService.clearCache()
     if(this.pagination()?.hasNextPage){
       this.currentPage.update(page=> page+1)
       this.loadEmployees();
@@ -124,8 +136,9 @@ export class AdminEmployees {
   }
 
   prevPage(){
+    this.employeeOperationService.clearCache()
     if(this.pagination()?.hasPreviousPage){
-      this.currentPage.update(page=> page-1)
+      this.currentPage.update(page => page-1)
       this.loadEmployees()
     }
   }
@@ -179,6 +192,8 @@ export class AdminEmployees {
       const statusMatches = !filters.status || status === filters.status
 
       return nameMatches && idMatches && roleMatches && departmentMatches &&  designationMatches &&  statusMatches ;
+
+      this.loadEmployees()
     });
   });
 
@@ -224,7 +239,7 @@ export class AdminEmployees {
       return
     }
 
-    this.store.dispatch(addBulkEmployee({request}))
+    this.employeeOperationService.bulkUserCreate(request)
     
     this.loadEmployees()
 

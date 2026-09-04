@@ -3,11 +3,11 @@ import { NonNullableFormBuilder, ReactiveFormsModule, Validators, ɵInternalForm
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { Store } from '@ngrx/store';
-import { loadEmployees, updateRoleEmployee } from '../../../../store/actions/employee.action';
-import { selectEmployeeError, selectEmployees } from '../../../../store/selectors/employeeSelector';
 import { PrintError } from '../../../../shared/utils/prinitingError';
 import { EmployeeServerResponse } from '../../../../core/models/emloyee.model';
 import { TitleCasePipe } from '@angular/common';
+import { EmployeeOperationService } from '../admin-employees/services/employee.service';
+import { StoreService } from '../../../../core/services/storeService';
 
 @Component({
   selector: 'app-admin-roles',
@@ -21,6 +21,8 @@ export class AdminRoles {
   fb = inject(NonNullableFormBuilder)
   printError = inject(PrintError)
   admins = signal<EmployeeServerResponse[]>([])
+  employeeOperationService = inject(EmployeeOperationService)
+  storeService = inject(StoreService)
 
   roleForm = this.fb.group({
     email: ['', Validators.required],
@@ -28,13 +30,17 @@ export class AdminRoles {
   })
 
   addRole(){
-    this.store.dispatch(updateRoleEmployee({
-      request: this.roleForm.getRawValue()
-    }))
+    if (this.roleForm.invalid) {
+      return;
+    }
+
+    const request = this.roleForm.getRawValue();
+
+    this.employeeOperationService.empoyeeRole(request)
   }
 
   ngOnInit(){
-    this.store.dispatch(loadEmployees({}))
+    this.employeeOperationService.getWithQuery({})
     this.employess.subscribe(emp=>{
       this.admins.set(emp.filter(item => item.user?.role.name == 'ADMIN' || item.user?.role.name == 'HR'))
       console.log('admins : ', this.admins());
@@ -43,9 +49,7 @@ export class AdminRoles {
     })
   }
 
-  resError = this.store.select(selectEmployeeError).subscribe(error=> this.printError.toastError(error))
-
-  employess = this.store.select(selectEmployees)
+  employess = this.employeeOperationService.entities$
 
   
 

@@ -1,14 +1,10 @@
-import { EmployeePagination, EmployeeServerResponse } from "../../core/models/emloyee.model";
+import { EmployeePagination } from "../../core/models/emloyee.model";
 
-export interface EmployeeState{
-    employees: EmployeeServerResponse[],
-    pagination: EmployeePagination | null
-    loading: boolean,
-    error: string|null
-}
-export const initialEmployeeState: EmployeeState ={
-    employees: [],
-    pagination: null,
-    loading: false,
-    error: null
-}
+export const initialEmployeePaginationState: EmployeePagination = {
+  total: 0,
+  page: 1,
+  limit: 10,
+  totalPages: 0,
+  hasNextPage: false,
+  hasPreviousPage: false
+};

@@ -1,16 +1,15 @@
 import { Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectEmployees } from '../../../../store/selectors/employeeSelector';
 import { selectDepartments } from '../../../../store/selectors/department.selectors';
 import { selectLeave } from '../../../../store/selectors/leave.selector';
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { loadDepartments } from '../../../../store/actions/deapartment.actions';
-import { loadEmployees } from '../../../../store/actions/employee.action';
 import { loadLeaves } from '../../../../store/actions/leave.actions';
 import { map } from 'rxjs';
 import { loadDashboard } from '../../../../store/actions/dashboard.actions';
 import { selectDashboard } from '../../../../store/selectors/dashboard.selector';
 import { RouterLink } from '@angular/router';
+import { EmployeeOperationService } from '../admin-employees/services/employee.service';
 
 @Component({
   selector: 'app-admin-home',
@@ -20,15 +19,16 @@ import { RouterLink } from '@angular/router';
 })
 export class AdminHome {
   store = inject(Store)
+  employeeOperationService = inject(EmployeeOperationService)
 
-  employees = this.store.select(selectEmployees)
+  employees = this.employeeOperationService.entities$
   departments = this.store.select(selectDepartments)
   leaves = this.store.select(selectLeave)
   dashboard = this.store.select(selectDashboard)
 
   ngOnInit(){
     this.store.dispatch(loadDepartments())
-    this.store.dispatch(loadEmployees({}))
+    this.employeeOperationService.getWithQuery({})
     this.store.dispatch(loadLeaves())
     this.store.dispatch(loadDashboard())
   }

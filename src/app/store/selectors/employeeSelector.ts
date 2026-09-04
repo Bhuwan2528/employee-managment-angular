@@ -1,12 +1,10 @@
-import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { EmployeeState } from "../state/employee.state";
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { EmployeePagination } from '../../core/models/emloyee.model';
 
-export const selectEmployeeState = createFeatureSelector<EmployeeState>('employee')
+export const selectEmployeePaginationState =
+  createFeatureSelector<EmployeePagination>('employeePagination');
 
-export const selectEmployees = createSelector(selectEmployeeState, (state)=> state.employees)
-
-export const selectEmployeeLoading = createSelector(selectEmployeeState, (state)=> state.loading)
-
-export const selectEmployeeError = createSelector(selectEmployeeState, (state)=> state.error)
-
-export const selectEmployeePagination = createSelector(selectEmployeeState, (state)=> state.pagination )
+export const selectEmployeesPagination = createSelector(
+  selectEmployeePaginationState,
+  (state) => state
+);

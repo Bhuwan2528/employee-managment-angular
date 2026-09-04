@@ -99,8 +99,18 @@
 
     <div class="offcanvas-footer p-3">
         <div class="button-group justify-content-center align-items-center d-flex gap-2">
-            <button class="btn btn-secondary py-2" (click)="resetFilters()">Reset</button>
-            <button class="btn btn-primary py-2" (click)="applyFilters()">Apply Filters</button>
+            <button class="btn btn-secondary py-2" 
+                (click)="resetFilters()"
+                data-bs-dismiss="offcanvas"
+                >
+                Reset
+            </button>
+            <button class="btn btn-primary py-2" 
+                (click)="applyFilters()" 
+                data-bs-dismiss="offcanvas"
+                >
+                Apply Filters
+            </button>
         </div>
     </div>
 </div>

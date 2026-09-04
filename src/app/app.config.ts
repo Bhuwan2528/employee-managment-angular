@@ -1,8 +1,6 @@
 import { ApplicationConfig, inject, provideAppInitializer, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { AuthService } from './modules/auth/services/auth-service/auth-service';
-
-
 import { routes } from './app.routes';
 import { provideStore } from '@ngrx/store';
 import { authReducer } from './store/reducers/auth.reducers';
@@ -14,7 +12,6 @@ import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { DesignationReducer } from './store/reducers/designation.reducers';
 import { DesignationEffects } from './store/effects/designation.effects';
 import { EmployeeEffects } from './store/effects/employee.effects';
-import { EmployeeReducer } from './store/reducers/employeeReducers';
 import { leaveReducer } from './store/reducers/leaveReducers';
 import { LeavesEffects } from './store/effects/leave.effects';
 import { AuthEffects } from './store/effects/auth.effects';
@@ -26,14 +23,16 @@ import { salaryReducer } from './store/reducers/salary.reducers';
 import { SalaryEffects } from './store/effects/salary.effects';
 import { errorInterceptor } from './core/interceptors/error.interceptor';
 import { tokenRefreshInterceptor } from './core/interceptors/token-refresh.interceptor';
+import { EntityDataService, provideEntityData, withEffects } from '@ngrx/data';
+import { entityConfig } from './core/entity/entity-config';
+import { EmployeeDataService } from './modules/admin/pages/admin-employees/services/employee-data.service';
+import { EmployeePaginationReducer } from './store/reducers/employeeReducers';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideHttpClient(
-      // tokenRefreshInterceptor is last so it sees a 401 before errorInterceptor's
-      // toast does -- it gets first chance to silently refresh and retry.
       withInterceptors([authInterceptor, errorInterceptor, tokenRefreshInterceptor])
     ),
 
@@ -41,7 +40,7 @@ export const appConfig: ApplicationConfig = {
       auth: authReducer,
       department: departmentReducer,
       designation: DesignationReducer,
-      employee: EmployeeReducer,
+      employeePagination: EmployeePaginationReducer,
       leave: leaveReducer,
       dashboard: DashboardReducer,
       attendance: AttendanceReducer,
@@ -49,6 +48,8 @@ export const appConfig: ApplicationConfig = {
     }),
 
     provideEffects(DepartmentEffects, DesignationEffects, EmployeeEffects, LeavesEffects, AuthEffects, DashboardEffects, AttendanceEffects, SalaryEffects),
+
+    provideEntityData(entityConfig, withEffects()),
 
     // A page reload/new tab re-bootstraps the app, which loses the in-memory
     // setInterval that keeps the access token refreshed -- without this, a
@@ -58,6 +59,14 @@ export const appConfig: ApplicationConfig = {
       if (localStorage.getItem('accessToken') && localStorage.getItem('user')) {
         authService.setTokenRefresh();
       }
+
+      const entityDataService = inject(EntityDataService)       //from '@ngrx/data'
+      const employeeDataService = inject(EmployeeDataService)   // which we had made defining the behaviour of calling API
+
+      entityDataService.registerService(
+        'Employee', employeeDataService
+      )
+
     })
   ]
 };

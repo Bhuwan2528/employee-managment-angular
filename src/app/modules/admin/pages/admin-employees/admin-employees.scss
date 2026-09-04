@@ -1,7 +1,6 @@
 .admin-employee-page {
   max-height: 85vh;
   .card-header {
-    position: sticky;
     top: 80px;
     z-index: 10;
   }
@@ -46,8 +45,8 @@ th{
   border-radius: 8px;
   border: 1px solid #dee2e6;
   color: #212529;
-  width: 35px;
-  height: 35px;
+  width: 32px;
+  height: 32px;
 
   display: flex;
   align-items: center;
@@ -172,12 +171,12 @@ button{
     }
 
     .mat-mdc-text-field-wrapper.mdc-text-field.mdc-text-field--outlined{
-        height: 35px;
+        height: 30px;
     }
     
     .mdc-text-field--outlined .mat-mdc-form-field-infix{
         padding-bottom: 0;
-        padding-top: 6px;
+        padding-top: 3px;
     }
 
     .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label{

@@ -10,121 +10,121 @@ import { ToastService } from "../../core/services/toast.service";
 
 export class EmployeeEffects{
 
-     action$ = inject(Actions)
-     employeeService = inject(EmployeeServices)
-     toast = inject(ToastService)
+//      action$ = inject(Actions)
+//      employeeService = inject(EmployeeServices)
+//      toast = inject(ToastService)
 
-    loadEmployees$ = createEffect(()=>
-        this.action$.pipe(
-            ofType(EmployeeActions.loadEmployees),
+//     loadEmployees$ = createEffect(()=>
+//         this.action$.pipe(
+//             ofType(EmployeeActions.loadEmployees),
 
-            mergeMap(({page, limit})=>
-                this.employeeService.getEmployees(page, limit).pipe(
-                    map((response)=> EmployeeActions.loadEmployeesSuccesfully({employees: response.data, pagination: response.pagination})),
-                    catchError((error)=>
-                        of (EmployeeActions.loadEmployeesFaliure({error: error.error?.message ?? 'something went wrong'}))
-                    )
-                )
-            )
-        ))
-
-
-addEmployee$ = createEffect(()=>
-    this.action$.pipe(
-        ofType(EmployeeActions.addEmployee),
-
-        mergeMap(({request})=>
-            this.employeeService.addEmployee(request).pipe(
-                map((employee)=> EmployeeActions.addEmployeeSuccesfully({employee})),
-                tap(()=>{
-                    this.toast.success('Employee Added Successfully')
-                }),
-                catchError((error)=>
-                    of (EmployeeActions.addEmployeefaliure({error: error.error?.message ?? 'something went wrong'}))
-                ),
-            )
-        )
-    )
-)
-
-updateEmployee$ = createEffect(()=>
-    this.action$.pipe(
-        ofType(EmployeeActions.updateEmployee),
-        mergeMap(({id, request})=>
-            this.employeeService.updateEmployee(request, id).pipe(
-                map((employee)=>
-                    EmployeeActions.updateEmployeeSuccesfully({employee})
-                ),
-                tap(()=>{
-                    this.toast.success('Employee Updated Successfully')
-                }),
-                catchError((error)=>
-                    of(EmployeeActions.updateEmployeeFaliure({error: error.error?.message ?? 'something went wrong'}))
-                )
-            )
-        )
-    )
-)
+//             mergeMap(({page, limit})=>
+//                 this.employeeService.getEmployees(page, limit).pipe(
+//                     map((response)=> EmployeeActions.loadEmployeesSuccesfully({employees: response.data, pagination: response.pagination})),
+//                     catchError((error)=>
+//                         of (EmployeeActions.loadEmployeesFaliure({error: error.error?.message ?? 'something went wrong'}))
+//                     )
+//                 )
+//             )
+//         ))
 
 
-deleteEmployee$ = createEffect(()=>
-    this.action$.pipe(
-        ofType(EmployeeActions.deleteEmployee),
-        mergeMap(({id})=>
-            this.employeeService.deleteEmployee(id).pipe(
-                map(()=>
-                    EmployeeActions.deleteEmployeeSuccesful({id})
-                ),
-                catchError((error)=>
-                    of(EmployeeActions.deleteEmployeeFaliure({error: error.error?.message ?? 'something went wrong'}))
-                )
-            )
-        )
-    )
-)
+// addEmployee$ = createEffect(()=>
+//     this.action$.pipe(
+//         ofType(EmployeeActions.addEmployee),
 
-updateRoleEmployee$ = createEffect(()=>
-    this.action$.pipe(
-        ofType(EmployeeActions.updateRoleEmployee),
-        mergeMap(({request })=>
-            this.employeeService.empoyeeRole(request).pipe(
-                map((employee)=>
-                    EmployeeActions.updateRoleEmployeeSuccesfully({employee})
-                ),
-                catchError((error)=>
-                    of(EmployeeActions.updateRoleEmployeeFaliure({error: error.error.message || 'something went wrong'}))
-                )
-            )
-        )
-    )
-)
+//         mergeMap(({request})=>
+//             this.employeeService.addEmployee(request).pipe(
+//                 map((employee)=> EmployeeActions.addEmployeeSuccesfully({employee})),
+//                 tap(()=>{
+//                     this.toast.success('Employee Added Successfully')
+//                 }),
+//                 catchError((error)=>
+//                     of (EmployeeActions.addEmployeefaliure({error: error.error?.message ?? 'something went wrong'}))
+//                 ),
+//             )
+//         )
+//     )
+// )
+
+// updateEmployee$ = createEffect(()=>
+//     this.action$.pipe(
+//         ofType(EmployeeActions.updateEmployee),
+//         mergeMap(({id, request})=>
+//             this.employeeService.updateEmployee(request, id).pipe(
+//                 map((employee)=>
+//                     EmployeeActions.updateEmployeeSuccesfully({employee})
+//                 ),
+//                 tap(()=>{
+//                     this.toast.success('Employee Updated Successfully')
+//                 }),
+//                 catchError((error)=>
+//                     of(EmployeeActions.updateEmployeeFaliure({error: error.error?.message ?? 'something went wrong'}))
+//                 )
+//             )
+//         )
+//     )
+// )
 
 
-toastSuccessRole$ = createEffect(()=>
-    this.action$.pipe(
-        ofType(EmployeeActions.updateRoleEmployeeSuccesfully),
-        tap(()=>
-            this.toast.success('Employee Role Updated')
-        )
-    )
-)
+// deleteEmployee$ = createEffect(()=>
+//     this.action$.pipe(
+//         ofType(EmployeeActions.deleteEmployee),
+//         mergeMap(({id})=>
+//             this.employeeService.deleteEmployee(id).pipe(
+//                 map(()=>
+//                     EmployeeActions.deleteEmployeeSuccesful({id})
+//                 ),
+//                 catchError((error)=>
+//                     of(EmployeeActions.deleteEmployeeFaliure({error: error.error?.message ?? 'something went wrong'}))
+//                 )
+//             )
+//         )
+//     )
+// )
 
-bulkAddEmployees$ = createEffect(()=>
-    this.action$.pipe(
-        ofType(EmployeeActions.addBulkEmployee),
-        mergeMap(({request})=>
-            this.employeeService.bulkUserCreate(request).pipe(
-                map((employees)=>{
-                    this.toast.success('Employees Added From File')
-                    return EmployeeActions.addBulkEmployeeSuccesfully({employees})
-                }),
-                catchError((error)=>
-                    of(EmployeeActions.addBulkEmployeefaliure({error: error && 'Something Went Wrong'}))
-                )
-            )
-        )
-    )
-)
+// updateRoleEmployee$ = createEffect(()=>
+//     this.action$.pipe(
+//         ofType(EmployeeActions.updateRoleEmployee),
+//         mergeMap(({request })=>
+//             this.employeeService.empoyeeRole(request).pipe(
+//                 map((employee)=>
+//                     EmployeeActions.updateRoleEmployeeSuccesfully({employee})
+//                 ),
+//                 catchError((error)=>
+//                     of(EmployeeActions.updateRoleEmployeeFaliure({error: error.error.message || 'something went wrong'}))
+//                 )
+//             )
+//         )
+//     )
+// )
+
+
+// toastSuccessRole$ = createEffect(()=>
+//     this.action$.pipe(
+//         ofType(EmployeeActions.updateRoleEmployeeSuccesfully),
+//         tap(()=>
+//             this.toast.success('Employee Role Updated')
+//         )
+//     )
+// )
+
+// bulkAddEmployees$ = createEffect(()=>
+//     this.action$.pipe(
+//         ofType(EmployeeActions.addBulkEmployee),
+//         mergeMap(({request})=>
+//             this.employeeService.bulkUserCreate(request).pipe(
+//                 map((employees)=>{
+//                     this.toast.success('Employees Added From File')
+//                     return EmployeeActions.addBulkEmployeeSuccesfully({employees})
+//                 }),
+//                 catchError((error)=>
+//                     of(EmployeeActions.addBulkEmployeefaliure({error: error && 'Something Went Wrong'}))
+//                 )
+//             )
+//         )
+//     )
+// )
 
 }
 

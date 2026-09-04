@@ -4,7 +4,6 @@ import { checkinSuccesfully, checkoutSuccesfully, loadUserAttendanceSucccesful, 
 import { loadDashboardSuccesful } from "../actions/dashboard.actions";
 import { addDepartmentSuccess, deleteDepartmentSuccess, loadDepartmentsSuccess, updateDepartmentSuccess } from "../actions/deapartment.actions";
 import { addDesignationSuccesful, deleteDesignationSuccesful, loadDesignationSuccesful, updateDesignationSuccesful } from "../actions/designation.actions";
-import { addEmployeeSuccesfully, deleteEmployeeSuccesful, loadEmployees, loadEmployeesSuccesfully, updateEmployeeSuccesfully, updateRoleEmployeeSuccesfully } from "../actions/employee.action";
 import { addLeaveSuccesfully, approveLeaveSuccessfully, loadLeavesSuccesfully, rejectLeaveSuccessfully, userLeavesSuccesful } from "../actions/leave.actions";
 import { AddEmployeeSalarySuccesful, loadEmployeeLastpaidByAdminSuccesful, loadEmployeeLastpaidSuccesful, loadEmployeeSalaryByAdminSuccesful, loadEmployeeSalarySuccesful } from "../actions/salary.actions";
 import { switchMap, tap } from "rxjs";
@@ -21,13 +20,12 @@ export class GlobalEffects{
         this.action$.pipe(
             ofType(checkinSuccesfully, checkoutSuccesfully,
             addDepartmentSuccess, updateDepartmentSuccess, deleteDepartmentSuccess,
-            addDesignationSuccesful, updateDesignationSuccesful, deleteDesignationSuccesful,
-            addEmployeeSuccesfully, updateEmployeeSuccesfully, deleteEmployeeSuccesful, updateRoleEmployeeSuccesfully, 
+            addDesignationSuccesful, updateDesignationSuccesful, deleteDesignationSuccesful, 
             approveLeaveSuccessfully, rejectLeaveSuccessfully, addLeaveSuccesfully, userLeavesSuccesful, 
             AddEmployeeSalarySuccesful,
             ),
             switchMap(()=>[
-                loadEmployees({}),
+                
             ])
         ),
         {dispatch: false}

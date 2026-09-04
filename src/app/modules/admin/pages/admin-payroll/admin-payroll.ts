@@ -1,12 +1,11 @@
 import { AsyncPipe, DatePipe, TitleCasePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectEmployees } from '../../../../store/selectors/employeeSelector';
-import { loadEmployees } from '../../../../store/actions/employee.action';
 import { MatDialog } from '@angular/material/dialog';
 import { PaySalaryDialog } from './components/pay-salary-dialog/pay-salary-dialog';
 import { EmployeeServerResponse } from '../../../../core/models/emloyee.model';
 import { SalaryHistory } from './components/salary-history/salary-history';
+import { EmployeeOperationService } from '../admin-employees/services/employee.service';
 
 @Component({
   selector: 'app-admin-payroll',
@@ -17,11 +16,12 @@ import { SalaryHistory } from './components/salary-history/salary-history';
 export class AdminPayroll {
 
   store = inject(Store)
-  employees  = this.store.select(selectEmployees)
+  employeeOperationService = inject(EmployeeOperationService)
+  employees  = this.employeeOperationService.entities$
   dialog = inject(MatDialog)
 
   ngOnInit(){
-    this.store.dispatch(loadEmployees({}))
+    this.employeeOperationService.getWithQuery({})
   }
 
   openPaySalaryDialog(employee: EmployeeServerResponse){

@@ -6,7 +6,7 @@ export interface EmployeeListResponse {
 }
 
 export interface EmployeePagination {
-  total: number;
+  total: number; 
   page: number;
   limit: number;
   totalPages: number;

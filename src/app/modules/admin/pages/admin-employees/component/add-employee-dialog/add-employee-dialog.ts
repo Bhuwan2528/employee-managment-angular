@@ -4,13 +4,13 @@ import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { select, Store } from '@ngrx/store';
 import { EmployeeDialogData, EmployeeRequest, EmployeeServerResponse, EmployeeUpdateRequest } from '../../../../../../core/models/emloyee.model';
-import { addEmployee, loadEmployees, updateEmployee } from '../../../../../../store/actions/employee.action';
 import { FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { selectDesignation } from '../../../../../../store/selectors/designation.selector';
 import { selectDepartments } from '../../../../../../store/selectors/department.selectors';
 import { AsyncPipe, TitleCasePipe } from '@angular/common';
 import { loadDesignation } from '../../../../../../store/actions/designation.actions';
 import { loadDepartments } from '../../../../../../store/actions/deapartment.actions';
+import { EmployeeOperationService } from '../../services/employee.service';
 
 @Component({
   selector: 'app-add-employee-dialog',
@@ -25,6 +25,7 @@ export class AddEmployeeDialog {
   store = inject(Store)
   fb = inject(NonNullableFormBuilder)
   data = inject<EmployeeDialogData>(MAT_DIALOG_DATA)
+  employeeOperationService = inject(EmployeeOperationService)
 
   closeDialog(){
     this.dialogRef.close();
@@ -91,7 +92,7 @@ export class AddEmployeeDialog {
       basic: formVal.basic
     }
 
-    this.store.dispatch(addEmployee({ request }))
+    this.employeeOperationService.addEmployee(request)
     this.closeDialog();
   }
 
@@ -111,7 +112,17 @@ export class AddEmployeeDialog {
       basic: formValue.basic
     } 
 
-    this.store.dispatch(updateEmployee({ request, id }))
+    this.employeeOperationService.update({
+      id,
+      firstName: request.firstName,
+      lastName: request.lastName,
+      phone: request.phone,
+      dateOfJoining: new Date(request.dateOfJoining),
+      departmentId: request.departmentId,
+      designationId: request.designationId,
+      status: request.status,
+      basic: request.basic
+    });
     this.closeDialog();
   }
 

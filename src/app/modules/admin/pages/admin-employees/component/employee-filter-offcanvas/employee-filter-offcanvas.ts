@@ -65,6 +65,7 @@ export class EmployeeFilterOffcanvas {
     console.log('CHILD APPLY:', filters);
 
     this.filtersApplied.emit(filters)
+    
   }
   
   resetFilters(){
